@@ -4,6 +4,7 @@ import { Geist, Geist_Mono, Manrope, Playfair_Display } from "next/font/google";
 import { getQueryClient } from "~/lib/client/react-query";
 import { constructMetadata } from "~/lib/metadata";
 import { Providers } from "./providers";
+import "./style.css";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],

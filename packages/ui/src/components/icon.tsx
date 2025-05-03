@@ -5,8 +5,13 @@ import {
   EyeIcon,
   EyeOffIcon,
   FileIcon,
+  FileTextIcon,
+  LayoutGridIcon,
+  ListIcon,
   Loader2,
   MenuIcon,
+  MessageSquarePlusIcon,
+  MessageSquareTextIcon,
   MoonIcon,
   PaperclipIcon,
   PlayIcon,
@@ -30,6 +35,11 @@ export const ChevronRight = ChevronRightIcon;
 export const Menu = MenuIcon;
 export const Play = PlayIcon;
 export const X = XIcon;
+export const FileText = FileTextIcon;
+export const LayoutGrid = LayoutGridIcon;
+export const List = ListIcon;
+export const MessageSquarePlus = MessageSquarePlusIcon;
+export const MessageSquareText = MessageSquareTextIcon;
 
 export const Logo = (props: IconProps) => <BrandLogo {...props} />;
 export const LogoSmall = (props: IconProps) => <BrandLogoSmall {...props} />;

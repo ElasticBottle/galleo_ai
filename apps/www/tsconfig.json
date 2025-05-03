@@ -2,19 +2,14 @@
   "extends": "@galleo/typescript/tsconfig.base.json",
   "compilerOptions": {
     "jsx": "preserve",
-    "target": "ESNext",
+    "target": "ES2017",
     "module": "ESNext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "types": [
-      "next"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+
     /* Bundler mode */
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
+
     /* Linting */
     "noUncheckedSideEffectImports": true,
     "plugins": [
@@ -23,19 +18,9 @@
       }
     ],
     "paths": {
-      "~/*": [
-        "./*"
-      ]
+      "~/*": ["./*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    ".next"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", ".next"]
 }
