@@ -58,8 +58,12 @@ const authApp = issuer({
       light: "#FFFFFF",
     },
     radius: "sm",
-    favicon: "https://galleoai.com/favicon.ico",
-    logo: "https://galleoai.com/logo.png",
+    favicon: "https://dev.galleoai.com/galleo-favicon.svg",
+    logo: "https://dev.galleoai.com/galleo-favicon.svg",
+    font: {
+      family: "Inter",
+      scale: "1",
+    },
   },
   success: async (ctx, value) => {
     // throw new Error("Invalid provider");

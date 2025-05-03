@@ -58,6 +58,7 @@ export default $config({
     const frontend = new sst.aws.Nextjs("WWW", {
       path: "apps/www",
       environment: serverEnv,
+      buildCommand: `STAGE=${$app.stage} pnpx open-next@latest build`,
       dev: {
         command: "pnpm dev",
       },

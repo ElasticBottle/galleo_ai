@@ -1,7 +1,6 @@
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Manrope, Playfair_Display } from "next/font/google";
-import "./style.css";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getQueryClient } from "~/lib/client/react-query";
 import { constructMetadata } from "~/lib/metadata";
 import { Providers } from "./providers";
