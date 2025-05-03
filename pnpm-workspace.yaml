@@ -1,0 +1,15 @@
+packages:
+  - apps/*
+  - packages/*
+  - tooling/*
+
+onlyBuiltDependencies:
+  - '@biomejs/biome'
+  - '@prisma/client'
+  - '@prisma/engines'
+  - '@swc/core'
+  - aws-sdk
+  - better-sqlite3
+  - core-js-pure
+  - esbuild
+  - prisma

@@ -1,0 +1,8 @@
+{
+  "extends": "@galleo/typescript/tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

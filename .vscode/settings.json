@@ -1,0 +1,32 @@
+{
+  // allow autocomplete for ArkType expressions like "string | num"
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  // prioritize ArkType's "type" for autoimports
+  "typescript.preferences.autoImportSpecifierExcludeRegexes": [
+    "^(node:)?os$",
+    "^process$",
+    "^hono/adapter$"
+  ],
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+
+  "files.watcherExclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "search.exclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "cSpell.words": [
+    "Creds",
+    "dotenvx",
+    "galleo",
+    "Loro",
+    "millis",
+    "oklch",
+    "Sonner",
+    "totp",
+    "turso"
+  ]
+}
