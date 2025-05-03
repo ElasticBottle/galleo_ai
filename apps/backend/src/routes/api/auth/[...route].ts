@@ -36,12 +36,10 @@ export const authRouter = new Hono()
       callbackUrl,
       "code",
     );
-    console.log("redirectUrl", redirectUrl);
     return c.redirect(redirectUrl, 302);
   })
   .get("/callback", async (c) => {
     const pathname = new URL(c.req.url).pathname;
-    console.log("pathname", pathname);
     const code = c.req.query("code");
     if (!code) throw new Error("Missing code");
     const exchanged = await authClient().exchange(
@@ -53,5 +51,5 @@ export const authRouter = new Hono()
         status: 400,
       });
     setSession(exchanged.tokens.access, exchanged.tokens.refresh);
-    return c.redirect("/", 302);
+    return c.redirect(`${env().NEXT_PUBLIC_APP_URL}/dashboard`, 302);
   });

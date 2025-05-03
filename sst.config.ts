@@ -48,7 +48,7 @@ export default $config({
     });
 
     const backendApi = new sst.aws.Function("Hono", {
-      handler: "apps/backend/src/routes/index.handler",
+      handler: "apps/backend/src/index.handler",
       environment: serverEnv,
       url: true,
       streaming: !$dev,

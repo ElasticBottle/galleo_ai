@@ -8,9 +8,11 @@ export function setSession(accessToken?: string, refreshToken?: string) {
     setCookie(context, "access_token", accessToken, {
       httpOnly: true,
       secure: true,
-      sameSite: "Strict",
+      sameSite: "Lax",
       path: "/",
-      domain: `.${env().NEXT_PUBLIC_APP_URL.replace("https://", "")}`,
+      domain: env().NEXT_PUBLIC_APP_URL.includes("localhost")
+        ? "localhost"
+        : `.${env().NEXT_PUBLIC_APP_URL.replace("https://", "")}`,
       maxAge: 34560000,
     });
   }
@@ -18,9 +20,11 @@ export function setSession(accessToken?: string, refreshToken?: string) {
     setCookie(context, "refresh_token", refreshToken, {
       httpOnly: true,
       secure: true,
-      sameSite: "Strict",
+      sameSite: "Lax",
       path: "/",
-      domain: `.${env().NEXT_PUBLIC_APP_URL.replace("https://", "")}`,
+      domain: env().NEXT_PUBLIC_APP_URL.includes("localhost")
+        ? "localhost"
+        : `.${env().NEXT_PUBLIC_APP_URL.replace("https://", "")}`,
       maxAge: 34560000,
     });
   }

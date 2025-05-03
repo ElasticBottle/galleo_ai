@@ -4,12 +4,17 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/src/routes/index.d.ts",
-      "default": "./src/routes/index.ts"
+      "types": "./dist/src/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./app": {
+      "types": "./dist/src/routes/route.d.ts",
+      "default": "./src/routes/route.ts"
     }
   },
   "scripts": {
     "build": "pnpm tsc --declaration --declarationMap --outDir dist --noEmit false",
+    "dev": "pnpm tsc --watch --declaration --declarationMap --outDir dist --noEmit false",
     "test": "vitest run",
     "clean": "git clean -xdf .turbo node_modules dist .cache",
     "format": "bun x @biomejs/biome format . --write",

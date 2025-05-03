@@ -1,9 +1,12 @@
 import { safe } from "@rectangular-labs/result";
 import { redirect } from "next/navigation";
+import { backend as clientBackend } from "../client/backend";
 import { backend } from "./backend";
 
 export async function getSession() {
-  const response = await safe(() => backend.api.auth.me.$get());
+  const serverApi = await backend();
+  const response = await safe(() => serverApi.api.auth.me.$get());
+  console.log("response", response);
   if (!response.ok || !response.value.ok) {
     return { user: null };
   }
@@ -13,9 +16,11 @@ export async function getSession() {
 
 export async function ensureSession() {
   const session = await getSession();
+  console.log("session", session);
   if (!session.user) {
     redirect(authorizeUrl);
   }
+  return session;
 }
 
-export const authorizeUrl = backend.api.auth.authorize.$url().href;
+export const authorizeUrl = clientBackend.api.auth.authorize.$url().href;

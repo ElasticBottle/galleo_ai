@@ -18,7 +18,7 @@ import { Paperclip } from "@galleo/ui/components/icon";
 import { ThemeToggle } from "@galleo/ui/components/theme-provider";
 import { Button } from "@galleo/ui/components/ui/button";
 import { useRef, useState } from "react";
-import { backend } from "~/lib/backend";
+import { backend } from "~/lib/client/backend";
 
 export function ChatInterface() {
   const [attachedFiles, setAttachedFiles] = useState<FileList | undefined>(

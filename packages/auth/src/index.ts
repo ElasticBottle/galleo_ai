@@ -1,8 +1,6 @@
 import { issuer } from "@openauthjs/openauth";
-import { CodeProvider } from "@openauthjs/openauth/provider/code";
 import { DiscordProvider } from "@openauthjs/openauth/provider/discord";
 import { GithubProvider } from "@openauthjs/openauth/provider/github";
-import { CodeUI } from "@openauthjs/openauth/ui/code";
 import { Select } from "@openauthjs/openauth/ui/select";
 import { handle } from "hono/aws-lambda";
 import { env } from "./env";
@@ -16,6 +14,14 @@ async function getUser(_email: string) {
 
 const authApp = issuer({
   subjects,
+  allow(input, req) {
+    const url = new URL(req.url);
+    const allowed =
+      input.clientID === "galleo-backend" &&
+      (url.host === "localhost" ||
+        url.host.endsWith(process.env.NEXT_PUBLIC_BACKEND_URL ?? ""));
+    return Promise.resolve(allowed);
+  },
   select: Select({
     providers: {
       code: {
@@ -30,14 +36,6 @@ const authApp = issuer({
     },
   }),
   providers: {
-    code: CodeProvider(
-      CodeUI({
-        sendCode: async (email, code) => {
-          await Promise.resolve();
-          console.log(email, code);
-        },
-      }),
-    ),
     github: GithubProvider({
       clientID: env().GITHUB_CLIENT_ID,
       clientSecret: env().GITHUB_CLIENT_SECRET,
@@ -60,19 +58,10 @@ const authApp = issuer({
       light: "#FFFFFF",
     },
     radius: "sm",
+    favicon: "https://galleoai.com/favicon.ico",
+    logo: "https://galleoai.com/logo.png",
   },
   success: async (ctx, value) => {
-    if (value.provider === "code") {
-      console.log("value", value);
-      console.log("value.claims", value.claims);
-      return ctx.subject("user", {
-        id: await getUser(value.claims.email ?? ""),
-        name: value.claims.name ?? "",
-        email: value.claims.email ?? "",
-        image: value.claims.picture ?? "",
-      });
-    }
-    console.log("ctx.", value.tokenset.refresh);
     // throw new Error("Invalid provider");
     return ctx.subject("user", {
       id: await getUser(""),

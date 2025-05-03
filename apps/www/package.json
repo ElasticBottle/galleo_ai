@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "pnpm with-env-local next dev --port 6969 --experimental-https --experimental-https-ca ./certificates/rootCA.pem --experimental-https-key ./certificates/key.pem --experimental-https-cert ./certificates/cert.pem",
+    "dev": "pnpm with-env-local next dev --port 6969 --experimental-https --turbopack",
     "build:dev": "pnpm with-env-dev next build",
     "build:prod": "pnpm with-env-prod next build",
     "serve:dev": "pnpm with-env-dev next start",
