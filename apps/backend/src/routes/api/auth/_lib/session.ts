@@ -1,5 +1,6 @@
 import { getContext } from "hono/context-storage";
 import { setCookie } from "hono/cookie";
+import { env } from "../../../../lib/env";
 
 export function setSession(accessToken?: string, refreshToken?: string) {
   const context = getContext();
@@ -9,7 +10,7 @@ export function setSession(accessToken?: string, refreshToken?: string) {
       secure: true,
       sameSite: "Strict",
       path: "/",
-      domain: ".scalenelab.com",
+      domain: `.${env().NEXT_PUBLIC_APP_URL.replace("https://", "")}`,
       maxAge: 34560000,
     });
   }
@@ -19,7 +20,7 @@ export function setSession(accessToken?: string, refreshToken?: string) {
       secure: true,
       sameSite: "Strict",
       path: "/",
-      domain: ".scalenelab.com",
+      domain: `.${env().NEXT_PUBLIC_APP_URL.replace("https://", "")}`,
       maxAge: 34560000,
     });
   }

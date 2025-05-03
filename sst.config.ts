@@ -25,7 +25,9 @@ export default $config({
           ? "dev.galleoai.com"
           : `${$app.stage}.dev.galleoai.com`;
     const backendDomain = `${domain}/api`;
-    const authDomain = subdomain({ name: "auth", domain, isPermanentStage });
+    const authDomain = isPermanentStage
+      ? `auth.${domain}`
+      : "auth.dev.galleoai.com";
     const frontendDomain = domain;
 
     if (!process.env.CLOUDFLARE_ZONE_ID) {
@@ -37,13 +39,13 @@ export default $config({
 
     const serverEnv = parseServerEnv({
       ...process.env,
-      VITE_BACKEND_URL: backendDomain,
-      VITE_AUTH_URL: authDomain,
-      VITE_APP_URL: frontendDomain,
+      NEXT_PUBLIC_BACKEND_URL:
+        process.env.NEXT_PUBLIC_BACKEND_URL ?? `https://${backendDomain}`,
+      NEXT_PUBLIC_AUTH_URL:
+        process.env.NEXT_PUBLIC_AUTH_URL ?? `https://${authDomain}`,
+      NEXT_PUBLIC_APP_URL:
+        process.env.NEXT_PUBLIC_APP_URL ?? `https://${frontendDomain}`,
     });
-    const envString = Object.entries(serverEnv)
-      .map(([key, value]) => `${key}=${value}`)
-      .join(" ");
 
     const backendApi = new sst.aws.Function("Hono", {
       handler: "apps/backend/src/routes/index.handler",
@@ -53,25 +55,25 @@ export default $config({
       timeout: "120 seconds",
     });
 
-    const frontend = new sst.aws.StaticSite("WWW", {
+    const frontend = new sst.aws.Nextjs("WWW", {
       path: "apps/www",
-      build: {
-        command:
-          $app.stage === "production"
-            ? `${envString} pnpm build:prod`
-            : `${envString} pnpm build:dev`,
-        output: "dist",
-      },
+      environment: serverEnv,
       dev: {
         command: "pnpm dev",
       },
     });
 
-    const authDynamoTable = new sst.aws.Dynamo("OpenAuthStorage", {
-      fields: { pk: "string", sk: "string" },
-      primaryIndex: { hashKey: "pk", rangeKey: "sk" },
-      ttl: "expiry",
-    });
+    const authDynamoTable = isPermanentStage
+      ? new sst.aws.Dynamo("OpenAuthStorage", {
+          fields: { pk: "string", sk: "string" },
+          primaryIndex: { hashKey: "pk", rangeKey: "sk" },
+          ttl: "expiry",
+        })
+      : sst.aws.Dynamo.get(
+          "OpenAuthStorage",
+          "galleo-dev-OpenAuthStorageTable-fnznmsdf",
+        ); // use the dev table for non-permanent stages
+
     const authIssuer = new sst.aws.Function("OpenAuthIssuer", {
       handler: "packages/auth/src/index.handler",
       link: [authDynamoTable],
@@ -109,14 +111,9 @@ export default $config({
         command: "pnpm dev:packages",
       },
     });
+    return {
+      router: router.distributionID,
+      authTable: authDynamoTable.name,
+    };
   },
 });
-
-function subdomain({
-  name,
-  domain,
-  isPermanentStage,
-}: { name: string; domain: string; isPermanentStage: boolean }) {
-  if (isPermanentStage) return `${name}.${domain}`;
-  return `${name}-${domain}`;
-}

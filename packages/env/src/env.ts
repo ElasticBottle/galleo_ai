@@ -1,21 +1,26 @@
 import { type } from "arktype";
 
 const clientSchema = {
-  VITE_APP_URL: "string>1",
-  VITE_BACKEND_URL: "string>1",
-  VITE_AUTH_URL: "string>1",
+  NEXT_PUBLIC_APP_URL: "string>1",
+  NEXT_PUBLIC_BACKEND_URL: "string>1",
+  NEXT_PUBLIC_AUTH_URL: "string>1",
+  NEXT_PUBLIC_POSTHOG_KEY: "string>1",
+  NEXT_PUBLIC_POSTHOG_UI_HOST: "string>1",
 } as const;
 
 const ClientEnv = type(clientSchema);
 
-export const parseClientEnv = (env: unknown) => {
+export type ClientEnv = typeof ClientEnv.infer;
+type ExplicitPartial<T> = {
+  [K in keyof T]: T[K] | undefined;
+};
+export const parseClientEnv = (env: ExplicitPartial<ClientEnv>) => {
   const result = ClientEnv(env);
   if (result instanceof type.errors) {
     throw new Error(result.summary);
   }
   return result;
 };
-export type ClientEnv = typeof ClientEnv.infer;
 
 const ServerEnv = type({
   "...": clientSchema,

@@ -10,6 +10,8 @@ onlyBuiltDependencies:
   - '@swc/core'
   - aws-sdk
   - better-sqlite3
+  - core-js
   - core-js-pure
   - esbuild
   - prisma
+  - sharp
