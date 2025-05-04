@@ -1,6 +1,6 @@
 import Link from "next/link"; // Use Next.js Link
 import { ensureSession } from "~/lib/server/auth";
-import { ChatInterface } from "./client";
+import { ChatInterface } from "../_components/chat";
 
 // Placeholder: Assume fetchAllChats function exists
 // const fetchAllChats = async () => { ... return chats ... };

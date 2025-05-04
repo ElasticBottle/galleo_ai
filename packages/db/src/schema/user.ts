@@ -9,8 +9,9 @@ export const userTable = pgAppTable(
   {
     id: serial("user_id").primaryKey(),
     providerId: text("provider_id").notNull().unique(),
-    username: text("username"),
-    email: text("email"),
+    username: text(),
+    email: text(),
+    imageUrl: text(),
     ...timestamps,
   },
   (table) => {

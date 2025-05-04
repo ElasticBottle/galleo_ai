@@ -1,14 +1,17 @@
 import {
   ArrowUpIcon,
   ChevronRightIcon,
+  ChevronsUpDownIcon,
   DotIcon,
   EyeIcon,
   EyeOffIcon,
   FileIcon,
   FileTextIcon,
+  HelpCircleIcon,
   LayoutGridIcon,
   ListIcon,
   Loader2,
+  LogOutIcon,
   MenuIcon,
   MessageSquarePlusIcon,
   MessageSquareTextIcon,
@@ -32,17 +35,19 @@ export const Dot = DotIcon;
 export const File = FileIcon;
 export const ArrowUp = ArrowUpIcon;
 export const ChevronRight = ChevronRightIcon;
+export const ChevronsUpDown = ChevronsUpDownIcon;
 export const Menu = MenuIcon;
 export const Play = PlayIcon;
 export const X = XIcon;
 export const FileText = FileTextIcon;
 export const LayoutGrid = LayoutGridIcon;
 export const List = ListIcon;
-export const MessageSquarePlus = MessageSquarePlusIcon;
-export const MessageSquareText = MessageSquareTextIcon;
-
+export const LogOut = LogOutIcon;
 export const Logo = (props: IconProps) => <BrandLogo {...props} />;
 export const LogoSmall = (props: IconProps) => <BrandLogoSmall {...props} />;
+export const MessageSquarePlus = MessageSquarePlusIcon;
+export const MessageSquareText = MessageSquareTextIcon;
+export const HelpCircle = HelpCircleIcon;
 
 export const Google = (props: IconProps) => (
   <svg role="img" viewBox="0 0 24 24" {...props}>

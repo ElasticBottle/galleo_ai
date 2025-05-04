@@ -7,6 +7,7 @@ import {
   MessageSquarePlus,
   MessageSquareText,
 } from "@galleo/ui/components/icon";
+import { BrandLogo } from "@galleo/ui/components/ui/brand-logo";
 import { Button } from "@galleo/ui/components/ui/button";
 import {
   Collapsible,
@@ -21,12 +22,16 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarHeader,
+  SidebarInset,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@galleo/ui/components/ui/sidebar";
 
 import Link from "next/link";
+import { ROUTE_DASHBOARD } from "~/lib/routes";
+import type { Session } from "~/lib/server/auth";
+import { UserDropdown } from "./user-dropdown";
 
 // Placeholder: Assume we have a function to fetch recent chats
 // const fetchRecentChats = async () => {
@@ -46,21 +51,21 @@ const recentChats = [
   // Add more placeholder chats up to 8 if needed
 ];
 
-export function AppSidebar() {
-  // Placeholder: Function to handle new chat creation
-  const handleNewChat = () => {
-    console.log("Creating new chat...");
-    // TODO: Implement POST request to backend
-    // const response = await fetch('/api/chat', { method: 'POST' });
-    // const { chatId } = await response.json();
-    // router.push(`/dashboard/chat/${chatId}`);
-  };
-
+export function AppSidebar({
+  teamId,
+  session,
+}: {
+  teamId: number;
+  session: Session;
+}) {
   return (
     <Sidebar>
       <SidebarHeader>
-        {/* You can add a logo or title here */}
-        <h2 className="font-semibold text-lg">Galleo AI</h2>
+        <SidebarInset className="py-2">
+          <Link href={ROUTE_DASHBOARD(teamId)}>
+            <BrandLogo className="flex h-10 w-full justify-center" />
+          </Link>
+        </SidebarInset>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
@@ -87,7 +92,6 @@ export function AppSidebar() {
                       <Button
                         variant="ghost"
                         className="h-8 w-full justify-start text-sm"
-                        onClick={handleNewChat}
                       >
                         <MessageSquarePlus className="mr-2 h-4 w-4" />
                         New Chat
@@ -123,7 +127,7 @@ export function AppSidebar() {
             </Collapsible>
 
             {/* Fee Quote Link */}
-            <SidebarMenuItem className="mt-1">
+            <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href="/dashboard/fee-quote">
                   <FileText className="mr-2 h-4 w-4" />
@@ -135,7 +139,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        {/* Optional: Footer content like user profile, settings link etc. */}
+        <UserDropdown session={session} />
       </SidebarFooter>
     </Sidebar>
   );

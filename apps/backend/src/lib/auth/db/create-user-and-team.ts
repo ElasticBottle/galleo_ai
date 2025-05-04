@@ -15,6 +15,7 @@ export async function createUserAndTeam(user: UserSubject) {
           username: user.name,
           providerId: user.id,
           email: user.email,
+          imageUrl: user.image,
         })
         .returning();
       if (!userResult) {
@@ -23,7 +24,7 @@ export async function createUserAndTeam(user: UserSubject) {
       const [teamResult] = await tx
         .insert(teamTable)
         .values({
-          name: user.name ?? "Personal",
+          name: user.name ? `${user.name}'s Team` : "Personal Team",
         })
         .returning();
       if (!teamResult) {

@@ -15,7 +15,6 @@ import { ChatMessageArea } from "@galleo/ui/components/chat/chat-message-area";
 import { FilePreview } from "@galleo/ui/components/chat/file-preview";
 import { TypingIndicator } from "@galleo/ui/components/chat/typing-indicator";
 import { Paperclip } from "@galleo/ui/components/icon";
-import { ThemeToggle } from "@galleo/ui/components/theme-provider";
 import { Button } from "@galleo/ui/components/ui/button";
 import { useRef, useState } from "react";
 import { backend } from "~/lib/client/backend";
@@ -86,8 +85,7 @@ export function ChatInterface() {
     setAttachedFiles(undefined);
   };
   return (
-    <div className="flex h-screen flex-col">
-      <ThemeToggle className="absolute top-4 right-4 z-10" />
+    <div className="flex h-full w-full flex-col">
       <div className="flex-1 overflow-y-auto">
         <ChatMessageArea>
           <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 pt-5 pb-5">

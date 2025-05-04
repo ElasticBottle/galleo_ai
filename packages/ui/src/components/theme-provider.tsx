@@ -1,3 +1,5 @@
+"use client";
+
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 import type * as React from "react";
 import * as Icons from "../components/icon";
@@ -25,6 +27,7 @@ export function ThemeToggle({ className, ...props }: ButtonProps) {
       <Icons.Sun className="dark:-rotate-90 h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:scale-0" />
       <Icons.Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
       <span className="sr-only">Toggle theme</span>
+      {props.children}
     </Button>
   );
 }
