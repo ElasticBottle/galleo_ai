@@ -9,6 +9,9 @@
     },
     "./client": {
       "default": "./src/client.ts"
+    },
+    "./subject": {
+      "default": "./src/subject.ts"
     }
   },
   "scripts": {
@@ -25,6 +28,7 @@
   "dependencies": {
     "@galleo/env": "workspace:*",
     "@openauthjs/openauth": "^0.4.3",
+    "@rectangular-labs/result": "0.0.1",
     "arktype": "^2.1.19",
     "hono": "^4.7.6"
   }

@@ -1,6 +1,6 @@
 import { getContext } from "hono/context-storage";
 import { setCookie } from "hono/cookie";
-import { env } from "../../../../lib/env";
+import { env } from "../env";
 
 export function setSession(accessToken?: string, refreshToken?: string) {
   const context = getContext();

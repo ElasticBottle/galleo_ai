@@ -99,6 +99,7 @@ export default $config({
           },
         })
       : sst.aws.Router.get("AppRouter", "E2JNCC3RK7KT1V"); // the dev app router
+
     router.route(frontendDomain, frontend.url);
     router.route(backendDomain, backendApi.url, {
       readTimeout: "30 seconds",

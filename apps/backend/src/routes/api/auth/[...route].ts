@@ -1,34 +1,18 @@
-import { safe } from "@rectangular-labs/result";
 import { Hono } from "hono";
-import { getCookie } from "hono/cookie";
-import { subjects } from "../../../../../../packages/auth/src/subject";
+import { deleteCookie } from "hono/cookie";
+import { authClient, verifySafe } from "../../../lib/auth/client";
+import { getUserAndDefaultTeam } from "../../../lib/auth/db/get-user-and-default-team";
+import { authMiddleware } from "../../../lib/auth/middleware";
+import { setSession } from "../../../lib/auth/session";
 import { env } from "../../../lib/env";
-import { authClient } from "./_lib/client";
-import { setSession } from "./_lib/session";
+import type { HonoEnv } from "../../../lib/hono";
 
-export const authRouter = new Hono()
-  .get("/me", async (c) => {
-    const access = getCookie(c, "access_token");
-    const refresh = getCookie(c, "refresh_token");
-    if (!access || !refresh) {
-      return c.json({ error: "Unauthorized" }, 401);
-    }
-    const verified = await safe(() =>
-      authClient().verify(subjects, access, {
-        refresh,
-      }),
-    );
-    if (!verified.ok) {
-      return c.json({ error: "Unauthorized" }, 401);
-    }
-    if (verified.value.err) {
-      return c.json({ error: "Unauthorized" }, 401);
-    }
-
-    if (verified.value.tokens) {
-      setSession(verified.value.tokens.access, verified.value.tokens.refresh);
-    }
-    return c.json(verified.value.subject);
+export const authRouter = new Hono<HonoEnv>()
+  .basePath("/api/auth")
+  .get("/me", authMiddleware, (c) => {
+    const userSubject = c.get("userSubject");
+    const session = c.get("session");
+    return c.json({ userSubject, session });
   })
   .get("/authorize", async (c) => {
     const callbackUrl = `${env().NEXT_PUBLIC_BACKEND_URL}/api/auth/callback`;
@@ -51,5 +35,29 @@ export const authRouter = new Hono()
         status: 400,
       });
     setSession(exchanged.tokens.access, exchanged.tokens.refresh);
-    return c.redirect(`${env().NEXT_PUBLIC_APP_URL}/dashboard`, 302);
+
+    const verified = await verifySafe({
+      access: exchanged.tokens.access,
+      refresh: exchanged.tokens.refresh,
+    });
+    console.log("verified", verified);
+
+    if (verified.err) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+
+    const userAndTeam = await getUserAndDefaultTeam(verified.value.properties);
+    if (!userAndTeam.ok) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+
+    return c.redirect(
+      `${env().NEXT_PUBLIC_APP_URL}/dashboard/${userAndTeam.value.team.id}`,
+      302,
+    );
+  })
+  .post("/logout", authMiddleware, (c) => {
+    deleteCookie(c, "access_token");
+    deleteCookie(c, "refresh_token");
+    return c.json({ message: "Logged out" }, 200);
   });

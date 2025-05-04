@@ -8,8 +8,8 @@
       "default": "./src/index.ts"
     },
     "./app": {
-      "types": "./dist/src/routes/route.d.ts",
-      "default": "./src/routes/route.ts"
+      "types": "./dist/src/routes/index.d.ts",
+      "default": "./src/routes/index.ts"
     }
   },
   "scripts": {

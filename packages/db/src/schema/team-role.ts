@@ -22,7 +22,7 @@ export const teamRoleTable = pgAppTable(
       }),
     role: varchar("role", {
       enum: ["admin", "member"],
-      length: 128,
+      length: 64,
     })
       .notNull()
       .default("member"),

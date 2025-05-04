@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { serial, text, uniqueIndex } from "drizzle-orm/pg-core";
+import { index, serial, text } from "drizzle-orm/pg-core";
 import { timestamps } from "./_helper";
 import { pgAppTable } from "./_table";
 import { teamRoleTable } from "./team-role";
@@ -12,7 +12,7 @@ export const teamTable = pgAppTable(
     ...timestamps,
   },
   (table) => {
-    return [uniqueIndex("team_name_unique_idx").on(table.name)];
+    return [index("team_name_unique_idx").on(table.name)];
   },
 );
 export type SelectTeam = typeof teamTable.$inferSelect;

@@ -6,18 +6,17 @@ import { backend } from "./backend";
 export async function getSession() {
   const serverApi = await backend();
   const response = await safe(() => serverApi.api.auth.me.$get());
-  console.log("response", response);
   if (!response.ok || !response.value.ok) {
     return { user: null };
   }
   const session = await response.value.json();
-  return { user: session.properties };
+  return { userSubject: session.userSubject, session: session.session };
 }
 
 export async function ensureSession() {
   const session = await getSession();
   console.log("session", session);
-  if (!session.user) {
+  if (!session.userSubject) {
     redirect(authorizeUrl);
   }
   return session;

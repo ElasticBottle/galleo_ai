@@ -4,24 +4,11 @@ import { GithubProvider } from "@openauthjs/openauth/provider/github";
 import { Select } from "@openauthjs/openauth/ui/select";
 import { handle } from "hono/aws-lambda";
 import { env } from "./env";
+import { getUserProfile } from "./provider/get-profile";
 import { subjects } from "./subject";
-
-async function getUser(_email: string) {
-  await Promise.resolve();
-  // Get user from database and return user ID
-  return "123";
-}
 
 const authApp = issuer({
   subjects,
-  allow(input, req) {
-    const url = new URL(req.url);
-    const allowed =
-      input.clientID === "galleo-backend" &&
-      (url.host === "localhost" ||
-        url.host.endsWith(process.env.NEXT_PUBLIC_BACKEND_URL ?? ""));
-    return Promise.resolve(allowed);
-  },
   select: Select({
     providers: {
       code: {
@@ -66,13 +53,23 @@ const authApp = issuer({
     },
   },
   success: async (ctx, value) => {
-    // throw new Error("Invalid provider");
-    return ctx.subject("user", {
-      id: await getUser(""),
-      name: "",
-      email: "",
-      image: "",
-    });
+    const userProfileResult = await getUserProfile(value);
+
+    if (!userProfileResult.ok) {
+      console.error(
+        "Failed to fetch user profile:",
+        userProfileResult.error.message,
+      );
+      // Return an actual Response object for errors
+      return new Response(
+        `Failed to fetch user profile: ${userProfileResult.error.message}`,
+        { status: 500 },
+      );
+    }
+
+    const userProfile = userProfileResult.value;
+
+    return ctx.subject("user", userProfile);
   },
 });
 
