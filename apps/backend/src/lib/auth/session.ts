@@ -1,5 +1,5 @@
 import { getContext } from "hono/context-storage";
-import { setCookie } from "hono/cookie";
+import { deleteCookie, setCookie } from "hono/cookie";
 import { env } from "../env";
 
 export function setSession(accessToken?: string, refreshToken?: string) {
@@ -28,4 +28,12 @@ export function setSession(accessToken?: string, refreshToken?: string) {
       maxAge: 34560000,
     });
   }
+}
+
+export function deleteSession() {
+  const context = getContext();
+  const accessToken = deleteCookie(context, "access_token");
+  const refreshToken = deleteCookie(context, "refresh_token");
+  console.log("deleted", { accessToken, refreshToken });
+  return !!accessToken && !!refreshToken;
 }

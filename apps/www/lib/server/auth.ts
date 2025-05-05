@@ -11,6 +11,7 @@ export async function getSession() {
     return { userSubject: null, session: null };
   }
   const session = await response.value.json();
+  console.log("session", session);
   return { userSubject: session.userSubject, session: session.session };
 }
 

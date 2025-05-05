@@ -19,7 +19,7 @@ export default async function DashboardLayout({
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
       <AppSidebar teamId={Number.parseInt(teamId)} session={session} />
-      <main className="h-full min-h-screen w-full p-2">
+      <main className="flex h-full min-h-screen w-full flex-col p-2">
         <SidebarTrigger />
         {children}
       </main>

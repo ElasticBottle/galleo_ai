@@ -1,9 +1,8 @@
 import { Hono } from "hono";
-import { deleteCookie } from "hono/cookie";
 import { authClient, verifySafe } from "../../../lib/auth/client";
 import { getUserAndTeams } from "../../../lib/auth/db/get-user-and-default-team";
 import { authMiddleware } from "../../../lib/auth/middleware";
-import { setSession } from "../../../lib/auth/session";
+import { deleteSession, setSession } from "../../../lib/auth/session";
 import { env } from "../../../lib/env";
 import type { HonoEnv } from "../../../lib/hono";
 
@@ -12,6 +11,8 @@ export const authRouter = new Hono<HonoEnv>()
   .get("/me", authMiddleware, (c) => {
     const userSubject = c.get("userSubject");
     const session = c.get("session");
+    console.log("me", { userSubject, session });
+
     return c.json({ userSubject, session });
   })
   .get("/authorize", async (c) => {
@@ -57,7 +58,7 @@ export const authRouter = new Hono<HonoEnv>()
     return c.redirect(`${env().NEXT_PUBLIC_APP_URL}/dashboard/${teamId}`, 302);
   })
   .post("/logout", authMiddleware, (c) => {
-    deleteCookie(c, "access_token");
-    deleteCookie(c, "refresh_token");
-    return c.json({ message: "OK" }, 200);
+    const deleted = deleteSession();
+    console.log("deleted", deleted);
+    return c.json({ message: deleted ? "OK" : "No Session" }, 200);
   });

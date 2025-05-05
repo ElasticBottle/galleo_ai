@@ -50,6 +50,16 @@ export default $config({
         process.env.NEXT_PUBLIC_APP_URL ?? `https://${frontendDomain}`,
     });
 
+    const router = isPermanentStage
+      ? new sst.aws.Router("AppRouter", {
+          domain: {
+            name: domain,
+            aliases: [`*.${domain}`],
+            dns,
+          },
+        })
+      : sst.aws.Router.get("AppRouter", "EL8QCPMFX80NG"); // the dev app
+
     const backendApi = new sst.aws.Function("Hono", {
       handler: "apps/backend/src/index.handler",
       environment: serverEnv,
@@ -57,17 +67,25 @@ export default $config({
       streaming: !$dev,
       timeout: "120 seconds",
     });
+    router.route(backendDomain, backendApi.url, {
+      readTimeout: "30 seconds",
+      keepAliveTimeout: "30 seconds",
+    });
 
-    const frontend = new sst.aws.Nextjs("WWW", {
+    const _frontend = new sst.aws.Nextjs("WWW", {
       path: "apps/www",
       environment: serverEnv,
       buildCommand: `STAGE=${$app.stage} pnpx open-next@latest build`,
       dev: {
         command: "pnpm dev",
       },
+      router: {
+        instance: router,
+        domain: frontendDomain,
+      },
     });
 
-    const { authDynamoTable, authIssuer } = (() => {
+    const { authDynamoTable, authIssuer: _ } = (() => {
       if (isPermanentStage) {
         const authDynamoTable = new sst.aws.Dynamo("OpenAuthStorage", {
           fields: { pk: "string", sk: "string" },
@@ -86,6 +104,10 @@ export default $config({
             }),
           },
           url: {
+            router: {
+              instance: router,
+              domain: authDomain,
+            },
             cors: false,
           },
         });
@@ -93,25 +115,6 @@ export default $config({
       }
       return { authIssuer: null, authDynamoTable: null };
     })();
-
-    const router = isPermanentStage
-      ? new sst.aws.Router("AppRouter", {
-          domain: {
-            name: domain,
-            aliases: [`*.${domain}`],
-            dns,
-          },
-        })
-      : sst.aws.Router.get("AppRouter", "EETPONXGKLUN8"); // the dev app router
-
-    router.route(frontendDomain, frontend.url);
-    router.route(backendDomain, backendApi.url, {
-      readTimeout: "30 seconds",
-      keepAliveTimeout: "30 seconds",
-    });
-    if (authIssuer) {
-      router.route(authDomain, authIssuer.url);
-    }
 
     new sst.x.DevCommand("Packages", {
       dev: {

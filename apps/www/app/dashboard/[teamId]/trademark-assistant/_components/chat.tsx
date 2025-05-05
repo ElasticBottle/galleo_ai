@@ -35,7 +35,9 @@ export function ChatInterface() {
   console.log("messages", messages);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("event", event);
     const files = event.target.files;
+    console.log("files", files);
     if (!files) {
       return;
     }
@@ -85,7 +87,7 @@ export function ChatInterface() {
     setAttachedFiles(undefined);
   };
   return (
-    <div className="flex h-full min-h-screen w-full flex-col">
+    <div className="flex h-full w-full flex-1 flex-col">
       <div className="flex-1 overflow-y-auto">
         <ChatMessageArea>
           <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 pt-5 pb-5">

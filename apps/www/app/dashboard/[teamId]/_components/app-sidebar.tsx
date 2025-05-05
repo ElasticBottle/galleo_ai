@@ -16,6 +16,7 @@ import {
 } from "@galleo/ui/components/ui/sidebar";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   ROUTE_DASHBOARD,
   ROUTE_FEE_QUOTE,
@@ -31,6 +32,7 @@ export function AppSidebar({
   teamId: number;
   session: Session;
 }) {
+  const path = usePathname();
   return (
     <Sidebar variant="floating">
       <SidebarHeader>
@@ -48,7 +50,10 @@ export function AppSidebar({
             <SidebarMenu>
               {/* Assistant Collapsible Submenu */}
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton
+                  asChild
+                  isActive={path === ROUTE_TRADEMARK_ASSISTANT(teamId)}
+                >
                   <Link href={ROUTE_TRADEMARK_ASSISTANT(teamId)} prefetch>
                     <MessageSquareText />
                     Trademark Assistant
@@ -58,7 +63,10 @@ export function AppSidebar({
 
               {/* Fee Quote Link */}
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton
+                  asChild
+                  isActive={path === ROUTE_FEE_QUOTE(teamId)}
+                >
                   <Link href={ROUTE_FEE_QUOTE(teamId)} prefetch>
                     <FileText />
                     Fee Quote
