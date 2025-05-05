@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm with-env-local next dev --port 6969 --experimental-https --turbopack",
-    "build:dev": "pnpm with-env-dev next build",
-    "build:prod": "pnpm with-env-prod next build",
+    "build:dev": "pnpm with-env-dev pnpm -w run db:migrate-dev && next build",
+    "build:prod": "pnpm with-env-prod pnpm -w run db:migrate-prod && next build",
     "serve:dev": "pnpm with-env-dev next start",
     "serve:prod": "pnpm with-env-prod next start",
     "clean": "git clean -xdf .turbo node_modules .next dist .cache",

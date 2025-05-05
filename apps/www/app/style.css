@@ -1,12 +1,11 @@
 @import "@galleo/ui/style.css";
 @source "./**/*.{ts,tsx}";
 
-
 @theme {
---font-sans: var(--font-manrope), sans-serif;
---font-serif: var(--font-playfair), serif;
---font-mono: var(--font-geist-mono), monospace;
---font-display: var(--font-manrope), sans-serif;
---font-feature-settings: "cv02", "cv03", "cv04", "cv11"; 
---font-variation-settings: "opsz" 32; 
+  --font-sans: var(--font-manrope), sans-serif;
+  --font-serif: var(--font-playfair), serif;
+  --font-mono: var(--font-geist-mono), monospace;
+  --font-display: var(--font-manrope), sans-serif;
+  --font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  --font-variation-settings: "opsz" 32;
 }

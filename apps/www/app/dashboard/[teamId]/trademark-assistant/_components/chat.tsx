@@ -85,7 +85,7 @@ export function ChatInterface() {
     setAttachedFiles(undefined);
   };
   return (
-    <div className="flex h-full w-full flex-col">
+    <div className="flex h-full min-h-screen w-full flex-col">
       <div className="flex-1 overflow-y-auto">
         <ChatMessageArea>
           <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 pt-5 pb-5">

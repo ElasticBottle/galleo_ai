@@ -15,9 +15,13 @@
   },
   "license": "MIT",
   "scripts": {
-    "migrate-generate": "pnpm with-env drizzle-kit generate",
-    "migrate-push": "pnpm with-env drizzle-kit migrate",
-    "push": "pnpm with-env drizzle-kit push",
+    "generate": "pnpm with-env-local drizzle-kit generate",
+    "migrate:local": "pnpm with-env-local drizzle-kit migrate",
+    "migrate:dev": "pnpm with-env-dev drizzle-kit migrate",
+    "migrate:prod": "pnpm with-env-prod drizzle-kit migrate",
+    "push:local": "pnpm with-env-local drizzle-kit push",
+    "push:dev": "pnpm with-env-dev drizzle-kit push",
+    "push:prod": "pnpm with-env-prod drizzle-kit push",
     "studio": "pnpm with-env drizzle-kit studio",
     "build": "tsc",
     "dev": "tsc --watch",
@@ -25,7 +29,9 @@
     "format": "bun x @biomejs/biome format . --write",
     "lint": "bun x @biomejs/biome lint . --write",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
-    "with-env": "dotenvx run -f ../../.env.local  -f ../../.env -- "
+    "with-env-local": "dotenvx run -f ../../.env.local  -f ../../.env -- ",
+    "with-env-dev": "dotenvx run  -f ../../.env -- ",
+    "with-env-prod": "dotenvx run -f ../../.env.production -- "
   },
   "dependencies": {
     "arktype": "^2.1.19",

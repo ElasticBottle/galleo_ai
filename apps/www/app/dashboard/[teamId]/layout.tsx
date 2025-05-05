@@ -11,7 +11,7 @@ export default async function DashboardLayout({
   params,
 }: { children: React.ReactNode; params: Promise<{ teamId: string }> }) {
   const { teamId } = await params;
-  const session = await ensureSession();
+  const session = await ensureSession(Number.parseInt(teamId));
 
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
