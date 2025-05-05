@@ -99,7 +99,7 @@ export function ChatInterface() {
                 id={message.id}
               >
                 {message.role !== "user" && <ChatMessageAvatar />}
-                <div>
+                <div className="flex flex-col gap-4">
                   {message.parts.map((part) => {
                     switch (part.type) {
                       case "text":
@@ -132,6 +132,18 @@ export function ChatInterface() {
                             key={JSON.stringify(part)}
                             id={message.id}
                             messageContent={part.source.url}
+                          />
+                        );
+                      case "tool-invocation":
+                        return (
+                          <ChatMessageContent
+                            key={JSON.stringify(part)}
+                            messageContent={[
+                              {
+                                ...part.toolInvocation,
+                                type: "tool-invocation",
+                              },
+                            ]}
                           />
                         );
                       default:

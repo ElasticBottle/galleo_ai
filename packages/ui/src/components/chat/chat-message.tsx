@@ -1,5 +1,6 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import { SparklesIcon, UserIcon } from "lucide-react";
+import { CheckCircle, Loader2 } from "lucide-react";
 import React, { type ReactNode } from "react";
 import { cn } from "../../utils/cn";
 import { File } from "../icon";
@@ -47,6 +48,35 @@ const useChatMessage = () => {
   const context = React.useContext(ChatMessageContext);
   return context;
 };
+
+// Helper function to format tool name
+function formatToolName(toolName: string): string {
+  // Handle snake_case first
+  let words = toolName.split("_");
+
+  // If not snake_case, try camelCase
+  if (words.length === 1 && toolName.match(/[a-z][A-Z]/)) {
+    words = toolName
+      .replace(/([A-Z])/g, " $1")
+      .trim()
+      .split(" ");
+  }
+  // If single word or already split correctly
+  else if (words.length === 1) {
+    // Handle simple camelCase like 'toolName' -> 'Tool Name' if no space inserted yet
+    const splitByCaps = toolName.replace(/([A-Z])/g, " $1").trim();
+    if (splitByCaps.includes(" ")) {
+      words = splitByCaps.split(" ");
+    }
+    // Keep as is if truly a single word or already formatted
+  }
+
+  // Capitalize first letter of each word and handle potential empty strings from split
+  return words
+    .filter((word) => word.length > 0)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
 
 // Root component
 interface ChatMessageProps
@@ -144,7 +174,12 @@ type FilePart = {
   mimeType: string;
   name?: string; // Add optional name for display
 };
-type MessageContentPart = TextPart | ImagePart | FilePart;
+type ToolInvocationPart = {
+  type: "tool-invocation";
+  state: "partial-call" | "call" | "result";
+  toolName: string;
+};
+type MessageContentPart = TextPart | ImagePart | FilePart | ToolInvocationPart;
 
 // Content component
 
@@ -230,6 +265,37 @@ const ChatMessageContent = React.forwardRef<
                 </span>
               </div>
             );
+          case "tool-invocation": {
+            const formattedToolName = formatToolName(part.toolName);
+            const isLoading =
+              part.state === "partial-call" || part.state === "call";
+            const isCompleted = part.state === "result";
+
+            return (
+              <div
+                key={partId}
+                className={cn(
+                  "flex items-center gap-2 rounded-md border bg-muted p-2.5 text-sm",
+                  isLoading && "animate-pulse",
+                )}
+              >
+                {isLoading && (
+                  <Loader2 className="h-4 w-4 shrink-0 animate-spin text-muted-foreground" />
+                )}
+                {isCompleted && (
+                  <CheckCircle className="h-4 w-4 shrink-0 text-green-600" />
+                )}
+                <span
+                  className={cn(
+                    "font-medium",
+                    isCompleted ? "text-foreground" : "text-muted-foreground",
+                  )}
+                >
+                  {formattedToolName}
+                </span>
+              </div>
+            );
+          }
           default:
             return null;
         }

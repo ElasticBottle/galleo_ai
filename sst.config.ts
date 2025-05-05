@@ -65,7 +65,7 @@ export default $config({
       environment: serverEnv,
       url: true,
       streaming: !$dev,
-      timeout: "120 seconds",
+      timeout: "300 seconds",
     });
     router.route(backendDomain, backendApi.url, {
       readTimeout: "30 seconds",

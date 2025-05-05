@@ -1,7 +1,7 @@
-import { google } from "@ai-sdk/google";
 import { safe } from "@rectangular-labs/result";
 import { jsonSchema, tool } from "ai";
 import { generateText } from "ai";
+import { backgroundResearchModel } from "./models";
 
 export const backgroundResearch = tool({
   description:
@@ -22,10 +22,7 @@ export const backgroundResearch = tool({
     console.log(`Conducting background research for: ${businessName}`);
     const result = await safe(() =>
       generateText({
-        model: google("gemini-2.5-pro-preview-03-25", {
-          // Enable search grounding
-          useSearchGrounding: true,
-        }),
+        model: backgroundResearchModel,
         prompt: `Provide a concise background summary of the business "${businessName}", focusing on its core activities, market presence, and any notable recent developments relevant to trademark considerations. Use search grounding to ensure information is current.`,
       }),
     );
