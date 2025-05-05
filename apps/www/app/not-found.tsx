@@ -9,7 +9,7 @@ import { ease } from "./(marketing)/_components/hero/constant";
 
 export default function NotFound() {
   return (
-    <div className="container relative flex min-h-[calc(100vh-4rem)] max-w-7xl flex-col items-center justify-center">
+    <div className="container relative mx-auto flex min-h-[calc(100vh-4rem)] max-w-7xl flex-col items-center justify-center">
       <motion.div
         className="mx-auto flex max-w-xl flex-col items-center justify-center text-center"
         initial={{ opacity: 0, y: 20 }}

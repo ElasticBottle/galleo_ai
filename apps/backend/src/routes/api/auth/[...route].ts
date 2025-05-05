@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { deleteCookie } from "hono/cookie";
 import { authClient, verifySafe } from "../../../lib/auth/client";
-import { getUserAndDefaultTeam } from "../../../lib/auth/db/get-user-and-default-team";
+import { getUserAndTeams } from "../../../lib/auth/db/get-user-and-default-team";
 import { authMiddleware } from "../../../lib/auth/middleware";
 import { setSession } from "../../../lib/auth/session";
 import { env } from "../../../lib/env";
@@ -40,24 +40,24 @@ export const authRouter = new Hono<HonoEnv>()
       access: exchanged.tokens.access,
       refresh: exchanged.tokens.refresh,
     });
-    console.log("verified", verified);
-
     if (verified.err) {
       return c.json({ error: "Unauthorized" }, 401);
     }
 
-    const userAndTeam = await getUserAndDefaultTeam(verified.value.properties);
+    const userAndTeam = await getUserAndTeams(verified.value.properties);
     if (!userAndTeam.ok) {
       return c.json({ error: "Unauthorized" }, 401);
     }
 
-    return c.redirect(
-      `${env().NEXT_PUBLIC_APP_URL}/dashboard/${userAndTeam.value.team.id}`,
-      302,
-    );
+    const teamId = userAndTeam.value.teamRoles[0]?.team.id;
+    if (!teamId) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+
+    return c.redirect(`${env().NEXT_PUBLIC_APP_URL}/dashboard/${teamId}`, 302);
   })
   .post("/logout", authMiddleware, (c) => {
     deleteCookie(c, "access_token");
     deleteCookie(c, "refresh_token");
-    return c.json({ message: "Logged out" }, 200);
+    return c.json({ message: "OK" }, 200);
   });

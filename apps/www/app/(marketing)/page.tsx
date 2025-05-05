@@ -12,10 +12,10 @@ import { Section } from "./_components/section";
 
 export default function LandingPage() {
   return (
-    <div>
-      <Spacer className="h-100- md:h-60" />
+    <div className="mx-auto max-w-7xl">
+      <Spacer className="h-12 md:h-60" />
       <Hero />
-      <Spacer className="h-100 md:h-60" />
+      <Spacer className="md:h-60" />
       <Section subtitle="Built by IP professionals, powered by AI">
         <div className="mx-auto max-w-md text-center text-muted-foreground">
           <p>

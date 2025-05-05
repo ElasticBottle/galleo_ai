@@ -20,6 +20,7 @@
     "ui-add": "bun x shadcn@canary add && bun x @biomejs/biome lint --write --unsafe"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "react": "^19.1.0",

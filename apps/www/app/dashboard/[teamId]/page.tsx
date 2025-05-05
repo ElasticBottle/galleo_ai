@@ -1,7 +1,10 @@
-import { ChatInterface } from "./_components/chat";
+import { redirect } from "next/navigation";
+import { ROUTE_TRADEMARK_ASSISTANT } from "~/lib/routes";
 
-export default function Dashboard({
-  params: _,
+export default async function Dashboard({
+  params,
 }: { params: Promise<{ teamId: string }> }) {
-  return <ChatInterface />;
+  const { teamId } = await params;
+  console.log("typeof teamId", typeof teamId);
+  redirect(ROUTE_TRADEMARK_ASSISTANT(Number.parseInt(teamId)));
 }

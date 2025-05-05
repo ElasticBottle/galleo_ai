@@ -5,15 +5,14 @@ import type { SelectUser } from "@galleo/db/schema/user";
 import { getCookie } from "hono/cookie";
 import { createMiddleware } from "hono/factory";
 import { verifySafe } from "./client";
-import { getUserAndDefaultTeam } from "./db/get-user-and-default-team";
+import { getUserAndTeams } from "./db/get-user-and-default-team";
 
 export const authMiddleware = createMiddleware<{
   Variables: {
     userSubject: UserSubject;
     session: {
       user: SelectUser;
-      team: SelectTeam;
-      teamRole: SelectTeamRole;
+      teamRoles: (SelectTeamRole & { team: SelectTeam })[];
     };
   };
 }>(async (c, next) => {
@@ -28,7 +27,7 @@ export const authMiddleware = createMiddleware<{
   }
   c.set("userSubject", verified.value.properties);
 
-  const userAndTeam = await getUserAndDefaultTeam(verified.value.properties);
+  const userAndTeam = await getUserAndTeams(verified.value.properties);
   if (!userAndTeam.ok) {
     console.error(
       "[Auth middleware]: Error getting user and default team",
@@ -37,5 +36,27 @@ export const authMiddleware = createMiddleware<{
     return c.json({ error: "Internal server error" }, 500);
   }
   c.set("session", userAndTeam.value);
+  return await next();
+});
+
+export const teamAuthMiddleware = createMiddleware<{
+  Variables: {
+    session: {
+      teamRoles: (SelectTeamRole & { team: SelectTeam })[];
+    };
+  };
+}>(async (c, next) => {
+  const session = c.get("session");
+  const teamId = c.req.param("teamId");
+  if (!teamId) {
+    return c.json({ error: "Team ID is required" }, 400);
+  }
+  const teamIdInt = Number.parseInt(teamId);
+  if (Number.isNaN(teamIdInt)) {
+    return c.json({ error: "Invalid team ID" }, 400);
+  }
+  if (!session.teamRoles.some((role) => role.teamId === teamIdInt)) {
+    return c.json({ error: "Unauthorized" }, 401);
+  }
   return await next();
 });

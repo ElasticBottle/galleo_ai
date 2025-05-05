@@ -4,13 +4,14 @@ import { getContentBySlug } from "~/lib/mdx";
 import { Section } from "../../_components/section";
 
 interface Props {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const insight = await getContentBySlug("insights", params.slug);
+  const { slug } = await params;
+  const insight = await getContentBySlug("insights", slug);
 
   return {
     title: `${insight.metadata.title} | Galleo`,
@@ -19,10 +20,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function InsightPage({ params }: Props) {
-  const insight = await getContentBySlug("insights", params.slug);
+  const { slug } = await params;
+  const insight = await getContentBySlug("insights", slug);
+  console.log("insight.content", insight.content);
 
   return (
-    <Section className="py-16">
+    <Section className="mx-auto py-16">
       <article className="container mx-auto max-w-3xl px-4">
         <header className="mb-8">
           {insight.metadata.category && (

@@ -28,6 +28,8 @@
     "with-env": "dotenvx run -f ../../.env.local  -f ../../.env -- "
   },
   "dependencies": {
+    "arktype": "^2.1.19",
+    "drizzle-arktype": "^0.1.2",
     "drizzle-orm": "^0.41.0",
     "pg": "^8.14.1"
   },

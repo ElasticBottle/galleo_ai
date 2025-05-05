@@ -2,23 +2,27 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@galleo/ui/components/ui/sidebar";
-import { AppSidebar } from "~/app/dashboard/[teamId]/_components/app-sidebar";
+import { cookies } from "next/headers";
 import { ensureSession } from "~/lib/server/auth";
+import { AppSidebar } from "./_components/app-sidebar";
 
 export default async function DashboardLayout({
   children,
   params,
-}: { children: React.ReactNode; params: Promise<{ teamId: number }> }) {
+}: { children: React.ReactNode; params: Promise<{ teamId: string }> }) {
   const { teamId } = await params;
   const session = await ensureSession();
+
+  const cookieStore = await cookies();
+  const defaultOpen = cookieStore.get("sidebar_state")?.value === "true";
+
   return (
-    <SidebarProvider>
-      <div className="flex min-h-screen w-full">
-        <AppSidebar teamId={teamId} session={session} />
-        <main className="h-full w-full flex-1 p-4 md:p-6">
-          <SidebarTrigger /> {children}
-        </main>
-      </div>
+    <SidebarProvider defaultOpen={defaultOpen}>
+      <AppSidebar teamId={Number.parseInt(teamId)} session={session} />
+      <main className="h-full min-h-screen w-full p-2">
+        <SidebarTrigger />
+        {children}
+      </main>
     </SidebarProvider>
   );
 }

@@ -41,7 +41,10 @@ export async function createUserAndTeam(user: UserSubject) {
       if (!teamRoleResult) {
         throw new Error("Failed to create team role");
       }
-      return { user: userResult, team: teamResult, teamRole: teamRoleResult };
+      return {
+        user: userResult,
+        teamRoles: [{ ...teamRoleResult, team: teamResult }],
+      };
     });
   });
   return result;

@@ -13,9 +13,9 @@ export default async function InsightsPage() {
   const insights = await getAllContent("insights");
 
   return (
-    <Section className="py-16">
-      <div className="container mx-auto max-w-5xl px-4">
-        <div className="mb-12 flex items-baseline justify-between">
+    <Section className="mx-auto py-16">
+      <div className="container mx-auto max-w-5xl space-y-12 px-4">
+        <div className="flex flex-col gap-2">
           <h1 className="font-bold text-4xl">Insights</h1>
           <p className="text-muted-foreground">
             Explore our collection of insights on the latest developments in IP
@@ -27,7 +27,7 @@ export default async function InsightsPage() {
             <Link
               key={article.slug}
               href={`/insights/${article.slug}`}
-              className="group block overflow-hidden rounded-lg border border-border bg-white transition-colors hover:border-border-hover dark:bg-white/5"
+              className="group block overflow-hidden rounded-lg border border-border bg-card transition-colors"
             >
               <div className="flex flex-col md:flex-row">
                 {article.metadata.image && (
@@ -51,7 +51,7 @@ export default async function InsightsPage() {
                   <p className="mb-6 line-clamp-2 text-muted-foreground">
                     {article.metadata.description}
                   </p>
-                  <div className="flex items-center gap-4 text-muted-foreground text-sm">
+                  <div className="flex flex-col items-start gap-1 text-muted-foreground text-sm md:flex-row md:gap-4">
                     {article.metadata.author && (
                       <span>{article.metadata.author}</span>
                     )}

@@ -4,7 +4,7 @@ import { ease } from "./constant";
 
 export function HeroTitle() {
   return (
-    <div className="flex w-full max-w-2xl flex-col items-center space-y-4 overflow-hidden">
+    <div className="mx-auto flex w-full max-w-2xl flex-col items-center space-y-4 overflow-hidden">
       <motion.h1
         className="text-center font-medium text-4xl text-foreground sm:text-5xl md:text-6xl"
         initial={{ filter: "blur(10px)", opacity: 0, y: 50 }}

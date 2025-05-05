@@ -18,17 +18,20 @@ export default $config({
     const { parseServerEnv } = await import("@galleo/env");
 
     const isPermanentStage = ["production", "dev"].includes($app.stage);
-    const domain =
-      $app.stage === "production"
-        ? "galleoai.com"
-        : $app.stage === "dev"
-          ? "dev.galleoai.com"
-          : `${$app.stage}.dev.galleoai.com`;
+    const domain = (() => {
+      if ($app.stage === "production") {
+        return "galleoai.com";
+      }
+      if ($app.stage === "dev") {
+        return "dev.galleoai.com";
+      }
+      return `${$app.stage}.dev.galleoai.com`;
+    })();
+    const frontendDomain = domain;
     const backendDomain = `${domain}/api`;
     const authDomain = isPermanentStage
       ? `auth.${domain}`
       : "auth.dev.galleoai.com";
-    const frontendDomain = domain;
 
     if (!process.env.CLOUDFLARE_ZONE_ID) {
       throw new Error("CLOUDFLARE_ZONE_ID is not set");
@@ -40,7 +43,7 @@ export default $config({
     const serverEnv = parseServerEnv({
       ...process.env,
       NEXT_PUBLIC_BACKEND_URL:
-        process.env.NEXT_PUBLIC_BACKEND_URL ?? `https://${backendDomain}`,
+        process.env.NEXT_PUBLIC_BACKEND_URL ?? `https://${frontendDomain}`, //this really is just the hostname
       NEXT_PUBLIC_AUTH_URL:
         process.env.NEXT_PUBLIC_AUTH_URL ?? `https://${authDomain}`,
       NEXT_PUBLIC_APP_URL:
@@ -64,31 +67,32 @@ export default $config({
       },
     });
 
-    const authDynamoTable = isPermanentStage
-      ? new sst.aws.Dynamo("OpenAuthStorage", {
+    const { authDynamoTable, authIssuer } = (() => {
+      if (isPermanentStage) {
+        const authDynamoTable = new sst.aws.Dynamo("OpenAuthStorage", {
           fields: { pk: "string", sk: "string" },
           primaryIndex: { hashKey: "pk", rangeKey: "sk" },
           ttl: "expiry",
-        })
-      : sst.aws.Dynamo.get(
-          "OpenAuthStorage",
-          "galleo-dev-OpenAuthStorageTable-fnznmsdf",
-        ); // use the dev table for non-permanent stages
+        });
 
-    const authIssuer = new sst.aws.Function("OpenAuthIssuer", {
-      handler: "packages/auth/src/index.handler",
-      link: [authDynamoTable],
-      environment: {
-        ...serverEnv,
-        OPENAUTH_STORAGE: $jsonStringify({
-          type: "dynamo",
-          options: { table: authDynamoTable.name },
-        }),
-      },
-      url: {
-        cors: false,
-      },
-    });
+        const authIssuer = new sst.aws.Function("OpenAuthIssuer", {
+          handler: "packages/auth/src/index.handler",
+          link: [authDynamoTable],
+          environment: {
+            ...serverEnv,
+            OPENAUTH_STORAGE: $jsonStringify({
+              type: "dynamo",
+              options: { table: authDynamoTable.name },
+            }),
+          },
+          url: {
+            cors: false,
+          },
+        });
+        return { authIssuer, authDynamoTable };
+      }
+      return { authIssuer: null, authDynamoTable: null };
+    })();
 
     const router = isPermanentStage
       ? new sst.aws.Router("AppRouter", {
@@ -98,14 +102,16 @@ export default $config({
             dns,
           },
         })
-      : sst.aws.Router.get("AppRouter", "E2JNCC3RK7KT1V"); // the dev app router
+      : sst.aws.Router.get("AppRouter", "EETPONXGKLUN8"); // the dev app router
 
     router.route(frontendDomain, frontend.url);
     router.route(backendDomain, backendApi.url, {
       readTimeout: "30 seconds",
       keepAliveTimeout: "30 seconds",
     });
-    router.route(authDomain, authIssuer.url);
+    if (authIssuer) {
+      router.route(authDomain, authIssuer.url);
+    }
 
     new sst.x.DevCommand("Packages", {
       dev: {
@@ -115,7 +121,7 @@ export default $config({
     });
     return {
       router: router.distributionID,
-      authTable: authDynamoTable.name,
+      authTable: authDynamoTable?.name,
     };
   },
 });

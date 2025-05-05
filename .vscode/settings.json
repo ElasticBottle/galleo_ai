@@ -19,6 +19,7 @@
     "**/routeTree.gen.ts": true
   },
   "cSpell.words": [
+    "arktype",
     "Creds",
     "dotenvx",
     "galleo",

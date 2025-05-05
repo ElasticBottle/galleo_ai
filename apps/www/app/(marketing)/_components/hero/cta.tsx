@@ -23,7 +23,7 @@ export function HeroCTA() {
           data-attr={`hero-cta-${siteConfig.hero.cta.label}`}
           target={siteConfig.hero.cta.target}
         >
-          <siteConfig.icon />
+          <siteConfig.icon className="dark:invert" />
           {siteConfig.hero.cta.label}
         </Link>
       </motion.div>
