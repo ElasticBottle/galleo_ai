@@ -31,8 +31,8 @@
     "typecheck": "turbo run typecheck --continue",
     "ui:add": "cd ./packages/ui && bun run ui-add && cd ../..",
     "sso": "aws sso login --sso-session=galleo",
-    "with-env-local": "dotenvx run -f .env.local  -f .env -- ",
-    "with-env-dev": "dotenvx run  -f .env -- ",
+    "with-env-local": "dotenvx run -f .env.local  -f .env -f .env.production -- ",
+    "with-env-dev": "dotenvx run  -f .env -f .env.production -- ",
     "with-env-prod": "dotenvx run -f .env.production -- "
   },
   "devDependencies": {

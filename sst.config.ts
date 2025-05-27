@@ -20,7 +20,7 @@ export default $config({
     const isPermanentStage = ["production", "dev"].includes($app.stage);
     const domain = (() => {
       if ($app.stage === "production") {
-        return "galleoai.com";
+        return "galleo.ai";
       }
       if ($app.stage === "dev") {
         return "dev.galleoai.com";
