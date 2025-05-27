@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>ReLiti by Galleo</title>
+  <link rel="stylesheet" href="popup.css"/>
+  <!-- Font Awesome for the refresh icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="popup-container">
+    <header>
+      <img id="logo" src="logo.png" alt="ReLiti Logo"/>
+      <h1>ReLiti by Galleo</h1>
+      <div class="header-actions">
+        <button id="refreshBtn" class="refresh-btn" title="Refresh">
+          <i class="fas fa-sync-alt"></i>
+        </button>
+      </div>
+    </header>
+    <main>
+      <div id="reportCount">Loading…</div>
+      <div class="button-row">
+        <button id="startBtn" class="primary-btn">Start download</button>
+      </div>
+      <div class="action-row">
+        <button id="stopBtn" class="danger-btn" style="display:none;">Stop download</button>
+        <button id="pauseBtn" class="secondary-btn" style="display:none;">Pause download</button>
+        <button id="restartBtn" class="danger-btn" style="display:none;">Restart download</button>
+        <button id="resumeBtn" class="primary-btn" style="display:none;">Resume download</button>
+      </div>
+      <div id="progressBarContainer" class="progress-container" style="display:none;">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+      <div id="progressText" class="progress-text"></div>
+      <div id="etaText" class="eta-text"></div>
+      <div id="summary" class="summary-container"></div>
+      <div id="failed-downloads" class="failed-downloads" style="display:none;">
+        <div class="failed-title">
+          Failed Downloads <button id="retry-all-btn" class="retry-all-btn">Retry All</button>
+        </div>
+        <div id="failed-list" class="failed-list-container"></div>
+      </div>
+    </main>
+    <footer>
+      <small>© 2025 Galleo AI Pte. Ltd.</small>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
