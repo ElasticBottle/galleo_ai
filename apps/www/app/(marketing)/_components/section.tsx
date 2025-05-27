@@ -1,9 +1,10 @@
 import { cn } from "@galleo/ui/utils/cn";
+import type { ReactNode } from "react";
 
 interface SectionProps {
   id?: string;
   title?: string | undefined;
-  subtitle?: string | undefined;
+  subtitle?: ReactNode | undefined;
   description?: string | undefined;
   children?: React.ReactNode;
   className?: string;
@@ -21,7 +22,7 @@ export function Section({
   return (
     <section
       id={id || sectionId}
-      className={cn("container relative max-w-7xl px-4", className)}
+      className={cn("container relative mx-auto max-w-7xl px-4", className)}
     >
       {(title || subtitle || description) && (
         <div className="flex w-full flex-col items-center space-y-4 pb-6 ">

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { siteConfig } from "~/lib/site-config";
+import { Section } from "../section";
 
 type Position = "left" | "right";
 
@@ -50,7 +51,7 @@ export function FeatureSection({
   );
 
   return (
-    <section className="container max-w-7xl px-0">
+    <Section>
       <div className="grid w-full overflow-hidden md:grid-cols-2 xl:rounded-lg">
         {/* On mobile, ShowcaseSection is always first */}
         <div className="md:hidden">{ShowcaseSection}</div>
@@ -64,6 +65,6 @@ export function FeatureSection({
           {position === "left" ? ContentSection : ShowcaseSection}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

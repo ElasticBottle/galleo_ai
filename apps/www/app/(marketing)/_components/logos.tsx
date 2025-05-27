@@ -11,18 +11,14 @@ export function Logos() {
           {siteConfig.socialProof.title}
         </h3>
         <div className="relative pt-6">
-          <Marquee
-            className="max-w-full [--duration:40s]"
-            repeat={4}
-            pauseOnHover
-          >
+          <Marquee className="max-w-full" repeat={4} pauseOnHover>
             {siteConfig.socialProof.icons.map(({ href, name }) => (
               <Image
                 key={name}
                 width={56}
                 height={56}
                 src={href}
-                className="h-16 w-16 opacity-40 grayscale"
+                className="h-16 w-16 opacity-40 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
                 alt={name}
               />
             ))}

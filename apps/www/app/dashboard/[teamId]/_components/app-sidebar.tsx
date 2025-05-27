@@ -36,11 +36,8 @@ export function AppSidebar({
   return (
     <Sidebar variant="floating">
       <SidebarHeader>
-        <Link
-          href={ROUTE_DASHBOARD}
-          className="flex justify-center pt-4 invert dark:invert-0"
-        >
-          <BrandLogo className="flex h-10 w-full justify-center" />
+        <Link href={ROUTE_DASHBOARD} className="flex pt-4">
+          <BrandLogo className="flex h-8 w-full justify-center" />
         </Link>
       </SidebarHeader>
       <SidebarContent>

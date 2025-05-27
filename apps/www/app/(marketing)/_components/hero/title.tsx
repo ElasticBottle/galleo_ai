@@ -18,7 +18,9 @@ export function HeroTitle() {
         {siteConfig.hero.title.map((text, index) => (
           <motion.span
             key={text}
-            className="inline-block text-balance px-1 font-semibold leading-[1.1] tracking-wide md:px-2"
+            className={`inline-block text-balance px-1 font-semibold leading-[1.1] tracking-wide md:px-2 ${
+              index % 2 === 1 ? "text-primary" : ""
+            }`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{

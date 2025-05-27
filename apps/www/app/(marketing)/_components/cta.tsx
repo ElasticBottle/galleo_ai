@@ -1,4 +1,3 @@
-import { buttonVariants } from "@galleo/ui/components/ui/button";
 import { cn } from "@galleo/ui/utils/cn";
 import Link from "next/link";
 import { siteConfig } from "~/lib/site-config";
@@ -19,8 +18,8 @@ export function Cta() {
           href={siteConfig.cta.href}
           target="_blank"
           className={cn(
-            buttonVariants({ variant: "default" }),
-            "flex w-full gap-2 sm:w-auto",
+            "cta-button-light rounded-md px-5 py-3 font-medium shadow-sm dark:bg-primary dark:text-primary-foreground dark:hover:bg-primary/90",
+            "flex w-full items-center justify-center gap-2 sm:w-auto",
           )}
         >
           {siteConfig.cta.buttonText}

@@ -23,7 +23,7 @@ export function NavigationLinks() {
               <Link
                 href={item.href}
                 data-attr={`header-button-${item.label}`}
-                className="rounded-md px-4 py-2 text-base transition-colors hover:bg-blue-50 dark:hover:bg-blue-950"
+                className="rounded-md px-4 py-2 text-base transition-colors"
                 target={item.target}
               >
                 {item.label}

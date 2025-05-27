@@ -25,7 +25,7 @@ export function constructMetadata({
     keywords: siteConfig.keywords,
     appleWebApp: {
       capable: true,
-      title: "Ink & Scribe",
+      title: "Galleo",
       statusBarStyle: "default",
     },
     openGraph: {
@@ -49,23 +49,22 @@ export function constructMetadata({
         rel: "icon",
         type: "image/png",
         sizes: "32x32",
-        url: "/galleo-favicon.svg",
+        url: "/favicon-32x32.png",
       },
       {
         rel: "icon",
         type: "image/png",
         sizes: "16x16",
-        url: "/galleo-favicon.svg",
+        url: "/favicon-16x16.png",
       },
-
       {
         rel: "shortcut icon",
-        url: "/galleo-favicon.svg",
+        url: "/favicon.ico",
       },
       {
         rel: "apple-touch-icon",
         sizes: "180x180",
-        url: "/galleo-favicon.svg",
+        url: "/apple-touch-icon.png",
       },
     ],
     manifest: "/site.webmanifest",
