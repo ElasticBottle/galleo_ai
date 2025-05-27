@@ -45,8 +45,8 @@ const authApp = issuer({
       light: "#FFFFFF",
     },
     radius: "sm",
-    favicon: "https://dev.galleoai.com/galleo-favicon.svg",
-    logo: "https://dev.galleoai.com/galleo-favicon.svg",
+    favicon: "https://galleo.ai/favicon-32x32.png",
+    logo: "https://galleo.ai/favicon-32x32.png",
     font: {
       family: "Inter",
       scale: "1",

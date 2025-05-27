@@ -64,19 +64,19 @@ export function BrandLogo(props: IconProps) {
           <filter x="0%" y="0%" width="100%" height="100%" id="d7a2621fc5">
             <feColorMatrix
               values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             />
           </filter>
           <filter x="0%" y="0%" width="100%" height="100%" id="619880ea1d">
             <feColorMatrix
               values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.2126 0.7152 0.0722 0 0"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             />
           </filter>
           <clipPath id="6065c5442d">
             <path
               d="M 4.550781 41.515625 L 115.550781 41.515625 L 115.550781 78.265625 L 4.550781 78.265625 Z M 4.550781 41.515625 "
-              clip-rule="nonzero"
+              clipRule="nonzero"
             />
           </clipPath>
           <image
@@ -117,17 +117,17 @@ export function BrandLogo(props: IconProps) {
           <clipPath id="7e2ecbce12">
             <path
               d="M 102.132812 45.496094 L 104.335938 45.496094 L 104.335938 48.496094 L 102.132812 48.496094 Z M 102.132812 45.496094 "
-              clip-rule="nonzero"
+              clipRule="nonzero"
             />
           </clipPath>
           <clipPath id="3a5fa43c87">
             <path
               d="M 104.707031 45.496094 L 107.621094 45.496094 L 107.621094 48.496094 L 104.707031 48.496094 Z M 104.707031 45.496094 "
-              clip-rule="nonzero"
+              clipRule="nonzero"
             />
           </clipPath>
         </defs>
-        <g clip-path="url(#6065c5442d)">
+        <g clipPath="url(#6065c5442d)">
           <g mask="url(#e1602d061d)">
             <g transform="matrix(0.195122, 0, 0, 0.195122, 0.185759, 2.321978)">
               <image
@@ -141,20 +141,20 @@ export function BrandLogo(props: IconProps) {
             </g>
           </g>
         </g>
-        <g clip-path="url(#7e2ecbce12)">
+        <g clipPath="url(#7e2ecbce12)">
           <path
             fill="#040708"
             d="M 102.941406 45.972656 L 102.132812 45.972656 L 102.132812 45.496094 L 104.324219 45.496094 L 104.324219 45.972656 L 103.515625 45.972656 L 103.515625 48.496094 L 102.941406 48.496094 L 102.941406 45.972656 "
-            fill-opacity="1"
-            fill-rule="nonzero"
+            fillOpacity="1"
+            fillRule="nonzero"
           />
         </g>
-        <g clip-path="url(#3a5fa43c87)">
+        <g clipPath="url(#3a5fa43c87)">
           <path
             fill="#040708"
             d="M 107.070312 46.066406 L 106.394531 48.496094 L 105.894531 48.496094 L 105.234375 46.121094 L 105.234375 48.496094 L 104.707031 48.496094 L 104.707031 45.496094 L 105.5625 45.496094 C 105.5625 45.496094 106.152344 47.734375 106.144531 47.734375 L 106.152344 47.734375 L 106.796875 45.496094 L 107.621094 45.496094 L 107.621094 48.496094 L 107.070312 48.496094 L 107.070312 46.066406 "
-            fill-opacity="1"
-            fill-rule="nonzero"
+            fillOpacity="1"
+            fillRule="nonzero"
           />
         </g>
       </svg>
@@ -175,19 +175,19 @@ export function BrandLogo(props: IconProps) {
           <filter x="0%" y="0%" width="100%" height="100%" id="501eb55997">
             <feColorMatrix
               values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             />
           </filter>
           <filter x="0%" y="0%" width="100%" height="100%" id="fbf3dda2a8">
             <feColorMatrix
               values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.2126 0.7152 0.0722 0 0"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             />
           </filter>
           <clipPath id="590d7a12f6">
             <path
               d="M 59.101562 150.433594 L 158.101562 150.433594 L 158.101562 224.683594 L 59.101562 224.683594 Z M 59.101562 150.433594 "
-              clip-rule="nonzero"
+              clipRule="nonzero"
             />
           </clipPath>
           <image
@@ -228,7 +228,7 @@ export function BrandLogo(props: IconProps) {
           <clipPath id="abaae9d9e6">
             <path
               d="M 215.859375 154.597656 L 314.109375 154.597656 L 314.109375 212.347656 L 215.859375 212.347656 Z M 215.859375 154.597656 "
-              clip-rule="nonzero"
+              clipRule="nonzero"
             />
           </clipPath>
           <image
@@ -269,7 +269,7 @@ export function BrandLogo(props: IconProps) {
           <clipPath id="78fb9ba6cd">
             <path
               d="M 156.308594 123.5 L 214.058594 123.5 L 214.058594 243.5 L 156.308594 243.5 Z M 156.308594 123.5 "
-              clip-rule="nonzero"
+              clipRule="nonzero"
             />
           </clipPath>
           <image
@@ -310,17 +310,17 @@ export function BrandLogo(props: IconProps) {
           <clipPath id="e884c0f93a">
             <path
               d="M 319.21875 131.242188 L 326.375 131.242188 L 326.375 140.992188 L 319.21875 140.992188 Z M 319.21875 131.242188 "
-              clip-rule="nonzero"
+              clipRule="nonzero"
             />
           </clipPath>
           <clipPath id="fe84850db8">
             <path
               d="M 327.574219 131.242188 L 337.050781 131.242188 L 337.050781 140.992188 L 327.574219 140.992188 Z M 327.574219 131.242188 "
-              clip-rule="nonzero"
+              clipRule="nonzero"
             />
           </clipPath>
         </defs>
-        <g clip-path="url(#590d7a12f6)">
+        <g clipPath="url(#590d7a12f6)">
           <g mask="url(#0d86549892)">
             <g transform="matrix(0.366211, 0, 0, 0.366211, -2.431673, 0.664366)">
               <image
@@ -334,7 +334,7 @@ export function BrandLogo(props: IconProps) {
             </g>
           </g>
         </g>
-        <g clip-path="url(#abaae9d9e6)">
+        <g clipPath="url(#abaae9d9e6)">
           <g mask="url(#b3487b8072)">
             <g transform="matrix(0.366211, 0, 0, 0.366211, -0.856651, 0.57715)">
               <image
@@ -348,7 +348,7 @@ export function BrandLogo(props: IconProps) {
             </g>
           </g>
         </g>
-        <g clip-path="url(#78fb9ba6cd)">
+        <g clipPath="url(#78fb9ba6cd)">
           <g mask="url(#a38c97164f)">
             <g transform="matrix(0.351562, 0, 0, 0.351562, 5.005932, 5.85545)">
               <image
@@ -362,20 +362,20 @@ export function BrandLogo(props: IconProps) {
             </g>
           </g>
         </g>
-        <g clip-path="url(#e884c0f93a)">
+        <g clipPath="url(#e884c0f93a)">
           <path
             fill="#fcf9f5"
             d="M 321.839844 132.792969 L 319.21875 132.792969 L 319.21875 131.242188 L 326.335938 131.242188 L 326.335938 132.792969 L 323.710938 132.792969 L 323.710938 140.992188 L 321.839844 140.992188 L 321.839844 132.792969 "
-            fill-opacity="1"
-            fill-rule="nonzero"
+            fillOpacity="1"
+            fillRule="nonzero"
           />
         </g>
-        <g clip-path="url(#fe84850db8)">
+        <g clipPath="url(#fe84850db8)">
           <path
             fill="#fcf9f5"
             d="M 335.257812 133.09375 L 333.070312 140.992188 L 331.445312 140.992188 L 329.292969 133.273438 L 329.292969 140.992188 L 327.582031 140.992188 L 327.582031 131.242188 L 330.363281 131.242188 C 330.363281 131.242188 332.273438 138.515625 332.257812 138.515625 L 332.273438 138.515625 L 334.367188 131.242188 L 337.050781 131.242188 L 337.050781 140.992188 L 335.257812 140.992188 L 335.257812 133.09375 "
-            fill-opacity="1"
-            fill-rule="nonzero"
+            fillOpacity="1"
+            fillRule="nonzero"
           />
         </g>
       </svg>
