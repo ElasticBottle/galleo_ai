@@ -33,6 +33,10 @@ const ServerEnv = type({
   DISCORD_CLIENT_SECRET: "string>1",
   GITHUB_CLIENT_ID: "string>1",
   GITHUB_CLIENT_SECRET: "string>1",
+  AZURE_CLIENT_ID: "string>1",
+  AZURE_CLIENT_SECRET: "string>1",
+  // GOOGLE_CLIENT_ID: "string>1",
+  // GOOGLE_CLIENT_SECRET: "string>1",
 });
 export const parseServerEnv = (env: unknown) => {
   const result = ServerEnv(env);

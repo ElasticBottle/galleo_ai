@@ -1,8 +1,10 @@
+import { safe, safeFetch } from "@rectangular-labs/result";
 import { Hono } from "hono";
 import { authClient, verifySafe } from "../../../lib/auth/client";
 import { getUserAndTeams } from "../../../lib/auth/db/get-user-and-default-team";
 import { authMiddleware } from "../../../lib/auth/middleware";
 import { deleteSession, setSession } from "../../../lib/auth/session";
+import { arrayBufferToBase64 } from "../../../lib/auth/util";
 import { env } from "../../../lib/env";
 import type { HonoEnv } from "../../../lib/hono";
 
@@ -45,7 +47,29 @@ export const authRouter = new Hono<HonoEnv>()
       return c.json({ error: "Unauthorized" }, 401);
     }
 
-    const userAndTeam = await getUserAndTeams(verified.value.properties);
+    const userProperties = verified.value.properties;
+    if (userProperties?.id?.startsWith("microsoft_")) {
+      const [url, accessToken] = userProperties.image?.split("#") ?? [];
+      if (!url || !accessToken) {
+        return c.json({ error: "Unauthorized" }, 401);
+      }
+      const photoResponseResult = await safeFetch(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (photoResponseResult.ok) {
+        const photoResponse = photoResponseResult.value;
+        const contentType = photoResponse.headers.get("Content-Type");
+        const imageBufferResult = await safe(() => photoResponse.arrayBuffer());
+        if (imageBufferResult.ok && contentType) {
+          const base64Image = arrayBufferToBase64(imageBufferResult.value);
+          userProperties.image = `data:${contentType};base64,${base64Image}`;
+        }
+      }
+    }
+
+    const userAndTeam = await getUserAndTeams(userProperties);
     if (!userAndTeam.ok) {
       return c.json({ error: "Unauthorized" }, 401);
     }

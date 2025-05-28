@@ -1,6 +1,7 @@
 import { issuer } from "@openauthjs/openauth";
 import { DiscordProvider } from "@openauthjs/openauth/provider/discord";
 import { GithubProvider } from "@openauthjs/openauth/provider/github";
+import { MicrosoftProvider } from "@openauthjs/openauth/provider/microsoft";
 import { Select } from "@openauthjs/openauth/ui/select";
 import { handle } from "hono/aws-lambda";
 import { env } from "./env";
@@ -13,12 +14,21 @@ const authApp = issuer({
     providers: {
       code: {
         display: "Code",
+        hide: true,
       },
       discord: {
         display: "Discord",
+        hide: true,
       },
       github: {
         display: "GitHub",
+        hide: true,
+      },
+      microsoft: {
+        display: "Microsoft",
+      },
+      google: {
+        display: "Google",
       },
     },
   }),
@@ -34,6 +44,21 @@ const authApp = issuer({
       clientID: env().DISCORD_CLIENT_ID,
       clientSecret: env().DISCORD_CLIENT_SECRET,
       scopes: ["identify", "email"],
+      pkce: true,
+      type: "code",
+    }),
+    // google: GoogleProvider({
+    //   clientID: env().GOOGLE_CLIENT_ID,
+    //   clientSecret: env().GOOGLE_CLIENT_SECRET,
+    //   scopes: ["email", "profile"],
+    //   pkce: true,
+    //   type: "code",
+    // }),
+    microsoft: MicrosoftProvider({
+      tenant: "organizations",
+      clientID: env().AZURE_CLIENT_ID,
+      clientSecret: env().AZURE_CLIENT_SECRET,
+      scopes: ["email", "profile", "offline_access", "openid", "User.Read"],
       pkce: true,
       type: "code",
     }),

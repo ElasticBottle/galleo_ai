@@ -22,7 +22,7 @@
     "push:local": "pnpm with-env-local drizzle-kit push",
     "push:dev": "pnpm with-env-dev drizzle-kit push",
     "push:prod": "pnpm with-env-prod drizzle-kit push",
-    "studio": "pnpm with-env drizzle-kit studio",
+    "studio": "pnpm with-env-local drizzle-kit studio",
     "build": "tsc",
     "dev": "tsc --watch",
     "clean": "git clean -xdf .turbo node_modules dist .cache",
