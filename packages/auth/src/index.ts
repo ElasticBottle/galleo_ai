@@ -55,7 +55,7 @@ const authApp = issuer({
     //   type: "code",
     // }),
     microsoft: MicrosoftProvider({
-      tenant: "organizations",
+      tenant: "common",
       clientID: env().AZURE_CLIENT_ID,
       clientSecret: env().AZURE_CLIENT_SECRET,
       scopes: ["email", "profile", "offline_access", "openid", "User.Read"],
@@ -71,7 +71,10 @@ const authApp = issuer({
     },
     radius: "sm",
     favicon: "https://galleo.ai/favicon-32x32.png",
-    logo: "https://galleo.ai/favicon-32x32.png",
+    logo: {
+      dark: "https://galleo.ai/galleo-big-logo-dark.svg",
+      light: "https://galleo.ai/galleo-big-logo-light.svg",
+    },
     font: {
       family: "Inter",
       scale: "1",

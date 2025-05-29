@@ -37,7 +37,7 @@ export function AppSidebar({
     <Sidebar variant="floating">
       <SidebarHeader>
         <Link href={ROUTE_DASHBOARD} className="flex pt-4">
-          <BrandLogo className="flex h-8 w-full justify-center" />
+          <BrandLogo className="h-16 w-full" />
         </Link>
       </SidebarHeader>
       <SidebarContent>
@@ -63,11 +63,14 @@ export function AppSidebar({
                 <SidebarMenuButton
                   asChild
                   isActive={path === ROUTE_FEE_QUOTE(teamId)}
+                  disabled
                 >
-                  <Link href={ROUTE_FEE_QUOTE(teamId)} prefetch>
+                  {/* <Link href={ROUTE_FEE_QUOTE(teamId)} prefetch> */}
+                  <div className="flex text-muted-foreground">
                     <FileText />
-                    Fee Quote
-                  </Link>
+                    More coming soon!
+                  </div>
+                  {/* </Link> */}
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
