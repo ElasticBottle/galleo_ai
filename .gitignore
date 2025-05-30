@@ -7,6 +7,7 @@ node_modules
 .wrangler
 dist-ssr
 *.local
+!*.local.example
 .venv
 __pycache__
 
