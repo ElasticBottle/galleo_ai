@@ -1,5 +1,7 @@
 import {
   ArrowUpIcon,
+  BanIcon,
+  CheckIcon,
   ChevronRightIcon,
   ChevronsUpDownIcon,
   DotIcon,
@@ -19,16 +21,21 @@ import {
   PaperclipIcon,
   PlayIcon,
   SunIcon,
+  TerminalIcon,
   XIcon,
 } from "lucide-react";
 import { BrandLogo, BrandLogoSmall } from "./ui/brand-logo";
 
 export type IconProps = React.HTMLAttributes<SVGElement>;
 
+export const PaperClip = PaperclipIcon;
+export const Check = CheckIcon;
 export const Moon = MoonIcon;
 export const Sun = SunIcon;
 export const EyeOn = EyeIcon;
 export const EyeOff = EyeOffIcon;
+export const Ban = BanIcon;
+export const Terminal = TerminalIcon;
 export const Spinner = Loader2;
 export const Paperclip = PaperclipIcon;
 export const Dot = DotIcon;

@@ -66,6 +66,7 @@
   },
   "overrides": [],
   "files": {
+    "maxSize": 1280000,
     "ignore": [
       "node_modules",
       ".sst",

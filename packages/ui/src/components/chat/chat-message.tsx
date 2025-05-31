@@ -1,321 +1,333 @@
+"use client";
+
+import { Buffer } from "node:buffer";
+import type { Message as AIMessage } from "@ai-sdk/react";
 import { type VariantProps, cva } from "class-variance-authority";
-import { SparklesIcon, UserIcon } from "lucide-react";
-import { CheckCircle, Loader2 } from "lucide-react";
-import React, { type ReactNode } from "react";
+import { motion } from "motion/react";
+import type React from "react";
+import { useMemo, useState } from "react";
 import { cn } from "../../utils/cn";
-import { File } from "../icon";
-import { MarkdownContent } from "./markdown-content";
+import { Ban, Check, ChevronRight, Dot, Terminal } from "../icon";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "../ui/collapsible";
+import { FilePreview } from "./file-preview";
+import MarkdownRenderer from "./markdown-renderer";
 
-const chatMessageVariants = cva("flex w-full gap-4", {
-  variants: {
-    variant: {
-      default: "",
-      bubble: "",
-      full: "p-5",
-    },
-    type: {
-      incoming: "mr-auto justify-start",
-      outgoing: "ml-auto justify-end",
-    },
-  },
-  compoundVariants: [
-    {
-      variant: "full",
-      type: "outgoing",
-      className: "bg-muted",
-    },
-    {
-      variant: "full",
-      type: "incoming",
-      className: "bg-background",
-    },
-  ],
-  defaultVariants: {
-    variant: "default",
-    type: "incoming",
-  },
-});
-
-interface MessageContextValue extends VariantProps<typeof chatMessageVariants> {
-  id: string;
-}
-
-const ChatMessageContext = React.createContext<MessageContextValue | null>(
-  null,
-);
-
-const useChatMessage = () => {
-  const context = React.useContext(ChatMessageContext);
-  return context;
-};
-
-// Helper function to format tool name
-function formatToolName(toolName: string): string {
-  // Handle snake_case first
-  let words = toolName.split("_");
-
-  // If not snake_case, try camelCase
-  if (words.length === 1 && toolName.match(/[a-z][A-Z]/)) {
-    words = toolName
-      .replace(/([A-Z])/g, " $1")
-      .trim()
-      .split(" ");
-  }
-  // If single word or already split correctly
-  else if (words.length === 1) {
-    // Handle simple camelCase like 'toolName' -> 'Tool Name' if no space inserted yet
-    const splitByCaps = toolName.replace(/([A-Z])/g, " $1").trim();
-    if (splitByCaps.includes(" ")) {
-      words = splitByCaps.split(" ");
-    }
-    // Keep as is if truly a single word or already formatted
-  }
-
-  // Capitalize first letter of each word and handle potential empty strings from split
-  return words
-    .filter((word) => word.length > 0)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(" ");
-}
-
-// Root component
-interface ChatMessageProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof chatMessageVariants> {
-  children?: React.ReactNode;
-  id: string;
-}
-
-const ChatMessage = React.forwardRef<HTMLDivElement, ChatMessageProps>(
-  (
-    {
-      className,
-      variant = "default",
-      type = "incoming",
-      id,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    return (
-      <ChatMessageContext.Provider value={{ variant, type, id }}>
-        <div
-          ref={ref}
-          className={cn(chatMessageVariants({ variant, type, className }))}
-          {...props}
-        >
-          {children}
-        </div>
-      </ChatMessageContext.Provider>
-    );
-  },
-);
-ChatMessage.displayName = "ChatMessage";
-
-// Avatar component
-
-const chatMessageAvatarVariants = cva(
-  "flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-transparent ring-1",
+const chatBubbleVariants = cva(
+  "group/message relative break-words rounded-lg p-3 text-sm sm:max-w-[70%]",
   {
     variants: {
-      type: {
-        incoming: "ring-border",
-        outgoing: "ring-muted-foreground/30",
+      isUser: {
+        true: "bg-primary text-primary-foreground",
+        false: "bg-muted text-foreground",
+      },
+      animation: {
+        none: "",
+        slide: "fade-in-0 animate-in duration-300",
+        scale: "fade-in-0 zoom-in-75 animate-in duration-300",
+        fade: "fade-in-0 animate-in duration-500",
       },
     },
-    defaultVariants: {
-      type: "incoming",
-    },
+    compoundVariants: [
+      {
+        isUser: true,
+        animation: "slide",
+        class: "slide-in-from-right",
+      },
+      {
+        isUser: false,
+        animation: "slide",
+        class: "slide-in-from-left",
+      },
+      {
+        isUser: true,
+        animation: "scale",
+        class: "origin-bottom-right",
+      },
+      {
+        isUser: false,
+        animation: "scale",
+        class: "origin-bottom-left",
+      },
+    ],
   },
 );
+type Animation = VariantProps<typeof chatBubbleVariants>["animation"];
 
-interface ChatMessageAvatarProps extends React.HTMLAttributes<HTMLDivElement> {
-  imageSrc?: string;
-  icon?: ReactNode;
+function dataUrlToUint8Array(data: string) {
+  const parts = data.split(",");
+  if (parts.length < 2 || !parts[1]) {
+    console.warn("Invalid data URL format provided to dataUrlToUint8Array");
+    return new Uint8Array();
+  }
+  const base64 = parts[1];
+  const buf = Buffer.from(base64, "base64");
+  return new Uint8Array(buf);
 }
 
-const ChatMessageAvatar = React.forwardRef<
-  HTMLDivElement,
-  ChatMessageAvatarProps
->(({ className, icon: iconProps, imageSrc, ...props }, ref) => {
-  const context = useChatMessage();
-  const type = context?.type ?? "incoming";
-  const icon =
-    iconProps ?? (type === "incoming" ? <SparklesIcon /> : <UserIcon />);
-  return (
-    <div
-      ref={ref}
-      className={cn(chatMessageAvatarVariants({ type, className }))}
-      {...props}
-    >
-      {imageSrc ? (
-        <img
-          src={imageSrc}
-          alt="Avatar"
-          className="h-full w-full object-cover"
-        />
-      ) : (
-        <div className="translate-y-px [&_svg]:size-4 [&_svg]:shrink-0">
-          {icon}
+export type Message = AIMessage;
+export interface ChatMessageProps extends Message {
+  showTimeStamp?: boolean;
+  animation?: Animation;
+  actions?: React.ReactNode;
+}
+
+export const ChatMessage = ({
+  role,
+  content,
+  animation = "scale",
+  actions,
+  experimental_attachments,
+  createdAt,
+  showTimeStamp = false,
+  parts,
+}: ChatMessageProps) => {
+  const files = useMemo(() => {
+    return experimental_attachments?.map((attachment) => {
+      const dataArray = dataUrlToUint8Array(attachment.url);
+      const file = new File([dataArray], attachment.name ?? "Unknown");
+      return file;
+    });
+  }, [experimental_attachments]);
+
+  const isUser = role === "user";
+
+  const formattedTime = createdAt?.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  if (isUser) {
+    return (
+      <div
+        className={cn("flex flex-col", isUser ? "items-end" : "items-start")}
+      >
+        {files ? (
+          <div className="mb-1 flex flex-wrap gap-2">
+            {files.map((file, index) => {
+              return <FilePreview file={file} key={`${file.name}-${index}`} />;
+            })}
+          </div>
+        ) : null}
+
+        <div className={cn(chatBubbleVariants({ isUser, animation }))}>
+          <MarkdownRenderer>{content}</MarkdownRenderer>
         </div>
-      )}
-    </div>
-  );
-});
-ChatMessageAvatar.displayName = "ChatMessageAvatar";
 
-// Define the content part types here as well for component props
-type TextPart = { type: "text"; text: string };
-type ImagePart = { type: "image"; data: string; mimeType: string }; // Base64 data
-type FilePart = {
-  type: "file";
-  data: string; // Base64 data
-  mimeType: string;
-  name?: string; // Add optional name for display
-};
-type ToolInvocationPart = {
-  type: "tool-invocation";
-  state: "partial-call" | "call" | "result";
-  toolName: string;
-};
-type MessageContentPart = TextPart | ImagePart | FilePart | ToolInvocationPart;
+        {showTimeStamp && createdAt ? (
+          <time
+            dateTime={createdAt.toISOString()}
+            className={cn(
+              "block px-1 pt-1 text-xs opacity-50",
+              animation !== "none" && "fade-in-0 animate-in duration-500",
+            )}
+          >
+            {formattedTime}
+          </time>
+        ) : null}
+      </div>
+    );
+  }
 
-// Content component
+  if (parts && parts.length > 0) {
+    return parts.map((part, index) => {
+      if (part.type === "text") {
+        return (
+          <div
+            className={cn(
+              "flex flex-col",
+              isUser ? "items-end" : "items-start",
+            )}
+            key={`text-${part.text}-${index}`}
+          >
+            <div
+              className={cn(chatBubbleVariants({ isUser, animation: "none" }))}
+            >
+              <MarkdownRenderer>{part.text}</MarkdownRenderer>
+              {actions ? (
+                <div className="-bottom-4 absolute right-2 flex space-x-1 rounded-lg border bg-background p-1 text-foreground opacity-0 transition-opacity group-hover/message:opacity-100">
+                  {actions}
+                </div>
+              ) : null}
+            </div>
 
-const chatMessageContentVariants = cva("flex flex-col gap-2", {
-  variants: {
-    variant: {
-      default: "",
-      bubble: "rounded-xl px-3 py-2",
-      full: "",
-    },
-    type: {
-      incoming: "",
-      outgoing: "",
-    },
-  },
-  compoundVariants: [
-    {
-      variant: "bubble",
-      type: "incoming",
-      className: "bg-secondary text-secondary-foreground",
-    },
-    {
-      variant: "bubble",
-      type: "outgoing",
-      className: "bg-primary text-primary-foreground",
-    },
-  ],
-  defaultVariants: {
-    variant: "default",
-    type: "incoming",
-  },
-});
-
-interface ChatMessageContentProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "content"> {
-  id?: string;
-  messageContent: string | MessageContentPart[];
-}
-
-const ChatMessageContent = React.forwardRef<
-  HTMLDivElement,
-  ChatMessageContentProps
->(({ className, messageContent, id: idProp, children, ...props }, ref) => {
-  const context = useChatMessage();
-
-  const variant = context?.variant ?? "default";
-  const type = context?.type ?? "incoming";
-  const id = idProp ?? context?.id ?? "";
-
-  const renderContent = () => {
-    if (typeof messageContent === "string") {
-      return messageContent.length > 0 ? (
-        <MarkdownContent id={id} content={messageContent} />
-      ) : null;
-    }
-
-    if (Array.isArray(messageContent)) {
-      return messageContent.map((part, index) => {
-        const partId = `${id}-part-${index}`;
-        switch (part.type) {
-          case "text":
-            return (
-              <MarkdownContent key={partId} id={partId} content={part.text} />
-            );
-          case "image":
-            return (
-              <img
-                key={partId}
-                src={`data:${part.mimeType};base64,${part.data}`}
-                alt="User uploaded content"
-                className="mt-2 max-w-xs rounded-md border md:max-w-md"
-              />
-            );
-          case "file":
-            return (
-              <div
-                key={partId}
-                className="mt-2 flex items-center gap-2 rounded-md border bg-muted p-2 text-sm"
-              >
-                <File className="h-5 w-5 shrink-0 text-muted-foreground" />
-                <span className="truncate text-muted-foreground">
-                  {part.name || "Attached File"}
-                </span>
-              </div>
-            );
-          case "tool-invocation": {
-            const formattedToolName = formatToolName(part.toolName);
-            const isLoading =
-              part.state === "partial-call" || part.state === "call";
-            const isCompleted = part.state === "result";
-
-            return (
-              <div
-                key={partId}
+            {showTimeStamp && createdAt ? (
+              <time
+                dateTime={createdAt.toISOString()}
                 className={cn(
-                  "flex items-center gap-2 rounded-md border bg-muted p-2.5 text-sm",
-                  isLoading && "animate-pulse",
+                  "block px-1 pt-1 text-xs opacity-50",
+                  animation !== "none" && "fade-in-0 animate-in duration-500",
                 )}
               >
-                {isLoading && (
-                  <Loader2 className="h-4 w-4 shrink-0 animate-spin text-muted-foreground" />
-                )}
-                {isCompleted && (
-                  <CheckCircle className="h-4 w-4 shrink-0 text-green-600" />
-                )}
-                <span
-                  className={cn(
-                    "font-medium",
-                    isCompleted ? "text-foreground" : "text-muted-foreground",
-                  )}
-                >
-                  {formattedToolName}
-                </span>
-              </div>
-            );
-          }
-          default:
-            return null;
-        }
-      });
-    }
+                {formattedTime}
+              </time>
+            ) : null}
+          </div>
+        );
+      }
+      if (part.type === "reasoning") {
+        return (
+          <ReasoningBlock
+            key={`reasoning-${part.reasoning}-${index}`}
+            part={part}
+          />
+        );
+      }
 
-    return null;
-  };
+      if (part.type === "tool-invocation") {
+        return (
+          <div className="max-w-[70%]">
+            <ToolCall
+              key={`tool-${part.toolInvocation.toolName}-${index}`}
+              part={part}
+            />
+          </div>
+        );
+      }
+      return null;
+    });
+  }
 
   return (
-    <div
-      ref={ref}
-      className={cn(chatMessageContentVariants({ variant, type, className }))}
-      {...props}
-    >
-      {renderContent()}
-      {children}
+    <div className={cn("flex flex-col", isUser ? "items-end" : "items-start")}>
+      <div className={cn(chatBubbleVariants({ isUser, animation }))}>
+        <MarkdownRenderer>{content}</MarkdownRenderer>
+        {actions ? (
+          <div className="-bottom-4 absolute right-2 flex space-x-1 rounded-lg border bg-background p-1 text-foreground opacity-0 transition-opacity group-hover/message:opacity-100">
+            {actions}
+          </div>
+        ) : null}
+      </div>
+
+      {showTimeStamp && createdAt ? (
+        <time
+          dateTime={createdAt.toISOString()}
+          className={cn(
+            "mt-1 block px-1 text-xs opacity-50",
+            animation !== "none" && "fade-in-0 animate-in duration-500",
+          )}
+        >
+          {formattedTime}
+        </time>
+      ) : null}
     </div>
   );
-});
-ChatMessageContent.displayName = "ChatMessageContent";
+};
 
-export { ChatMessage, ChatMessageAvatar, ChatMessageContent };
+const ReasoningBlock = ({
+  part,
+}: {
+  part: Extract<
+    NonNullable<Pick<ChatMessageProps, "parts">["parts"]>[number],
+    { type: "reasoning" }
+  >;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="mb-2 flex flex-col items-start sm:max-w-[70%]">
+      <Collapsible
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        className="group w-full overflow-hidden rounded-lg border bg-muted/50"
+      >
+        <div className="flex items-center p-2">
+          <CollapsibleTrigger asChild>
+            <button
+              type="button"
+              className="flex items-center gap-2 text-muted-foreground text-sm hover:text-foreground"
+            >
+              <ChevronRight className="h-4 w-4 transition-transform group-data-[state=open]:rotate-90" />
+              <span>Thinking</span>
+            </button>
+          </CollapsibleTrigger>
+        </div>
+        <CollapsibleContent forceMount>
+          <motion.div
+            initial={false}
+            animate={isOpen ? "open" : "closed"}
+            variants={{
+              open: { height: "auto", opacity: 1 },
+              closed: { height: 0, opacity: 0 },
+            }}
+            transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+            className="border-t"
+          >
+            <div className="p-2">
+              <div className="whitespace-pre-wrap text-xs">
+                {part.reasoning}
+              </div>
+            </div>
+          </motion.div>
+        </CollapsibleContent>
+      </Collapsible>
+    </div>
+  );
+};
+
+const mapToolNameToLabel: Record<string, string> = {
+  backgroundResearch: "Background Research",
+  niceClassification: "Nice Classification checks",
+  relevantGoodsServices: "Relevant Goods Services analysis",
+  markFilingRecommendation: "Mark Filing Recommendation",
+};
+
+function ToolCall({
+  part: { toolInvocation },
+}: {
+  part: Extract<
+    NonNullable<Pick<ChatMessageProps, "parts">["parts"]>[number],
+    { type: "tool-invocation" }
+  >;
+}) {
+  const isCancelled =
+    toolInvocation.state === "result" &&
+    toolInvocation.result?.__cancelled === true;
+
+  if (isCancelled) {
+    return (
+      <div className="flex items-center gap-2 rounded-lg border bg-muted/50 px-3 py-2 text-muted-foreground text-sm">
+        <Ban className="h-4 w-4" />
+        <span>Cancelled {toolInvocation.toolName}</span>
+      </div>
+    );
+  }
+
+  switch (toolInvocation.state) {
+    case "partial-call":
+    case "call":
+      return (
+        <div className="flex items-center gap-2 rounded-lg border bg-muted/50 px-3 py-2 text-muted-foreground text-sm">
+          <Terminal className="h-4 w-4" />
+          Performing{" "}
+          {mapToolNameToLabel[toolInvocation.toolName] ??
+            toolInvocation.toolName}{" "}
+          <div className="-gap-2.5 flex h-full items-end">
+            <Dot className="size-3 animate-typing-dot-bounce" />
+            <Dot className="size-3 animate-typing-dot-bounce [animation-delay:90ms]" />
+            <Dot className="size-3 animate-typing-dot-bounce [animation-delay:180ms]" />
+          </div>
+        </div>
+      );
+    case "result":
+      return (
+        <div className="flex flex-col gap-1.5 rounded-lg border bg-muted/50 px-3 py-2 text-sm">
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Check className="h-4 w-4" />
+            Finished{" "}
+            {mapToolNameToLabel[toolInvocation.toolName] ??
+              toolInvocation.toolName}
+          </div>
+          {/* don't show results yet */}
+          {/* <pre className="overflow-x-auto whitespace-pre-wrap text-foreground">
+            {JSON.stringify(toolInvocation.result, null, 2)}
+          </pre> */}
+        </div>
+      );
+    default:
+      return null;
+  }
+}
