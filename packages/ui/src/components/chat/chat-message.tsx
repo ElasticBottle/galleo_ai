@@ -179,7 +179,7 @@ export const ChatMessage = ({
 
       if (part.type === "tool-invocation") {
         return (
-          <div className="max-w-[70%]">
+          <div className="sm:max-w-[70%]">
             <ToolCall
               key={`tool-${part.toolInvocation.toolName}-${index}`}
               part={part}
@@ -271,7 +271,7 @@ const ReasoningBlock = ({
 const mapToolNameToLabel: Record<string, string> = {
   backgroundResearch: "Background Research",
   niceClassification: "Nice Classification checks",
-  relevantGoodsServices: "Relevant Goods Services analysis",
+  relevantGoodsServices: "Relevant Goods and Services analysis",
   markFilingRecommendation: "Mark Filing Recommendation",
 };
 

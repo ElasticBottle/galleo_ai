@@ -24,6 +24,7 @@ export function ChatInterface() {
 
   return (
     <Chat
+      className="flex-1"
       handleSubmit={handleSubmit}
       messages={messages}
       setMessages={setMessages}
@@ -32,9 +33,13 @@ export function ChatInterface() {
       stop={stop}
       isGenerating={status === "streaming"}
       suggestion={{
-        label: "Try these prompts ✨",
+        label: "Suggestions to get you started",
         append: append,
-        suggestions: ["What is the capital of France?", "Tell me a joke"],
+        suggestions: [
+          "Find me the relevant pre-approved list of goods and services for a soya bean food business under the class 29",
+          "Help me draft a pre-filling advice email for a client who is applying for a trademark for FairPrice, the supermarket chain",
+          "Do a deep dive into the company OKX and tell me about its goods and services",
+        ],
       }}
     />
   );

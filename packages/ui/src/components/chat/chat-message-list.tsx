@@ -62,12 +62,12 @@ export function ChatMessageListContainer({
 
   return (
     <div
-      className="grid grid-cols-1 overflow-y-auto pb-4"
+      className="grid grid-cols-1 overflow-y-auto px-2 py-2 pb-4 sm:px-4"
       ref={containerRef}
       onScroll={handleScroll}
       onTouchStart={handleTouchStart}
     >
-      <div className="max-w-full [grid-column:1/1] [grid-row:1/1]">
+      <div className="mx-auto w-full max-w-4xl [grid-column:1/1] [grid-row:1/1]">
         {children}
       </div>
 

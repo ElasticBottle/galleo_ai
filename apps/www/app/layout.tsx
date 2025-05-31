@@ -5,6 +5,7 @@ import { getQueryClient } from "~/lib/client/react-query";
 import { constructMetadata } from "~/lib/metadata";
 import { Providers } from "./providers";
 import "./style.css";
+import { getSession } from "~/lib/server/auth";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -37,12 +38,13 @@ export const viewport: Viewport = {
   width: "device-width",
 };
 
-export default function RootLayout({
+export default await async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const queryClient = getQueryClient();
+  const session = await getSession();
 
   return (
     <html
@@ -50,7 +52,7 @@ export default function RootLayout({
       className={`${manrope.variable} ${playfair.variable} ${geist.variable} ${geistMono.variable} min-h-screen w-full scroll-smooth antialiased`}
     >
       <body>
-        <Providers>
+        <Providers session={session}>
           <HydrationBoundary state={dehydrate(queryClient)}>
             {children}
           </HydrationBoundary>
@@ -58,4 +60,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};

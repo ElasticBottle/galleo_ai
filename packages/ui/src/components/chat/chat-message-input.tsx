@@ -168,7 +168,7 @@ export function ChatMessageInput({
 
   return (
     <div
-      className="relative flex w-full"
+      className="relative mx-auto flex w-full max-w-2xl px-2 sm:p-0"
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
       onDrop={onDrop}
