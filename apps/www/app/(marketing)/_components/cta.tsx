@@ -18,11 +18,13 @@ export function Cta() {
           href={siteConfig.cta.href}
           target="_blank"
           className={cn(
-            "cta-button-light rounded-md px-5 py-3 font-medium shadow-sm dark:bg-primary dark:text-primary-foreground dark:hover:bg-primary/90",
-            "flex w-full items-center justify-center gap-2 sm:w-auto",
+            "rounded-md px-6 py-4 font-medium text-lg shadow-sm transition-colors",
+            "flex w-full items-center justify-center gap-3 sm:w-auto",
+            // Custom styling for better contrast with orange logo
+            "bg-slate-800 hover:bg-slate-700 text-white dark:bg-slate-200 dark:hover:bg-slate-300 dark:text-slate-900"
           )}
         >
-          {siteConfig.cta.buttonText}
+          Try Galleo Today
         </Link>
       </div>
     </Section>

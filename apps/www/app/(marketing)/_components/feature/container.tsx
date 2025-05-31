@@ -22,24 +22,26 @@ export function FeatureSection({
   position = "right",
 }: FeatureSectionProps) {
   const ContentSection = (
-    <div className="flex h-full items-center bg-muted px-4 py-10 md:px-12 md:py-24 lg:px-24">
+    <div className="flex h-full items-center bg-muted border-2 border-border/70 dark:bg-muted dark:border-border/50 px-4 py-10 md:px-12 md:py-24 lg:px-24 shadow-sm">
       <div className="max-w-xl">
         <span className="font-medium text-muted-foreground text-sm">
           {label}
         </span>
-        <h2 className="mt-6 font-medium text-5xl text-foreground leading-tight">
+        <h2 className="mt-6 font-bold font-sans text-4xl text-foreground tracking-tight sm:text-5xl leading-tight">
           {title}
         </h2>
         <div className="mt-6 text-lg text-muted-foreground">{description}</div>
-        <a
-          href={siteConfig.links.talkToUs}
-          data-attr={ctaText}
-          target="_blank"
-          className="mt-8 flex items-center font-medium text-muted-foreground text-sm hover:text-foreground"
-          rel="noreferrer"
-        >
-          {ctaText} &rarr;
-        </a>
+        {ctaText && (
+          <a
+            href={siteConfig.links.talkToUs}
+            data-attr={ctaText}
+            target="_blank"
+            className="mt-8 flex items-center font-medium text-muted-foreground text-sm hover:text-foreground"
+            rel="noreferrer"
+          >
+            {ctaText}
+          </a>
+        )}
       </div>
     </div>
   );

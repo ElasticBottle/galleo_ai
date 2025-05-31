@@ -91,3 +91,51 @@ export const GitHub = (props: IconProps) => (
     />
   </svg>
 );
+
+export function ReLitiLogo(props: IconProps) {
+  return (
+    <svg
+      width="120"
+      height="32"
+      viewBox="0 0 120 32"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <title>ReLiti logo</title>
+      <defs>
+        <linearGradient id="relitiGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#0C8EF8" />
+          <stop offset="100%" stopColor="#0A7CE6" />
+        </linearGradient>
+      </defs>
+      <g>
+        <rect
+          x="2"
+          y="6"
+          width="4"
+          height="20"
+          rx="2"
+          fill="url(#relitiGradient)"
+        />
+        <rect
+          x="10"
+          y="6"
+          width="4"
+          height="20"
+          rx="2"
+          fill="url(#relitiGradient)"
+        />
+      </g>
+      <text
+        x="20"
+        y="20"
+        fontFamily="Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+        fontSize="18"
+        fontWeight="600"
+        fill="currentColor"
+      >
+        ReLiti
+      </text>
+    </svg>
+  );
+}

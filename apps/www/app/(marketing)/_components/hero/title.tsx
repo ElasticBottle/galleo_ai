@@ -6,7 +6,7 @@ export function HeroTitle() {
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col items-center space-y-4 overflow-hidden">
       <motion.h1
-        className="text-center font-medium text-4xl text-foreground sm:text-5xl md:text-6xl"
+        className="text-center font-bold font-sans text-5xl text-foreground tracking-tight sm:text-6xl md:text-7xl"
         initial={{ filter: "blur(10px)", opacity: 0, y: 50 }}
         animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
         transition={{
@@ -18,7 +18,7 @@ export function HeroTitle() {
         {siteConfig.hero.title.map((text, index) => (
           <motion.span
             key={text}
-            className={`inline-block text-balance px-1 font-semibold leading-[1.1] tracking-wide md:px-2 ${
+            className={`inline-block text-balance px-1 font-bold leading-[1.1] tracking-tight md:px-2 ${
               index % 2 === 1 ? "text-primary" : ""
             }`}
             initial={{ opacity: 0, y: 20 }}

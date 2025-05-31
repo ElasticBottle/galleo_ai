@@ -40,6 +40,7 @@ export const siteConfig: SiteConfig = {
     {
       variant: "button",
       buttonVariant: "default",
+      size: "lg",
       target: "_blank",
       href: ROUTE_DASHBOARD,
       label: "Try Galleo Today",
@@ -54,6 +55,7 @@ export const siteConfig: SiteConfig = {
       label: "Try Galleo Today",
       target: "_blank",
       buttonVariant: "default",
+      size: "lg",
     },
   },
   socialProof: {
@@ -102,6 +104,7 @@ export const siteConfig: SiteConfig = {
 export type HeaderButtonConfig = {
   variant: "button";
   buttonVariant: ButtonProps["variant"] | "navigation";
+  size?: ButtonProps["size"];
   target?: "_blank" | "_self" | "_parent" | "_top";
   href: string;
   label: string;
@@ -153,6 +156,7 @@ export type SiteConfig = {
       href: string;
       label: string;
       buttonVariant: ButtonProps["variant"];
+      size?: ButtonProps["size"];
       target?: HeaderButtonConfig["target"];
       subtitle?: string;
     };

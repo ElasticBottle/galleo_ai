@@ -104,10 +104,10 @@ export default function ClientBlogGrid({ articles }: { articles: Content[] }) {
         <nav className="mb-4 flex flex-wrap justify-center gap-2">
           <button
             type="button"
-            className={`rounded-full px-4 py-2 font-medium ${
+            className={`rounded-full px-4 py-2 font-medium border transition-colors ${
               !selectedCategory
-                ? "bg-primary text-white"
-                : "bg-muted text-muted-foreground"
+                ? "bg-primary text-white border-primary"
+                : "bg-muted text-muted-foreground border-border hover:border-primary/50"
             }`}
             onClick={() => handleCategoryChange(null)}
           >
@@ -117,10 +117,10 @@ export default function ClientBlogGrid({ articles }: { articles: Content[] }) {
             <button
               type="button"
               key={cat}
-              className={`rounded-full px-4 py-2 font-medium ${
+              className={`rounded-full px-4 py-2 font-medium border transition-colors ${
                 selectedCategory === cat
-                  ? "bg-primary text-white"
-                  : "bg-muted text-muted-foreground"
+                  ? "bg-primary text-white border-primary"
+                  : "bg-muted text-muted-foreground border-border hover:border-primary/50"
               } w-fit`}
               onClick={() => handleCategoryChange(cat)}
             >

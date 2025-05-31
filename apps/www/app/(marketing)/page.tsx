@@ -20,7 +20,7 @@ export default function LandingPage() {
 
       <Section>
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="mb-4 font-bold font-sans text-4xl text-foreground tracking-tight">
+          <h2 className="mb-4 font-bold font-sans text-4xl text-foreground tracking-tight sm:text-5xl">
             Your{" "}
             <span className="text-primary">Trademark Response Powerhouse</span>,
             Built by <span className="text-primary">IP Professionals</span>
@@ -475,7 +475,7 @@ export default function LandingPage() {
 
       <Section>
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="mb-4 font-bold text-3xl tracking-tight">
+          <h2 className="mb-4 font-bold font-sans text-4xl text-foreground tracking-tight sm:text-5xl">
             Get Started in <span className="text-primary">3 Simple Steps</span>
           </h2>
           <div className="text-muted-foreground">

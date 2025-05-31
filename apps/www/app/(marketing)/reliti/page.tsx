@@ -1,5 +1,6 @@
 "use client";
 import { buttonVariants } from "@galleo/ui/components/ui/button";
+import { cn } from "@galleo/ui/utils/cn";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +9,17 @@ export default function ReLitiPage() {
   const ease = [0.16, 1, 0.3, 1];
   return (
     <div className="flex flex-col bg-primary-bg text-foreground">
+      <style jsx>{`
+        .text-primary {
+          color: #0C8EF8 !important;
+        }
+        .bg-primary {
+          background-color: #0C8EF8 !important;
+        }
+        .border-primary {
+          border-color: #0C8EF8 !important;
+        }
+      `}</style>
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 md:py-24">
         <div className="absolute inset-0 opacity-10">
@@ -80,23 +92,24 @@ export default function ReLitiPage() {
               <Link
                 href="https://chromewebstore.google.com/detail/reliti-by-galleo/mligahkbimlnfogfnkchedcppejpmfkb?authuser=0&hl=en"
                 target="_blank"
-                className={buttonVariants()}
+                className={cn(
+                  buttonVariants(),
+                  "bg-slate-800 hover:bg-slate-700 text-white dark:bg-slate-200 dark:hover:bg-slate-300 dark:text-slate-900"
+                )}
               >
-                <span className="relative z-10 flex items-center">
-                  Get the ReLiti Chrome Extension Today
-                  <svg
-                    className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <title>Arrow Right</title>
-                    <path
-                      fillRule="evenodd"
-                      d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
+                Get the ReLiti Chrome Extension Today
+                <svg
+                  className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <title>Arrow Right</title>
+                  <path
+                    fillRule="evenodd"
+                    d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
               </Link>
             </motion.div>
           </div>
@@ -576,23 +589,24 @@ export default function ReLitiPage() {
               <Link
                 href="https://chromewebstore.google.com/detail/reliti-by-galleo/mligahkbimlnfogfnkchedcppejpmfkb?authuser=0&hl=en"
                 target="_blank"
-                className={buttonVariants()}
+                className={cn(
+                  buttonVariants(),
+                  "bg-slate-800 hover:bg-slate-700 text-white dark:bg-slate-200 dark:hover:bg-slate-300 dark:text-slate-900"
+                )}
               >
-                <span className="relative z-10 flex items-center">
-                  Get ReLiti Now
-                  <svg
-                    className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <title>Arrow Right</title>
-                    <path
-                      fillRule="evenodd"
-                      d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
+                Get ReLiti Now
+                <svg
+                  className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <title>Arrow Right</title>
+                  <path
+                    fillRule="evenodd"
+                    d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
               </Link>
             </div>
           </div>
