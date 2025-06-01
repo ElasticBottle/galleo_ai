@@ -8,6 +8,7 @@ import type React from "react";
 import { useMemo, useState } from "react";
 import { cn } from "../../utils/cn";
 import { Ban, Check, ChevronRight, Dot, Terminal } from "../icon";
+import { Badge } from "../ui/badge";
 import {
   Collapsible,
   CollapsibleContent,
@@ -321,6 +322,31 @@ function ToolCall({
             {mapToolNameToLabel[toolInvocation.toolName] ??
               toolInvocation.toolName}
           </div>
+          {toolInvocation.toolName === "backgroundResearch" && (
+            <div className="flex gap-1 overflow-x-auto">
+              <div className="text-muted-foreground text-xs">Sources</div>
+              <div className="flex gap-1">
+                {toolInvocation.result?.sources?.map(
+                  (source: {
+                    web: {
+                      title: string;
+                      uri: string;
+                    };
+                  }) => (
+                    <Badge key={source.web.uri} variant="outline">
+                      <a
+                        href={source.web.uri}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {source.web.title}
+                      </a>
+                    </Badge>
+                  ),
+                )}
+              </div>
+            </div>
+          )}
           {/* don't show results yet */}
           {/* <pre className="overflow-x-auto whitespace-pre-wrap text-foreground">
             {JSON.stringify(toolInvocation.result, null, 2)}

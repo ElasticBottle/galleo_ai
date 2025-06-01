@@ -64,6 +64,18 @@ export const backgroundResearch = tool({
     }
 
     // Return the research summary text
-    return { businessBackgroundInfo: text };
+    return {
+      businessBackgroundInfo: text,
+      sources: (
+        googleMeta?.groundingMetadata as unknown as {
+          groundingChunks: {
+            web: {
+              title: string;
+              uri: string;
+            }[];
+          }[];
+        }
+      )?.groundingChunks,
+    };
   },
 });
