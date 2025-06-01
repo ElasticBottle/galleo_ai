@@ -28,6 +28,7 @@ import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { backend } from "~/lib/client/backend";
+import { posthogReset } from "~/lib/client/posthog";
 import type { Session } from "~/lib/server/auth";
 
 function UserDetails({ session }: { session: Session }) {
@@ -66,6 +67,7 @@ export function UserDropdown({
       }
     },
     onSuccess: () => {
+      posthogReset();
       router.refresh();
     },
     onError: () => {
