@@ -20,6 +20,7 @@ import {
   MoonIcon,
   PaperclipIcon,
   PlayIcon,
+  PlusIcon,
   SunIcon,
   TerminalIcon,
   XIcon,
@@ -32,6 +33,7 @@ export const PaperClip = PaperclipIcon;
 export const Check = CheckIcon;
 export const Moon = MoonIcon;
 export const Sun = SunIcon;
+export const Plus = PlusIcon;
 export const EyeOn = EyeIcon;
 export const EyeOff = EyeOffIcon;
 export const Ban = BanIcon;

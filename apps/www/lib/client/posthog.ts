@@ -32,6 +32,7 @@ export function posthogReset() {
 }
 
 export type PostHogEventName =
+  | "chat_created"
   | "chat_message_sent"
   | "chat_suggestion_clicked"
   | "chat_stopped"
@@ -60,6 +61,7 @@ interface ChatAttachmentAddedProperties {
 }
 
 type PostHogEventPropertiesMap = {
+  chat_created: ChatMessageSentProperties;
   chat_message_sent: ChatMessageSentProperties;
   chat_suggestion_clicked: ChatSuggestionClickedProperties;
   chat_stopped: undefined; // Or an empty object: {}

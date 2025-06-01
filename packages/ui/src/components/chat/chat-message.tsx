@@ -1,11 +1,10 @@
 "use client";
-
-import { Buffer } from "node:buffer";
 import type { Message as AIMessage } from "@ai-sdk/react";
+import { useQuery } from "@tanstack/react-query";
 import { type VariantProps, cva } from "class-variance-authority";
 import { motion } from "motion/react";
 import type React from "react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { cn } from "../../utils/cn";
 import { Ban, Check, ChevronRight, Dot, Terminal } from "../icon";
 import { Badge } from "../ui/badge";
@@ -65,8 +64,13 @@ function dataUrlToUint8Array(data: string) {
     return new Uint8Array();
   }
   const base64 = parts[1];
-  const buf = Buffer.from(base64, "base64");
-  return new Uint8Array(buf);
+  const binaryString = atob(base64);
+  const bytes = new Uint8Array(binaryString.length);
+  for (let i = 0; i < binaryString.length; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  const buf = bytes;
+  return buf;
 }
 
 export type Message = AIMessage;
@@ -86,16 +90,37 @@ export const ChatMessage = ({
   showTimeStamp = false,
   parts,
 }: ChatMessageProps) => {
-  const files = useMemo(() => {
-    return experimental_attachments?.map((attachment) => {
-      const dataArray = dataUrlToUint8Array(attachment.url);
-      const file = new File([dataArray], attachment.name ?? "Unknown");
-      return file;
-    });
-  }, [experimental_attachments]);
+  const { data: files } = useQuery({
+    queryKey: ["chat-message", experimental_attachments],
+    queryFn: async () => {
+      const filePromises = experimental_attachments?.map(async (attachment) => {
+        if (attachment.url.startsWith("data:")) {
+          const dataArray = dataUrlToUint8Array(attachment.url);
+          const file = new File([dataArray], attachment.name ?? "Unknown", {
+            type: attachment.contentType ?? "application/octet-stream",
+          });
+          return file;
+        }
+        if (attachment.url.startsWith("http")) {
+          console.log("attachment.url", attachment.url);
+          const response = await fetch(attachment.url);
+          const blob = await response.blob();
+          const file = new File([blob], attachment.name ?? "Unknown", {
+            type: blob.type,
+          });
+          return file;
+        }
+        return null;
+      });
+      if (!filePromises) {
+        return [];
+      }
+      const rawFiles = await Promise.all(filePromises);
+      return rawFiles.filter((file) => file !== null);
+    },
+  });
 
   const isUser = role === "user";
-
   const formattedTime = createdAt?.toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
@@ -109,7 +134,7 @@ export const ChatMessage = ({
         {files ? (
           <div className="mb-1 flex flex-wrap gap-2">
             {files.map((file, index) => {
-              return <FilePreview file={file} key={`${file.name}-${index}`} />;
+              return <FilePreview file={file} key={`${file?.name}-${index}`} />;
             })}
           </div>
         ) : null}

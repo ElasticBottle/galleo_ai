@@ -61,11 +61,3 @@ This command will walk you through the process of scaffolding a new package dire
 ## Credits
 
 This repository was originally inspired by via [create t3 turbo](https://github.com/t3-oss/create-t3-turbo) and wouldn't be possible without all the other open source tooling.
-
-- Example prompts on login to show users what we can do [done]
-- Tracking for users
-- Chat history to be stored
-- OA
-- Everything through the chat, want it to feel like you have another secretary at your disposal
-- fee schedule creation and set up will be prompted through chat as well
-- outlook plugin support

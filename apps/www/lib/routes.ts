@@ -8,3 +8,8 @@ export const ROUTE_FEE_QUOTE = (teamId: number) =>
   `/dashboard/${teamId}/fee-quote`;
 export const ROUTE_TRADEMARK_ASSISTANT = (teamId: number) =>
   `/dashboard/${teamId}/trademark-assistant`;
+export const ROUTE_TRADEMARK_ASSISTANT_CHAT = ({
+  teamId,
+  chatId,
+}: { teamId: number; chatId: string }) =>
+  `/dashboard/${teamId}/trademark-assistant/${chatId}`;
