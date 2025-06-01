@@ -1,12 +1,11 @@
-import { Buffer } from "node:buffer";
 import { google } from "@ai-sdk/google"; // Import google instead of openai
 import type { MessageAttachment } from "@galleo/db/schema/message";
 import { ok } from "@rectangular-labs/result";
 import { generateText } from "ai";
-import mime from "mime-types";
-import { putMarkFile } from "../aws/s3";
 import { insertChat } from "./db/insert-chat";
 import { upsertMessage } from "./db/upsert-message";
+import { uploadAttachments } from "./upload-attachments";
+
 export async function createChat({
   teamId,
   userId,
@@ -23,27 +22,18 @@ export async function createChat({
     prompt: `Generate a concise and relevant title for a new chat based on the following initial message. The title should be no more than 5 words. Initial message: "${initialMessageContent}"`,
   });
 
-  const uploadedAttachmentsResult = await Promise.all(
-    attachments.map(async (attachment) => {
-      const data = attachment.url.split(",")[1];
-      if (!data) {
-        return;
-      }
-      const buffer = Buffer.from(data, "base64");
-      const { fileName } = await putMarkFile({
-        teamId: teamId.toString(),
-        file: buffer,
-        extension: mime.extension(attachment.contentType),
-      });
-      return {
-        ...attachment,
-        url: fileName,
-      };
-    }),
-  );
-  const uploadedAttachments = uploadedAttachmentsResult.filter(
-    (attachment) => attachment !== undefined,
-  );
+  const uploadedAttachmentsResult = await uploadAttachments({
+    attachments,
+    teamId,
+  });
+  if (!uploadedAttachmentsResult.ok) {
+    console.error(
+      "Failed to upload attachments:",
+      uploadedAttachmentsResult.error,
+    );
+    return uploadedAttachmentsResult;
+  }
+  const uploadedAttachments = uploadedAttachmentsResult.value;
 
   const insertResult = await insertChat({
     teamId: teamId,

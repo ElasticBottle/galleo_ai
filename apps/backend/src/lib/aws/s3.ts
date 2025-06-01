@@ -62,6 +62,10 @@ export async function putMarkFile({
     Key: `team-${teamId}/file/${fileName}`,
     Body: file,
   });
-  await s3Client.send(putCommand);
-  return { fileId, fileName };
+  const result = await safe(() => s3Client.send(putCommand));
+  if (!result.ok) {
+    console.error("Error putting mark file", result.error);
+    return result;
+  }
+  return ok({ fileId, fileName });
 }

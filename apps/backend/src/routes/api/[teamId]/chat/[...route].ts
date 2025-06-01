@@ -1,5 +1,5 @@
 import { arktypeValidator } from "@hono/arktype-validator";
-import { streamText } from "ai";
+import { type Message, appendResponseMessages, streamText } from "ai";
 import { type } from "arktype";
 import { Hono } from "hono";
 import { stream } from "hono/streaming";
@@ -15,6 +15,8 @@ import {
 import { createChat } from "../../../../lib/chat/create-chat";
 import { getAllChatOverviewByTeamId } from "../../../../lib/chat/db/get-all-chat-overview-by-team-id";
 import { getChatAndMessageByTeamIdAndChatId } from "../../../../lib/chat/db/get-chat-and-message-by-id";
+import { upsertMessage } from "../../../../lib/chat/db/upsert-message";
+import { uploadAttachments } from "../../../../lib/chat/upload-attachments";
 
 // Define the system prompt
 // Once you have sufficient information (including background context, NICE classification, and relevant goods/services), you can ask for the mark filling recommendation and give your final output.
@@ -109,7 +111,9 @@ export const chatRouter = new Hono()
     authMiddleware,
     teamAuthMiddleware,
     async (c) => {
-      const messages = await c.req.json();
+      const { teamId, chatId } = c.req.valid("param");
+      const messages: { messages: Message[] } = await c.req.json();
+      const session = c.get("session");
 
       // Define and import actual tools
       const tools = {
@@ -118,6 +122,34 @@ export const chatRouter = new Hono()
         relevantGoodsServices: relevantGoodsServices,
         markFilingRecommendation: markFilingRecommendation,
       };
+      // save user message
+      const latestMessage = messages.messages.at(-1);
+      if (!latestMessage) {
+        return c.json({ error: "No message provided" }, 400);
+      }
+      const uploadedAttachmentsResult = await uploadAttachments({
+        attachments:
+          latestMessage.experimental_attachments?.map((attachment) => ({
+            url: attachment.url,
+            name: attachment.name ?? "",
+            contentType: attachment.contentType ?? "",
+          })) ?? [],
+        teamId,
+      });
+      if (!uploadedAttachmentsResult.ok) {
+        console.error(
+          "Failed to upload attachments:",
+          uploadedAttachmentsResult.error,
+        );
+        return c.json({ error: "Failed to upload attachments" }, 500);
+      }
+      await upsertMessage({
+        chatId: chatId,
+        parts: latestMessage.parts ? { parts: latestMessage.parts } : {},
+        role: latestMessage.role as "user" | "assistant" | "system",
+        attachments: uploadedAttachmentsResult.value,
+        userId: session.user.id,
+      });
 
       try {
         const result = streamText({
@@ -126,8 +158,21 @@ export const chatRouter = new Hono()
           messages: messages.messages,
           tools: tools,
           maxSteps: 12,
-          onFinish: (result) => {
-            console.log("result", result);
+          onFinish: async ({ response }) => {
+            // save assistant message
+            const newMessage = appendResponseMessages({
+              messages: messages.messages,
+              responseMessages: response.messages,
+            }).at(-1);
+            if (!newMessage) {
+              return;
+            }
+            await upsertMessage({
+              chatId: chatId,
+              parts: newMessage.parts ? { parts: newMessage.parts } : {},
+              role: newMessage.role as "user" | "assistant" | "system",
+              userId: session.user.id,
+            });
           },
           onError: (error) => {
             console.error("Error calling streamText:", error);
