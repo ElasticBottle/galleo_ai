@@ -35,7 +35,7 @@
   "devDependencies": {
     "@galleo/typescript": "workspace:*",
     "@types/node": "^22.14.1",
-    "tsx": "^4.19.3",
+    "tsx": "^4.19.4",
     "vitest": "^3.1.1"
   }
 }
