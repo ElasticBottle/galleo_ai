@@ -13,7 +13,7 @@ export const authRouter = new Hono<HonoEnv>()
   .get("/me", authMiddleware, (c) => {
     const userSubject = c.get("userSubject");
     const session = c.get("session");
-    console.log("me", { userSubject, session });
+    console.log("me", { userSubject });
 
     return c.json({ userSubject, session });
   })

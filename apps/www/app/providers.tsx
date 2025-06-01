@@ -7,8 +7,11 @@ import { PostHogProvider } from "posthog-js/react";
 import type * as React from "react";
 import { getPosthog } from "~/lib/client/posthog";
 import { getQueryClient } from "~/lib/client/react-query";
+import type { Session } from "~/lib/server/auth";
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({
+  children,
+}: { children: React.ReactNode; session: Session }) {
   const queryClient = getQueryClient();
   const posthog = getPosthog();
 

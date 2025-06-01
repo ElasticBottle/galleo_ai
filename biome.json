@@ -66,6 +66,7 @@
   },
   "overrides": [],
   "files": {
+    "maxSize": 1280000,
     "ignore": [
       "node_modules",
       ".sst",
@@ -74,7 +75,8 @@
       "dist",
       "routeTree.gen.ts",
       "sst-env.d.ts",
-      "_renderer.tsx"
+      "_renderer.tsx",
+      "reliti"
     ]
   }
 }

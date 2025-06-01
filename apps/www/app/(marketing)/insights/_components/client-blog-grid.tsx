@@ -104,10 +104,10 @@ export default function ClientBlogGrid({ articles }: { articles: Content[] }) {
         <nav className="mb-4 flex flex-wrap justify-center gap-2">
           <button
             type="button"
-            className={`rounded-full px-4 py-2 font-medium border transition-colors ${
+            className={`rounded-full border px-4 py-2 font-medium transition-colors ${
               !selectedCategory
-                ? "bg-primary text-white border-primary"
-                : "bg-muted text-muted-foreground border-border hover:border-primary/50"
+                ? "border-primary bg-primary text-white"
+                : "border-border bg-muted text-muted-foreground hover:border-primary/50"
             }`}
             onClick={() => handleCategoryChange(null)}
           >
@@ -117,10 +117,10 @@ export default function ClientBlogGrid({ articles }: { articles: Content[] }) {
             <button
               type="button"
               key={cat}
-              className={`rounded-full px-4 py-2 font-medium border transition-colors ${
+              className={`rounded-full border px-4 py-2 font-medium transition-colors ${
                 selectedCategory === cat
-                  ? "bg-primary text-white border-primary"
-                  : "bg-muted text-muted-foreground border-border hover:border-primary/50"
+                  ? "border-primary bg-primary text-white"
+                  : "border-border bg-muted text-muted-foreground hover:border-primary/50"
               } w-fit`}
               onClick={() => handleCategoryChange(cat)}
             >
@@ -175,7 +175,7 @@ export default function ClientBlogGrid({ articles }: { articles: Content[] }) {
           <div className="mt-10 flex justify-center gap-2">
             {Array.from({ length: totalPages }, (_, i) => (
               <button
-                key={i + 1}
+                key={`pagination-${i + 1}`}
                 type="button"
                 className={`rounded px-3 py-1 ${
                   page === i + 1

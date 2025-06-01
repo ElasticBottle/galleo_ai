@@ -26,7 +26,8 @@ export function ActionButtons() {
             size: item.size || "default",
           }),
           // Custom styling for Try Galleo Today button
-          item.label === "Try Galleo Today" && "bg-slate-800 hover:bg-slate-700 text-white dark:bg-slate-200 dark:hover:bg-slate-300 dark:text-slate-900"
+          item.label === "Try Galleo Today" &&
+            "bg-slate-800 text-white hover:bg-slate-700 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-slate-300",
         )}
         target={item.target}
       >

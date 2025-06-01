@@ -21,7 +21,7 @@ export function Cta() {
             "rounded-md px-6 py-4 font-medium text-lg shadow-sm transition-colors",
             "flex w-full items-center justify-center gap-3 sm:w-auto",
             // Custom styling for better contrast with orange logo
-            "bg-slate-800 hover:bg-slate-700 text-white dark:bg-slate-200 dark:hover:bg-slate-300 dark:text-slate-900"
+            "bg-slate-800 text-white hover:bg-slate-700 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-slate-300",
           )}
         >
           Try Galleo Today
