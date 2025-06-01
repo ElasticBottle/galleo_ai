@@ -147,7 +147,9 @@ export const ChatMessage = ({
             <div
               className={cn(chatBubbleVariants({ isUser, animation: "none" }))}
             >
-              <MarkdownRenderer>{part.text}</MarkdownRenderer>
+              <MarkdownRenderer>
+                {part.text.replace(/```markdown/g, "").replace(/```/g, "")}
+              </MarkdownRenderer>
               {actions ? (
                 <div className="-bottom-4 absolute right-2 flex space-x-1 rounded-lg border bg-background p-1 text-foreground opacity-0 transition-opacity group-hover/message:opacity-100">
                   {actions}
