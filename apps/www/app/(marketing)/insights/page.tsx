@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getAllContent } from "~/lib/mdx";
-import ClientBlogGrid from "./_components/ClientBlogGrid";
+import ClientBlogGrid from "./_components/client-blog-grid";
 
 export const metadata: Metadata = {
   title: "Insights",
