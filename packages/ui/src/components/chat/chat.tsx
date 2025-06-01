@@ -27,6 +27,7 @@ interface ChatProps {
     rating: "thumbs-up" | "thumbs-down",
   ) => void;
   transcribeAudio?: (blob: Blob) => Promise<string>;
+  onFileAttachment?: (attachments?: File[]) => void;
   suggestion?: {
     label: string;
     append: (message: { role: "user"; content: string }) => void;
@@ -46,6 +47,7 @@ export function Chat({
   className,
   onRateResponse,
   transcribeAudio,
+  onFileAttachment,
 }: ChatProps) {
   const lastMessage = messages.at(-1);
   const isEmpty = messages.length === 0;
@@ -172,7 +174,12 @@ export function Chat({
             onChange={handleInputChange}
             attachments={{
               files,
-              setFiles,
+              setFiles: (files) => {
+                setFiles(files);
+                if (typeof files === "object" && files !== null) {
+                  onFileAttachment?.(files);
+                }
+              },
             }}
             stop={handleStop}
             isGenerating={isGenerating}

@@ -6,6 +6,7 @@ import { markFilingRecommendation } from "../../../lib/ai/mark-filing-recommenda
 import { mainAgentModel } from "../../../lib/ai/models";
 import { niceClassification } from "../../../lib/ai/nice-classification";
 import { relevantGoodsServices } from "../../../lib/ai/relevant-goods-services";
+import { authMiddleware } from "../../../lib/auth/middleware";
 
 // Define the system prompt
 // Once you have sufficient information (including background context, NICE classification, and relevant goods/services), you can ask for the mark filling recommendation and give your final output.
@@ -34,7 +35,7 @@ Always use the tools at your disposal before asking the lawyer for more informat
 // Define the POST route for chat requests
 export const chatRouter = new Hono()
   .basePath("/api/chat")
-  .post("/", async (c) => {
+  .post("/", authMiddleware, async (c) => {
     // const { messages } = c.req.valid("json");
     const messages = await c.req.json();
 
