@@ -1,3 +1,4 @@
+import type { Message } from "@ai-sdk/react";
 import { notFound } from "next/navigation";
 import { backend } from "~/lib/server/backend";
 import { ChatInterface } from "./_components/chat";
@@ -26,7 +27,6 @@ export default async function ChatInstancePage({
   if (!chat) {
     return notFound();
   }
-  console.log("chat", JSON.stringify(chat, null, 2));
 
   return (
     <ChatInterface
@@ -34,6 +34,7 @@ export default async function ChatInstancePage({
       chatId={chatId}
       initialMessages={chat.messages.map((message) => ({
         id: message.id,
+        parts: (message.parts.parts as Message["parts"]) ?? [],
         content: message.content,
         role: message.role,
         createdAt: new Date(message.createdAt),

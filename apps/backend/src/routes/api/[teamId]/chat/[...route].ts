@@ -229,6 +229,7 @@ export const chatRouter = new Hono()
       if (!chat.ok) {
         return c.json({ error: "Chat not found" }, 404);
       }
+      console.log("chat", JSON.stringify(chat.value, null, 2));
       return c.json(chat.value);
     },
   );

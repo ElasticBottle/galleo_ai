@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "sideEffects": false,
-  "files": [
-    "style.css"
-  ],
+  "files": ["style.css"],
   "exports": {
     "./*": "./src/*.tsx",
     "./style.css": "./src/style.css",

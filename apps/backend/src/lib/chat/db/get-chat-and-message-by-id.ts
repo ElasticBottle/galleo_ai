@@ -41,7 +41,6 @@ export async function getChatAndMessageByTeamIdAndChatId(
     chatWithMessages.messages.map(async (message) => {
       return {
         ...message,
-        parts: message.parts.parts,
         attachments: await Promise.all(
           message.attachments.map(async (attachment) => {
             return {
