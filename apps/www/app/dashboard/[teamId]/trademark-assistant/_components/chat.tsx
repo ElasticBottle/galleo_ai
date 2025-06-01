@@ -81,7 +81,7 @@ export function ChatInterface() {
         suggestions: [
           "Find me the relevant pre-approved list of goods and services for a soya bean food business under the class 29",
           "Help me draft a pre-filling advice email for a client who is applying for a trademark for FairPrice, the supermarket chain",
-          "Do a deep dive into the company OKX and generate a report on the background of the company.",
+          "Do a deep dive into the company Thirdweb and generate a report on the background of the company.",
         ],
       }}
     />
