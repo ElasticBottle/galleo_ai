@@ -1,6 +1,4 @@
 "use client";
-
-import { Buffer } from "node:buffer";
 import type { Message as AIMessage } from "@ai-sdk/react";
 import { useQuery } from "@tanstack/react-query";
 import { type VariantProps, cva } from "class-variance-authority";
@@ -66,8 +64,13 @@ function dataUrlToUint8Array(data: string) {
     return new Uint8Array();
   }
   const base64 = parts[1];
-  const buf = Buffer.from(base64, "base64");
-  return new Uint8Array(buf);
+  const binaryString = atob(base64);
+  const bytes = new Uint8Array(binaryString.length);
+  for (let i = 0; i < binaryString.length; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  const buf = bytes;
+  return buf;
 }
 
 export type Message = AIMessage;

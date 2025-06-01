@@ -17,7 +17,6 @@ export function ChatInterface({
   chatId,
   initialMessages,
 }: ChatInterfaceProps) {
-  console.log("initialMessages", initialMessages);
   const {
     messages,
     setMessages,
