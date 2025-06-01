@@ -60,9 +60,16 @@ export default $config({
         })
       : sst.aws.Router.get("AppRouter", "EL8QCPMFX80NG"); // the dev app
 
+    const ipMediaBucket = new sst.aws.Bucket("IpMarksMedia", {
+      versioning: false,
+    });
     const backendApi = new sst.aws.Function("Hono", {
       handler: "apps/backend/src/index.handler",
-      environment: serverEnv,
+      link: [ipMediaBucket],
+      environment: {
+        ...serverEnv,
+        IP_MEDIA_BUCKET_NAME: ipMediaBucket.name,
+      },
       url: true,
       streaming: !$dev,
       timeout: "300 seconds",
@@ -125,6 +132,7 @@ export default $config({
     return {
       router: router.distributionID,
       authTable: authDynamoTable?.name,
+      ipMediaBucketName: ipMediaBucket.name,
     };
   },
 });
