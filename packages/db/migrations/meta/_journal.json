@@ -8,6 +8,13 @@
       "when": 1746407539227,
       "tag": "0000_bright_goblin_queen",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1748765438260,
+      "tag": "0001_exotic_the_phantom",
+      "breakpoints": true
     }
   ]
 }
