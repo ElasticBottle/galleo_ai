@@ -22,12 +22,12 @@ export function FeatureSection({
   position = "right",
 }: FeatureSectionProps) {
   const ContentSection = (
-    <div className="flex h-full items-center bg-muted border-2 border-border/70 dark:bg-muted dark:border-border/50 px-4 py-10 md:px-12 md:py-24 lg:px-24 shadow-sm">
+    <div className="flex h-full items-center border-2 border-border/70 bg-muted px-4 py-10 shadow-sm md:px-12 md:py-24 lg:px-24 dark:border-border/50 dark:bg-muted">
       <div className="max-w-xl">
         <span className="font-medium text-muted-foreground text-sm">
           {label}
         </span>
-        <h2 className="mt-6 font-bold font-sans text-4xl text-foreground tracking-tight sm:text-5xl leading-tight">
+        <h2 className="mt-6 font-bold font-sans text-4xl text-foreground leading-tight tracking-tight sm:text-5xl">
           {title}
         </h2>
         <div className="mt-6 text-lg text-muted-foreground">{description}</div>
