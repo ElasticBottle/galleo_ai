@@ -42,6 +42,7 @@ export default $config({
 
     const ipMediaBucket = new sst.aws.Bucket("IpMarksMedia", {
       versioning: false,
+      access: "public",
     });
 
     const serverEnv = parseServerEnv({

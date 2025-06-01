@@ -1,4 +1,4 @@
-import { ChatInterface } from "./_components/chat";
+import { CreateChatInterface } from "./_components/chat";
 
 export default async function ChatInstancePage({
   params,
@@ -6,5 +6,6 @@ export default async function ChatInstancePage({
   params: Promise<{ teamId: string }>;
 }) {
   const { teamId } = await params;
-  return <ChatInterface teamId={teamId} initialMessages={[]} />;
+
+  return <CreateChatInterface teamId={teamId} />;
 }
