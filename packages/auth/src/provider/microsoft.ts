@@ -1,17 +1,6 @@
 import { type Result, safe, safeFetch } from "@rectangular-labs/result";
 import type { UserSubject } from "../subject";
 
-// Helper function to convert ArrayBuffer to base64 string
-function arrayBufferToBase64(buffer: ArrayBuffer): string {
-  let binary = "";
-  const bytes = new Uint8Array(buffer);
-  const len = bytes.length;
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i] as number);
-  }
-  return btoa(binary);
-}
-
 // Based on common fields from https://learn.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0
 interface MicrosoftGraphApiResponse {
   id: string;

@@ -17,12 +17,12 @@ export function HeroCTA() {
         <Link
           href={siteConfig.hero.cta.href}
           className={cn(
-            buttonVariants({ 
+            buttonVariants({
               variant: siteConfig.hero.cta.buttonVariant,
               size: siteConfig.hero.cta.size || "default",
             }),
             "flex w-full items-center sm:w-auto [&_svg]:size-3",
-            "bg-slate-800 hover:bg-slate-700 text-white dark:bg-slate-200 dark:hover:bg-slate-300 dark:text-slate-900"
+            "bg-slate-800 text-white hover:bg-slate-700 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-slate-300",
           )}
           data-attr={`hero-cta-${siteConfig.hero.cta.label}`}
           target={siteConfig.hero.cta.target}
