@@ -148,6 +148,7 @@ export const ChatMessage = ({
               className={cn(chatBubbleVariants({ isUser, animation: "none" }))}
             >
               <MarkdownRenderer>
+                {/* We are not rendering code since this is lawyer facing so removing backticks where google might have added them is okay */}
                 {part.text.replace(/```markdown/g, "").replace(/```/g, "")}
               </MarkdownRenderer>
               {actions ? (
