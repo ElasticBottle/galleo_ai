@@ -1,12 +1,10 @@
-import { ensureSession } from "~/lib/server/auth";
 import { ChatInterface } from "./_components/chat";
 
-export default async function ChatPage({
+export default async function ChatInstancePage({
   params,
 }: {
   params: Promise<{ teamId: string }>;
 }) {
   const { teamId } = await params;
-  await ensureSession(Number.parseInt(teamId));
-  return <ChatInterface />;
+  return <ChatInterface teamId={teamId} initialMessages={[]} />;
 }

@@ -1,12 +1,20 @@
+import { randomUUID } from "node:crypto";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { arktypeValidator } from "@hono/arktype-validator";
 import { streamText } from "ai";
+import { type } from "arktype";
 import { Hono } from "hono";
 import { stream } from "hono/streaming";
+import { Resource } from "sst/resource";
 import { backgroundResearch } from "../../../lib/ai/business-research";
 import { markFilingRecommendation } from "../../../lib/ai/mark-filing-recommendation";
 import { mainAgentModel } from "../../../lib/ai/models";
 import { niceClassification } from "../../../lib/ai/nice-classification";
 import { relevantGoodsServices } from "../../../lib/ai/relevant-goods-services";
-import { authMiddleware } from "../../../lib/auth/middleware";
+import {
+  authMiddleware,
+  teamAuthMiddleware,
+} from "../../../lib/auth/middleware";
 
 // Define the system prompt
 // Once you have sufficient information (including background context, NICE classification, and relevant goods/services), you can ask for the mark filling recommendation and give your final output.
@@ -47,10 +55,43 @@ Do not add disclaimers or warnings.
 Use markdown for formatting the email draft.
 Always use the tools at your disposal before asking the lawyer for more information.`;
 
-// Define the POST route for chat requests
 export const chatRouter = new Hono()
-  .basePath("/api/chat")
-  .post("/", authMiddleware, async (c) => {
+  .basePath("/api/:teamId/chat")
+  .post(
+    "/",
+    arktypeValidator("param", type({ teamId: "string.integer.parse" })),
+    arktypeValidator(
+      "json",
+      type({
+        messages: type({
+          id: "string",
+          content: "string",
+          experimental_attachments: type({
+            name: "string",
+            url: "string",
+            contentType: "string",
+          }).array(),
+        }).array(),
+      }),
+    ),
+    authMiddleware,
+    teamAuthMiddleware,
+    async (c) => {
+      const { teamId } = c.req.valid("param");
+      const body = c.req.valid("json");
+      const s3Client = new S3Client();
+      const newChatId = randomUUID();
+      const putCommand = new PutObjectCommand({
+        Bucket: Resource.IpMarksMedia.name,
+        Key: `team-${teamId}/chat/${newChatId}.json`,
+        Body: JSON.stringify(body),
+      });
+      await s3Client.send(putCommand);
+
+      return c.json({ chatId: "123" });
+    },
+  )
+  .post("/:chatId", authMiddleware, async (c) => {
     // const { messages } = c.req.valid("json");
     const messages = await c.req.json();
 

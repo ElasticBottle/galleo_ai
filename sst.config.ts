@@ -40,6 +40,10 @@ export default $config({
       zone: process.env.CLOUDFLARE_ZONE_ID,
     });
 
+    const ipMediaBucket = new sst.aws.Bucket("IpMarksMedia", {
+      versioning: false,
+    });
+
     const serverEnv = parseServerEnv({
       ...process.env,
       NEXT_PUBLIC_BACKEND_URL:
@@ -60,16 +64,10 @@ export default $config({
         })
       : sst.aws.Router.get("AppRouter", "EL8QCPMFX80NG"); // the dev app
 
-    const ipMediaBucket = new sst.aws.Bucket("IpMarksMedia", {
-      versioning: false,
-    });
     const backendApi = new sst.aws.Function("Hono", {
       handler: "apps/backend/src/index.handler",
       link: [ipMediaBucket],
-      environment: {
-        ...serverEnv,
-        IP_MEDIA_BUCKET_NAME: ipMediaBucket.name,
-      },
+      environment: serverEnv,
       url: true,
       streaming: !$dev,
       timeout: "300 seconds",
@@ -81,6 +79,7 @@ export default $config({
 
     const _frontend = new sst.aws.Nextjs("WWW", {
       path: "apps/www",
+      link: $dev ? [ipMediaBucket] : [],
       environment: serverEnv,
       buildCommand: `STAGE=${$app.stage} pnpx open-next@latest build`,
       dev: {

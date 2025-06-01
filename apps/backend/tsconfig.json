@@ -8,5 +8,5 @@
 
     "verbatimModuleSyntax": true
   },
-  "include": ["src"]
+  "include": ["src", "sst-env.d.ts"]
 }
