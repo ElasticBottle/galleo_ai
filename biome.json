@@ -75,7 +75,8 @@
       "dist",
       "routeTree.gen.ts",
       "sst-env.d.ts",
-      "_renderer.tsx"
+      "_renderer.tsx",
+      "reliti"
     ]
   }
 }
