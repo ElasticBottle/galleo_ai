@@ -207,6 +207,9 @@ importers:
         specifier: ^8.14.1
         version: 8.14.1
     devDependencies:
+      '@ai-sdk/react':
+        specifier: ^1.2.11
+        version: 1.2.11(react@19.1.0)(zod@3.24.2)
       '@galleo/typescript':
         specifier: workspace:*
         version: link:../../tooling/typescript
@@ -3073,7 +3076,6 @@ packages:
   '@swc/core@1.11.22':
     resolution: {integrity: sha512-mjPYbqq8XjwqSE0hEPT9CzaJDyxql97LgK4iyvYlwVSQhdN1uK0DBG4eP9PxYzCS2MUGAXB34WFLegdUj5HGpg==}
     engines: {node: '>=10'}
-    deprecated: It has a bug. See https://github.com/swc-project/swc/issues/10413
     peerDependencies:
       '@swc/helpers': '>=0.5.17'
     peerDependenciesMeta:
@@ -8904,8 +8906,8 @@ snapshots:
 
   '@prisma/config@6.6.0':
     dependencies:
-      esbuild: 0.25.1
-      esbuild-register: 3.6.0(esbuild@0.25.1)
+      esbuild: 0.25.4
+      esbuild-register: 3.6.0(esbuild@0.25.4)
     transitivePeerDependencies:
       - supports-color
     optional: true
@@ -11711,10 +11713,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  esbuild-register@3.6.0(esbuild@0.25.1):
+  esbuild-register@3.6.0(esbuild@0.25.4):
     dependencies:
       debug: 4.4.0
-      esbuild: 0.25.1
+      esbuild: 0.25.4
     transitivePeerDependencies:
       - supports-color
     optional: true
