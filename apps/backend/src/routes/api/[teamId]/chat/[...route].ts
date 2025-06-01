@@ -127,29 +127,31 @@ export const chatRouter = new Hono()
       if (!latestMessage) {
         return c.json({ error: "No message provided" }, 400);
       }
-      const uploadedAttachmentsResult = await uploadAttachments({
-        attachments:
-          latestMessage.experimental_attachments?.map((attachment) => ({
-            url: attachment.url,
-            name: attachment.name ?? "",
-            contentType: attachment.contentType ?? "",
-          })) ?? [],
-        teamId,
-      });
-      if (!uploadedAttachmentsResult.ok) {
-        console.error(
-          "Failed to upload attachments:",
-          uploadedAttachmentsResult.error,
-        );
-        return c.json({ error: "Failed to upload attachments" }, 500);
+      if (messages.messages.length > 1) {
+        const uploadedAttachmentsResult = await uploadAttachments({
+          attachments:
+            latestMessage.experimental_attachments?.map((attachment) => ({
+              url: attachment.url,
+              name: attachment.name ?? "",
+              contentType: attachment.contentType ?? "",
+            })) ?? [],
+          teamId,
+        });
+        if (!uploadedAttachmentsResult.ok) {
+          console.error(
+            "Failed to upload attachments:",
+            uploadedAttachmentsResult.error,
+          );
+          return c.json({ error: "Failed to upload attachments" }, 500);
+        }
+        await upsertMessage({
+          chatId: chatId,
+          parts: latestMessage.parts ? { parts: latestMessage.parts } : {},
+          role: latestMessage.role as "user" | "assistant" | "system",
+          attachments: uploadedAttachmentsResult.value,
+          userId: session.user.id,
+        });
       }
-      await upsertMessage({
-        chatId: chatId,
-        parts: latestMessage.parts ? { parts: latestMessage.parts } : {},
-        role: latestMessage.role as "user" | "assistant" | "system",
-        attachments: uploadedAttachmentsResult.value,
-        userId: session.user.id,
-      });
 
       try {
         const result = streamText({

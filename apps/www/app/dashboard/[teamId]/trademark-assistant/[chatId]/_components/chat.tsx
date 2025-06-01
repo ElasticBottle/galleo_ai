@@ -2,7 +2,7 @@
 
 import { type Message, useChat } from "@ai-sdk/react";
 import { Chat } from "@galleo/ui/components/chat/chat";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { backend } from "~/lib/client/backend";
 import { posthogCapture } from "~/lib/client/posthog";
 
@@ -17,7 +17,6 @@ export function ChatInterface({
   chatId,
   initialMessages,
 }: ChatInterfaceProps) {
-  console.log("initialMessages", initialMessages);
   const {
     messages,
     setMessages,
@@ -44,10 +43,11 @@ export function ChatInterface({
       console.log("toolCall", toolCall);
     },
   });
-
+  const runOnceRef = useRef(false);
   // biome-ignore lint/correctness/useExhaustiveDependencies: only trigger on mount
   useEffect(() => {
-    if (initialMessages.length === 1) {
+    if (initialMessages.length === 1 && !runOnceRef.current) {
+      runOnceRef.current = true;
       reload();
     }
   }, []);

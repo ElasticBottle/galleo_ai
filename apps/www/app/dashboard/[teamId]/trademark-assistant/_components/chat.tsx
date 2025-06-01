@@ -86,6 +86,7 @@ export function CreateChatInterface({ teamId }: ChatInterfaceProps) {
           chatId: data.chatId,
         }),
       );
+      router.refresh();
     },
   });
 
@@ -108,6 +109,7 @@ export function CreateChatInterface({ teamId }: ChatInterfaceProps) {
       input,
       attachments: options?.experimental_attachments ?? new FileList(),
     });
+    setInput("");
   };
 
   const onSuggestionClick = (userMessage: {
@@ -120,6 +122,7 @@ export function CreateChatInterface({ teamId }: ChatInterfaceProps) {
     createChat({
       input: userMessage.content,
     });
+    setInput("");
   };
 
   const onAttachment = (attachments?: File[]) => {

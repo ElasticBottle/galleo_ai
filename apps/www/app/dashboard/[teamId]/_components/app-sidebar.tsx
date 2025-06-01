@@ -1,11 +1,12 @@
 "use client"; // Sidebar interaction requires client components
-import { FileText, MessageSquareText } from "@galleo/ui/components/icon";
+import { MessageSquareText, Plus } from "@galleo/ui/components/icon";
 import { BrandLogo } from "@galleo/ui/components/ui/brand-logo";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarGroupAction,
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarHeader,
@@ -15,12 +16,13 @@ import {
   SidebarRail,
 } from "@galleo/ui/components/ui/sidebar";
 
+import type { SelectChat } from "@galleo/db/schema/chat";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   ROUTE_DASHBOARD,
-  ROUTE_FEE_QUOTE,
   ROUTE_TRADEMARK_ASSISTANT,
+  ROUTE_TRADEMARK_ASSISTANT_CHAT,
 } from "~/lib/routes";
 import type { Session } from "~/lib/server/auth";
 import { UserDropdown } from "./user-dropdown";
@@ -28,9 +30,11 @@ import { UserDropdown } from "./user-dropdown";
 export function AppSidebar({
   teamId,
   session,
+  chats,
 }: {
   teamId: number;
   session: Session;
+  chats: SelectChat[];
 }) {
   const path = usePathname();
   return (
@@ -42,37 +46,41 @@ export function AppSidebar({
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel>Past Chats</SidebarGroupLabel>
+          <SidebarGroupAction asChild>
+            <Link href={ROUTE_TRADEMARK_ASSISTANT(teamId)} prefetch>
+              <Plus /> <span className="sr-only">New Project</span>
+            </Link>
+          </SidebarGroupAction>
+
           <SidebarGroupContent>
             <SidebarMenu>
-              {/* Assistant Collapsible Submenu */}
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={path === ROUTE_TRADEMARK_ASSISTANT(teamId)}
-                >
-                  <Link href={ROUTE_TRADEMARK_ASSISTANT(teamId)} prefetch>
-                    <MessageSquareText />
-                    Trademark Assistant
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-
-              {/* Fee Quote Link */}
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  isActive={path === ROUTE_FEE_QUOTE(teamId)}
-                  disabled
-                >
-                  {/* <Link href={ROUTE_FEE_QUOTE(teamId)} prefetch> */}
-                  <div className="flex text-muted-foreground">
-                    <FileText />
-                    More coming soon!
-                  </div>
-                  {/* </Link> */}
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              {chats.slice(0, 10).map((chat) => (
+                <SidebarMenuItem key={chat.id}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={
+                      path ===
+                      ROUTE_TRADEMARK_ASSISTANT_CHAT({
+                        teamId,
+                        chatId: chat.id,
+                      })
+                    }
+                  >
+                    <Link
+                      href={ROUTE_TRADEMARK_ASSISTANT_CHAT({
+                        teamId,
+                        chatId: chat.id,
+                      })}
+                      className="min-w-0 truncate"
+                      prefetch
+                    >
+                      <MessageSquareText />
+                      {chat.title}
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
