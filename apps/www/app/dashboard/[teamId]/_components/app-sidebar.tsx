@@ -17,6 +17,7 @@ import {
 } from "@galleo/ui/components/ui/sidebar";
 
 import type { SelectChat } from "@galleo/db/schema/chat";
+import { cn } from "@galleo/ui/utils/cn";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -40,7 +41,11 @@ export function AppSidebar({
   return (
     <Sidebar variant="floating">
       <SidebarHeader>
-        <Link href={ROUTE_DASHBOARD} className="flex pt-4">
+        <Link
+          href={ROUTE_DASHBOARD}
+          // show the feedback for posthog
+          className={cn("flex pt-4", chats.length > 2 && "show-ph-ff")}
+        >
           <BrandLogo className="h-16 w-full" />
         </Link>
       </SidebarHeader>

@@ -80,7 +80,8 @@ export default $config({
 
     const _frontend = new sst.aws.Nextjs("WWW", {
       path: "apps/www",
-      link: $dev ? [ipMediaBucket] : [],
+      // todo: unlink this since it's only used for dev
+      link: [ipMediaBucket],
       environment: serverEnv,
       buildCommand: `STAGE=${$app.stage} pnpx open-next@latest build`,
       dev: {
