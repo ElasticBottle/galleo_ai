@@ -87,6 +87,7 @@ export default $config({
       dev: {
         command: "pnpm dev",
       },
+      warm: 1,
       router: {
         instance: router,
         domain: frontendDomain,
