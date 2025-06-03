@@ -150,7 +150,7 @@ export function CreateChatInterface({ teamId }: ChatInterfaceProps) {
         append: onSuggestionClick,
         suggestions: [
           "Find me the relevant pre-approved list of goods and services for a soya bean food business under the class 29",
-          "Help me draft a pre-filling advice email for a client who is applying for a trademark for FairPrice, the supermarket chain",
+          "Help me draft a pre-filing advice email for a client who is applying for a trademark for Raffles Salads, a hawker center stall that sells vegan food.",
           "Do a deep dive into the company Thirdweb and generate a report on the background of the company.",
         ],
       }}
