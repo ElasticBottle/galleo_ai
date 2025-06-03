@@ -6,6 +6,7 @@ const clientSchema = {
   NEXT_PUBLIC_AUTH_URL: "string>1",
   NEXT_PUBLIC_POSTHOG_KEY: "string>1",
   NEXT_PUBLIC_POSTHOG_UI_HOST: "string>1",
+  NEXT_PUBLIC_POSTHOG_API_HOST: "string>1",
 } as const;
 
 const ClientEnv = type(clientSchema);

@@ -4,7 +4,7 @@ import { env } from "../env";
 export function getPosthog() {
   if (typeof window === "undefined") return posthog;
   posthog.init(env.NEXT_PUBLIC_POSTHOG_KEY, {
-    api_host: "/ingest",
+    api_host: env.NEXT_PUBLIC_POSTHOG_API_HOST,
     ui_host: env.NEXT_PUBLIC_POSTHOG_UI_HOST,
     capture_pageview: true,
     autocapture: true,

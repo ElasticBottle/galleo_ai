@@ -18,8 +18,9 @@ export default $config({
     const { parseServerEnv } = await import("@galleo/env");
 
     const isPermanentStage = ["production", "dev"].includes($app.stage);
+    const isProduction = $app.stage === "production";
     const domain = (() => {
-      if ($app.stage === "production") {
+      if (isProduction) {
         return "galleo.ai";
       }
       if ($app.stage === "dev") {
@@ -69,7 +70,14 @@ export default $config({
       handler: "apps/backend/src/index.handler",
       link: [ipMediaBucket],
       environment: serverEnv,
-      url: true,
+      url: {
+        cors: {
+          allowOrigins: [`https://${frontendDomain}`],
+          allowHeaders: ["*"],
+          allowMethods: ["*"],
+          allowCredentials: true,
+        },
+      },
       streaming: !$dev,
       timeout: "300 seconds",
     });
@@ -87,7 +95,7 @@ export default $config({
       dev: {
         command: "pnpm dev",
       },
-      warm: 1,
+      warm: isProduction ? 1 : 0,
       router: {
         instance: router,
         domain: frontendDomain,
