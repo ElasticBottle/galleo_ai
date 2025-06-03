@@ -19,10 +19,11 @@ export async function createChat({
 }) {
   const { text: chatTitle } = await generateText({
     model: google("gemini-2.0-flash-lite-preview-02-05"),
-    prompt: `Generate a concise and relevant title for a new chat based on the following initial message. The title should be no more than 5 words about the initial message. 
+    prompt: `Generate a concise and relevant title for a new chat about trademarking based on the following initial message. The title should be no more than 5 words about the initial message. 
 
 Do not include any other text in the title.
 Do not use any formatting in the title.
+Situate the title in the context of trademarking.
     
 Initial message: "${initialMessageContent}"`,
   });
