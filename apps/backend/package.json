@@ -22,7 +22,7 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@ai-sdk/google": "^1.2.11",
+    "@ai-sdk/google": "^1.2.19",
     "@aws-sdk/client-s3": "^3.821.0",
     "@aws-sdk/s3-request-presigner": "^3.821.0",
     "@galleo/auth": "workspace:*",
