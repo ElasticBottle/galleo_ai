@@ -58,7 +58,7 @@ importers:
         version: link:../../packages/env
       '@hono/arktype-validator':
         specifier: ^2.0.1
-        version: 2.0.1(arktype@2.1.19)(hono@4.7.6)
+        version: 2.0.1(arktype@2.1.20)(hono@4.7.6)
       '@rectangular-labs/result':
         specifier: 0.0.1
         version: 0.0.1
@@ -66,8 +66,8 @@ importers:
         specifier: ^4.3.7
         version: 4.3.7(react@19.1.0)(zod@3.24.2)
       arktype:
-        specifier: ^2.1.19
-        version: 2.1.19
+        specifier: ^2.1.20
+        version: 2.1.20
       hono:
         specifier: ^4.7.6
         version: 4.7.6
@@ -115,8 +115,8 @@ importers:
         specifier: ^5.74.3
         version: 5.74.3(@tanstack/react-query@5.74.3(react@19.1.0))(react@19.1.0)
       arktype:
-        specifier: ^2.1.19
-        version: 2.1.19
+        specifier: ^2.1.20
+        version: 2.1.20
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
@@ -188,8 +188,8 @@ importers:
         specifier: 0.0.1
         version: 0.0.1
       arktype:
-        specifier: ^2.1.19
-        version: 2.1.19
+        specifier: ^2.1.20
+        version: 2.1.20
       hono:
         specifier: ^4.7.6
         version: 4.7.6
@@ -207,11 +207,11 @@ importers:
   packages/db:
     dependencies:
       arktype:
-        specifier: ^2.1.19
-        version: 2.1.19
+        specifier: ^2.1.20
+        version: 2.1.20
       drizzle-arktype:
         specifier: ^0.1.2
-        version: 0.1.2(arktype@2.1.19)(drizzle-orm@0.41.0(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.11.13)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.14.1)(postgres@3.4.5)(prisma@6.6.0(typescript@5.8.3)))
+        version: 0.1.2(arktype@2.1.20)(drizzle-orm@0.41.0(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.11.13)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.14.1)(postgres@3.4.5)(prisma@6.6.0(typescript@5.8.3)))
       drizzle-orm:
         specifier: ^0.41.0
         version: 0.41.0(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.11.13)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.14.1)(postgres@3.4.5)(prisma@6.6.0(typescript@5.8.3))
@@ -241,8 +241,8 @@ importers:
   packages/env:
     dependencies:
       arktype:
-        specifier: ^2.1.19
-        version: 2.1.19
+        specifier: ^2.1.20
+        version: 2.1.20
     devDependencies:
       '@galleo/typescript':
         specifier: workspace:*
@@ -493,11 +493,11 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@ark/schema@0.45.9':
-    resolution: {integrity: sha512-rG0v/JI0sibn/0wERAHTYVLCtEqoMP2IIlxnb+S5DrEjCI5wpubbZSWMDW50tZ8tV6FANu6zzHDeeKbp6lsZdg==}
+  '@ark/schema@0.46.0':
+    resolution: {integrity: sha512-c2UQdKgP2eqqDArfBqQIJppxJHvNNXuQPeuSPlDML4rjw+f1cu0qAlzOG4b8ujgm9ctIDWwhpyw6gjG5ledIVQ==}
 
-  '@ark/util@0.45.9':
-    resolution: {integrity: sha512-0WYNAb8aRGp7dNt6xIvIrRzL7V1XL3u3PK2vcklhtTrdaP235DjC9qJhzidrxtWr68mA5ySSjUrgrXk622bKkw==}
+  '@ark/util@0.46.0':
+    resolution: {integrity: sha512-JPy/NGWn/lvf1WmGCPw2VGpBg5utZraE84I7wli18EDF3p3zc/e9WolT35tINeZO3l7C77SjqRJeAUoT0CvMRg==}
 
   '@asamuzakjp/css-color@3.1.1':
     resolution: {integrity: sha512-hpRD68SV2OMcZCsrbdkccTw5FXjNDLo5OuqSHyHZfwweGsDWZwDJ2+gONyNAbazZclobMirACLw0lk8WVxIqxA==}
@@ -3209,6 +3209,7 @@ packages:
   '@swc/core@1.11.22':
     resolution: {integrity: sha512-mjPYbqq8XjwqSE0hEPT9CzaJDyxql97LgK4iyvYlwVSQhdN1uK0DBG4eP9PxYzCS2MUGAXB34WFLegdUj5HGpg==}
     engines: {node: '>=10'}
+    deprecated: It has a bug. See https://github.com/swc-project/swc/issues/10413
     peerDependencies:
       '@swc/helpers': '>=0.5.17'
     peerDependenciesMeta:
@@ -3775,8 +3776,8 @@ packages:
     resolution: {integrity: sha512-y+CcFFwelSXpLZk/7fMB2mUbGtX9lKycf1MWJ7CaTIERyitVlyQx6C+sxcROU2BAJ24OiZyK+8wj2i8AlBoS3A==}
     engines: {node: '>=10'}
 
-  arktype@2.1.19:
-    resolution: {integrity: sha512-notORSuTSpfLV7rq0kYC4mTgIVlVR0xQuvtFxOaE9aKiXyON/kgoIBwZZcKeSSb4BebNcfJoGlxJicAUl/HMdw==}
+  arktype@2.1.20:
+    resolution: {integrity: sha512-IZCEEXaJ8g+Ijd59WtSYwtjnqXiwM8sWQ5EjGamcto7+HVN9eK0C4p0zDlCuAwWhpqr6fIBkxPuYDl4/Mcj/+Q==}
 
   array-union@2.1.0:
     resolution: {integrity: sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==}
@@ -7151,11 +7152,11 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@ark/schema@0.45.9':
+  '@ark/schema@0.46.0':
     dependencies:
-      '@ark/util': 0.45.9
+      '@ark/util': 0.46.0
 
-  '@ark/util@0.45.9': {}
+  '@ark/util@0.46.0': {}
 
   '@asamuzakjp/css-color@3.1.1':
     dependencies:
@@ -9082,9 +9083,9 @@ snapshots:
 
   '@floating-ui/utils@0.2.9': {}
 
-  '@hono/arktype-validator@2.0.1(arktype@2.1.19)(hono@4.7.6)':
+  '@hono/arktype-validator@2.0.1(arktype@2.1.20)(hono@4.7.6)':
     dependencies:
-      arktype: 2.1.19
+      arktype: 2.1.20
       hono: 4.7.6
 
   '@hookform/resolvers@5.0.1(react-hook-form@7.55.0(react@19.1.0))':
@@ -11866,10 +11867,10 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  arktype@2.1.19:
+  arktype@2.1.20:
     dependencies:
-      '@ark/schema': 0.45.9
-      '@ark/util': 0.45.9
+      '@ark/schema': 0.46.0
+      '@ark/util': 0.46.0
 
   array-union@2.1.0: {}
 
@@ -12325,9 +12326,9 @@ snapshots:
 
   dotenv@16.4.7: {}
 
-  drizzle-arktype@0.1.2(arktype@2.1.19)(drizzle-orm@0.41.0(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.11.13)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.14.1)(postgres@3.4.5)(prisma@6.6.0(typescript@5.8.3))):
+  drizzle-arktype@0.1.2(arktype@2.1.20)(drizzle-orm@0.41.0(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.11.13)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.14.1)(postgres@3.4.5)(prisma@6.6.0(typescript@5.8.3))):
     dependencies:
-      arktype: 2.1.19
+      arktype: 2.1.20
       drizzle-orm: 0.41.0(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.11.13)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.14.1)(postgres@3.4.5)(prisma@6.6.0(typescript@5.8.3))
 
   drizzle-kit@0.30.6:
