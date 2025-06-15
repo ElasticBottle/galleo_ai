@@ -1,3 +1,4 @@
+import { os } from "@orpc/server";
 import { type Message, appendResponseMessages, streamText } from "ai";
 import { type } from "arktype";
 import { backgroundResearch } from "../../../../../lib/ai/business-research";
@@ -8,7 +9,11 @@ import { relevantGoodsServices } from "../../../../../lib/ai/relevant-goods-serv
 import { getChatAndMessageByTeamIdAndChatId } from "../../../../../lib/chat/db/get-chat-and-message-by-id";
 import { upsertMessage } from "../../../../../lib/chat/db/upsert-message";
 import { uploadAttachments } from "../../../../../lib/chat/upload-attachments";
-import { authRouter, teamIdMiddleware } from "../../../../../lib/orpc/routers";
+import {
+  type InitialRouterContext,
+  authRouter,
+  teamIdMiddleware,
+} from "../../../../../lib/orpc/routers";
 
 // Define the system prompt
 // Once you have sufficient information (including background context, NICE classification, and relevant goods/services), you can ask for the mark filling recommendation and give your final output.
@@ -50,6 +55,10 @@ Use markdown for formatting the email draft.
 Always use the tools at your disposal before asking the lawyer for more information.`;
 
 const messageLawyer = authRouter
+  .route({
+    method: "POST",
+    path: "/",
+  })
   .input(
     type({
       teamId: "string.integer.parse",
@@ -147,6 +156,10 @@ const messageLawyer = authRouter
     }
   });
 const getChat = authRouter
+  .route({
+    method: "GET",
+    path: "/{chatId}",
+  })
   .input(
     type({
       teamId: "string.integer.parse",
@@ -165,4 +178,10 @@ const getChat = authRouter
     return chat.value;
   });
 
-export { messageLawyer, getChat };
+export const chatRouter = os
+  .$context<InitialRouterContext>()
+  .prefix("/{teamId}/chat/{chatId}")
+  .router({
+    messageLawyer,
+    getChat,
+  });

@@ -1,9 +1,18 @@
+import { os } from "@orpc/server";
 import { type } from "arktype";
 import { createChat } from "../../../../lib/chat/create-chat";
 import { getAllChatOverviewByTeamId } from "../../../../lib/chat/db/get-all-chat-overview-by-team-id";
-import { authRouter, teamIdMiddleware } from "../../../../lib/orpc/routers";
+import {
+  type InitialRouterContext,
+  authRouter,
+  teamIdMiddleware,
+} from "../../../../lib/orpc/routers";
 
 const newChat = authRouter
+  .route({
+    method: "POST",
+    path: "/",
+  })
   .input(
     type({
       teamId: "string.integer.parse",
@@ -50,6 +59,10 @@ const newChat = authRouter
     return { chatId: createChatResult.value.chat.id };
   });
 const getChats = authRouter
+  .route({
+    method: "GET",
+    path: "/",
+  })
   .input(
     type({
       teamId: "string.integer.parse",
@@ -78,4 +91,10 @@ const getChats = authRouter
     }
     return { chats: chats.value };
   });
-export { getChats, newChat };
+export const chatsRouter = os
+  .$context<InitialRouterContext>()
+  .prefix("/{teamId}/chat")
+  .router({
+    newChat,
+    getChats,
+  });

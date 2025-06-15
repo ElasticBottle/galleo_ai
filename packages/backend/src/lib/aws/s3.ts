@@ -11,7 +11,6 @@ import mime from "mime-types";
 import { Resource } from "sst/resource";
 
 const s3Client = new S3Client();
-console.log("Resource", Resource);
 const ipMarksMediaBucket = () => Resource.IpMarksMedia.name;
 
 export async function getMarkFileUrl({

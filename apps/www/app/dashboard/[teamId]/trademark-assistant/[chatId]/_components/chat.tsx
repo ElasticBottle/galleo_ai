@@ -3,8 +3,8 @@
 import { type Message, useChat } from "@ai-sdk/react";
 import { Chat } from "@galleo/ui/components/chat/chat";
 import { useEffect, useRef } from "react";
-import { backend } from "~/lib/client/backend";
 import { posthogCapture } from "~/lib/client/posthog";
+import { ROUTE_CHAT_BACKEND_API } from "~/lib/routes";
 
 interface ChatInterfaceProps {
   teamId: string;
@@ -27,12 +27,7 @@ export function ChatInterface({
     stop,
     reload,
   } = useChat({
-    api: backend.api[":teamId"].chat[":chatId"].$url({
-      param: {
-        teamId,
-        chatId,
-      },
-    }).href,
+    api: ROUTE_CHAT_BACKEND_API(teamId, chatId),
     id: chatId,
     initialMessages,
     sendExtraMessageFields: true,

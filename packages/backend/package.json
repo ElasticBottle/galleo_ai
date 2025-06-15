@@ -5,13 +5,18 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./src/index.ts"
+      "types": "./dist/routes/index.d.ts",
+      "default": "./src/routes/index.ts"
+    },
+    "./openapi": {
+      "types": "./dist/routes/index.d.ts",
+      "default": "./dist/contract.json"
     }
   },
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
+    "gen-contract": "npx tsx ./src/routes/openapi.ts",
     "clean": "git clean -xdf .turbo node_modules dist .cache",
     "format": "bun x @biomejs/biome format . --write",
     "lint": "bun x @biomejs/biome lint . --write",
@@ -30,9 +35,10 @@
     "@galleo/auth": "workspace:*",
     "@galleo/db": "workspace:*",
     "@galleo/env": "workspace:*",
-    "@orpc/client": "^1.4.3",
+    "@orpc/client": "^1.5.1",
+    "@orpc/contract": "^1.5.1",
     "@orpc/openapi": "^1.5.1",
-    "@orpc/server": "^1.4.3",
+    "@orpc/server": "^1.5.1",
     "@rectangular-labs/result": "0.0.1",
     "ai": "^4.3.7",
     "arktype": "^2.1.19",

@@ -33,17 +33,19 @@ export const getEnv = (): ServerEnv => {
 };
 export const getDb = (): DB => {
   const context = getContext();
-  return context.db;
+  return createDb(context.env.DATABASE_URL);
 };
+
+export interface InitialRouterContext {
+  env: ServerEnv;
+  cookies: ReadonlyRequestCookies;
+}
 
 /**
  * Base router that is used to create all other routers.
  */
 export const baseRouter = os
-  .$context<{
-    env: ServerEnv;
-    cookies: ReadonlyRequestCookies;
-  }>()
+  .$context<InitialRouterContext>()
   .errors({
     UNAUTHORIZED: {},
     INTERNAL_SERVER_ERROR: {},
@@ -54,50 +56,37 @@ export const baseRouter = os
     return await asyncLocalStorage.run(context, async () => {
       return await next();
     });
-  })
-  .use(async ({ next, context }) => {
-    const db = createDb(context.env.DATABASE_URL);
-    return await next({
-      context: {
-        db,
-      },
-    });
   });
 
 /**
  * Authentication router that is used to authenticate the user.
  */
-export const authRouter = baseRouter.use(
-  async ({ context, next, errors, path, procedure }) => {
-    console.log("path", path);
-    console.log("procedure", procedure);
+export const authRouter = baseRouter.use(async ({ context, next, errors }) => {
+  const access = context.cookies.get("access_token")?.value;
+  const refresh = context.cookies.get("refresh_token")?.value;
+  if (!access || !refresh) {
+    throw new ORPCError("UNAUTHORIZED");
+  }
+  const verified = await verifySafe({ access, refresh });
+  if (verified.err) {
+    throw errors.UNAUTHORIZED();
+  }
 
-    const access = context.cookies.get("access_token")?.value;
-    const refresh = context.cookies.get("refresh_token")?.value;
-    if (!access || !refresh) {
-      throw new ORPCError("UNAUTHORIZED");
-    }
-    const verified = await verifySafe({ access, refresh });
-    if (verified.err) {
-      throw errors.UNAUTHORIZED();
-    }
-
-    const userAndTeam = await getUserAndTeams(verified.value.properties);
-    if (!userAndTeam.ok) {
-      console.error(
-        "[Auth middleware]: Error getting user and default team",
-        userAndTeam.error,
-      );
-      throw errors.INTERNAL_SERVER_ERROR();
-    }
-    return await next({
-      context: {
-        userSubject: verified.value.properties,
-        session: userAndTeam.value,
-      },
-    });
-  },
-);
+  const userAndTeam = await getUserAndTeams(verified.value.properties);
+  if (!userAndTeam.ok) {
+    console.error(
+      "[Auth middleware]: Error getting user and default team",
+      userAndTeam.error,
+    );
+    throw errors.INTERNAL_SERVER_ERROR();
+  }
+  return await next({
+    context: {
+      userSubject: verified.value.properties,
+      session: userAndTeam.value,
+    },
+  });
+});
 
 export const teamIdMiddleware = os
   .$context<{

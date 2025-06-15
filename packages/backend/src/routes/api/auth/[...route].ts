@@ -1,23 +1,37 @@
-import type { ServerEnv } from "@galleo/env";
 import { os } from "@orpc/server";
 import { safe, safeFetch } from "@rectangular-labs/result";
 import { type } from "arktype";
-import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { redirect } from "next/navigation";
 import { authClient, verifySafe } from "../../../lib/auth/client";
 import { getUserAndTeams } from "../../../lib/auth/db/get-user-and-default-team";
 import { deleteSession, setSession } from "../../../lib/auth/session";
 import { arrayBufferToBase64 } from "../../../lib/auth/util";
-import { authRouter, baseRouter, getEnv } from "../../../lib/orpc/routers";
+import {
+  type InitialRouterContext,
+  authRouter,
+  baseRouter,
+  getEnv,
+} from "../../../lib/orpc/routers";
 
-const getSession = authRouter.input(type({})).handler(({ context }) => {
-  const { session, userSubject } = context;
-  return { session, userSubject };
-});
-const logout = authRouter.handler(() => {
-  const deleted = deleteSession();
-  return { message: deleted ? "OK" : "No Session" };
-});
+const getSession = authRouter
+  .route({
+    method: "GET",
+    path: "/me",
+  })
+  .handler(({ context }) => {
+    const { session, userSubject } = context;
+    return { session, userSubject };
+  });
+const logout = authRouter
+  .route({
+    method: "POST",
+    path: "/logout",
+  })
+  .input(type({}))
+  .handler(() => {
+    const deleted = deleteSession();
+    return { message: deleted ? "OK" : "No Session" };
+  });
 
 const authorize = baseRouter
   .route({
@@ -101,15 +115,9 @@ const callback = baseRouter
     return redirect(`${env.NEXT_PUBLIC_APP_URL}/dashboard/${teamId}`);
   });
 
-export const auth = os
-  .$context<{
-    env: ServerEnv;
-    cookies: ReadonlyRequestCookies;
-  }>()
-  .prefix("/api/auth")
-  .router({
-    getSession,
-    authorize,
-    callback,
-    logout,
-  });
+export const auth = os.$context<InitialRouterContext>().prefix("/auth").router({
+  getSession,
+  authorize,
+  callback,
+  logout,
+});

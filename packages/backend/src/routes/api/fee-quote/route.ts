@@ -1,14 +1,22 @@
 import { InsertFeeQuoteItemSchema } from "@galleo/db/schema/fee-quote-item";
 import { type } from "arktype";
 
+import { os } from "@orpc/server";
 import {
   deleteFeeQuoteItem,
   listFeeQuoteItems,
   upsertFeeQuoteItems,
 } from "../../../lib/fee-quote/db";
-import { authRouter } from "../../../lib/orpc/routers";
+import {
+  type InitialRouterContext,
+  authRouter,
+} from "../../../lib/orpc/routers";
 
 const getItems = authRouter
+  .route({
+    method: "GET",
+    path: "/",
+  })
   .input(
     type({
       teamId: "string.integer.parse",
@@ -26,6 +34,10 @@ const getItems = authRouter
     return { feeQuoteItems: items.value };
   });
 const upsertItem = authRouter
+  .route({
+    method: "PUT",
+    path: "/",
+  })
   .input(
     type({
       teamId: "string.integer.parse",
@@ -51,6 +63,10 @@ const upsertItem = authRouter
   });
 
 const deleteItem = authRouter
+  .route({
+    method: "DELETE",
+    path: "/",
+  })
   .input(
     type({
       teamId: "string.integer.parse",
@@ -68,4 +84,11 @@ const deleteItem = authRouter
     return { feeQuoteItems: result.value };
   });
 
-export { getItems, upsertItem, deleteItem };
+export const feeQuoteRouter = os
+  .$context<InitialRouterContext>()
+  .prefix("/fee-quote")
+  .router({
+    getItems,
+    upsertItem,
+    deleteItem,
+  });

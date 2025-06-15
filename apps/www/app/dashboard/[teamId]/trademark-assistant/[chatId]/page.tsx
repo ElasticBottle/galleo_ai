@@ -1,6 +1,7 @@
 import type { Message } from "@ai-sdk/react";
+import { safe } from "@rectangular-labs/result";
 import { notFound } from "next/navigation";
-import { backend } from "~/lib/server/backend";
+import { getApi } from "~/lib/server/api";
 import { ChatInterface } from "./_components/chat";
 
 export default async function ChatInstancePage({
@@ -9,21 +10,21 @@ export default async function ChatInstancePage({
   params: Promise<{ teamId: string; chatId: string }>;
 }) {
   const { teamId, chatId } = await params;
-
-  const response = await (await backend()).api[":teamId"].chat[":chatId"].$get({
-    param: {
+  const api = await getApi();
+  const response = await safe(() =>
+    api.chat.getChat({
       teamId,
       chatId,
-    },
-  });
+    }),
+  );
   if (!response.ok) {
-    const error = await response.json();
+    const error = response.error;
     console.error("Something went wrong fetching chat", error);
     return (
       <div>Something went wrong fetching chat. Please try again later.</div>
     );
   }
-  const chat = await response.json();
+  const chat = response.value;
   if (!chat) {
     return notFound();
   }
