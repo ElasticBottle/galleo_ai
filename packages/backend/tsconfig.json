@@ -1,0 +1,8 @@
+{
+  "extends": "@galleo/typescript/tsconfig.internal-package.json",
+  "compilerOptions": {
+    "rootDir": "src"
+  },
+  "include": ["src", "sst-env.d.ts"],
+  "exclude": ["node_modules"]
+}

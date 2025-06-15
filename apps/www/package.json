@@ -22,6 +22,8 @@
     "@galleo/backend": "workspace:*",
     "@galleo/db": "workspace:*",
     "@galleo/ui": "workspace:*",
+    "@orpc/client": "^1.4.3",
+    "@orpc/server": "^1.4.3",
     "@rectangular-labs/result": "0.0.1",
     "@tanstack/react-query": "^5.74.3",
     "@tanstack/react-query-devtools": "^5.74.3",
