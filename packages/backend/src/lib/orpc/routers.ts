@@ -4,6 +4,7 @@ import type { SelectTeam } from "@galleo/db/schema/team";
 import type { SelectTeamRole } from "@galleo/db/schema/team-role";
 import type { ServerEnv } from "@galleo/env";
 import { os, type Context, ORPCError } from "@orpc/server";
+import type { ResponseHeadersPluginContext } from "@orpc/server/plugins";
 import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { verifySafe } from "../auth/client";
 import { getUserAndTeams } from "../auth/db/get-user-and-default-team";
@@ -45,7 +46,7 @@ export interface InitialRouterContext {
  * Base router that is used to create all other routers.
  */
 export const baseRouter = os
-  .$context<InitialRouterContext>()
+  .$context<ResponseHeadersPluginContext & InitialRouterContext>()
   .errors({
     UNAUTHORIZED: {},
     INTERNAL_SERVER_ERROR: {},

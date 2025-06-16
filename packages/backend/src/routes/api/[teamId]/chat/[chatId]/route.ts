@@ -67,7 +67,7 @@ const messageLawyer = authRouter
     }),
   )
   .use(teamIdMiddleware, (input) => input.teamId)
-  .handler(async function* ({ input, errors, context }) {
+  .handler(async ({ input, errors, context }) => {
     const { teamId, chatId, messages: messagesInput } = input;
     const messages = messagesInput as Message[];
     const { session } = context;
@@ -147,7 +147,7 @@ const messageLawyer = authRouter
         sendReasoning: true,
         sendSources: true,
       });
-      yield* dataStream;
+      return dataStream;
     } catch (error) {
       console.error("Error calling streamText:", error);
       throw errors.INTERNAL_SERVER_ERROR({
