@@ -29,7 +29,6 @@ export default $config({
       return `${$app.stage}.dev.galleoai.com`;
     })();
     const frontendDomain = domain;
-    const backendDomain = `${domain}/api`;
     const authDomain = isPermanentStage
       ? `auth.${domain}`
       : "auth.dev.galleoai.com";
@@ -66,34 +65,16 @@ export default $config({
         })
       : sst.aws.Router.get("AppRouter", "EL8QCPMFX80NG"); // the dev app
 
-    const backendApi = new sst.aws.Function("Hono", {
-      handler: "apps/backend/src/index.handler",
-      link: [ipMediaBucket],
-      environment: serverEnv,
-      url: {
-        cors: {
-          allowOrigins: [`https://${frontendDomain}`],
-          allowHeaders: ["*"],
-          allowMethods: ["*"],
-          allowCredentials: true,
-        },
-      },
-      streaming: !$dev,
-      timeout: "300 seconds",
-    });
-    router.route(backendDomain, backendApi.url, {
-      readTimeout: "30 seconds",
-      keepAliveTimeout: "30 seconds",
-    });
-
     const _frontend = new sst.aws.Nextjs("WWW", {
       path: "apps/www",
-      // todo: unlink this since it's only used for dev
       link: [ipMediaBucket],
       environment: serverEnv,
       buildCommand: `STAGE=${$app.stage} pnpx open-next@latest build`,
       dev: {
         command: "pnpm dev",
+      },
+      server: {
+        timeout: "60 seconds",
       },
       warm: isProduction ? 1 : 0,
       router: {

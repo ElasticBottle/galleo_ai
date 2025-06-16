@@ -1,7 +1,6 @@
 import { os } from "@orpc/server";
 import { safe, safeFetch } from "@rectangular-labs/result";
 import { type } from "arktype";
-import { redirect } from "next/navigation";
 import { authClient, verifySafe } from "../../../lib/auth/client";
 import { getUserAndTeams } from "../../../lib/auth/db/get-user-and-default-team";
 import { deleteSession, setSession } from "../../../lib/auth/session";
@@ -52,6 +51,8 @@ const callback = baseRouter
   .route({
     method: "GET",
     path: "/callback",
+    successStatus: 307,
+    outputStructure: "detailed",
   })
   .input(
     type({
@@ -111,8 +112,11 @@ const callback = baseRouter
     if (!teamId) {
       throw errors.UNAUTHORIZED({});
     }
-
-    return redirect(`${env.NEXT_PUBLIC_APP_URL}/dashboard/${teamId}`);
+    return {
+      headers: {
+        location: `${env.NEXT_PUBLIC_APP_URL}/dashboard/${teamId}`,
+      },
+    };
   });
 
 export const auth = os.$context<InitialRouterContext>().prefix("/auth").router({
