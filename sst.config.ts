@@ -21,7 +21,7 @@ export default $config({
     const isProduction = $app.stage === "production";
     const domain = (() => {
       if (isProduction) {
-        return "galleo.ai";
+        return "www.galleo.ai";
       }
       if ($app.stage === "dev") {
         return "dev.galleoai.com";
@@ -60,6 +60,7 @@ export default $config({
           domain: {
             name: domain,
             aliases: [`*.${domain}`],
+            redirects: isProduction ? ["galleo.ai"] : [],
             dns,
           },
         })
