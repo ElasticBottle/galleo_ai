@@ -35,8 +35,30 @@ export function setSession(accessToken?: string, refreshToken?: string) {
 
 export function deleteSession() {
   const cookies = getCookies();
-  const accessToken = cookies.delete("access_token");
-  const refreshToken = cookies.delete("refresh_token");
+  const env = getEnv();
+  const accessToken = cookies.get("access_token")?.value;
+  const refreshToken = cookies.get("refresh_token")?.value;
+  cookies.set({
+    name: "access_token",
+    value: "",
+    secure: true,
+    httpOnly: true,
+    path: "/",
+    domain: env.NEXT_PUBLIC_APP_URL.includes("localhost")
+      ? "localhost"
+      : `.${env.NEXT_PUBLIC_APP_URL.replace("https://", "")}`,
+  });
+  cookies.set({
+    name: "refresh_token",
+    value: "",
+    secure: true,
+    httpOnly: true,
+    path: "/",
+    domain: env.NEXT_PUBLIC_APP_URL.includes("localhost")
+      ? "localhost"
+      : `.${env.NEXT_PUBLIC_APP_URL.replace("https://", "")}`,
+  });
+
   console.log("deleted new", { accessToken, refreshToken });
   return !!accessToken && !!refreshToken;
 }
