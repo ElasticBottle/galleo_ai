@@ -12,10 +12,10 @@
   },
   "scripts": {
     "clean": "git clean -xdf .turbo node_modules",
-    "format": "bun x @biomejs/biome format . --write",
-    "lint": "bun x @biomejs/biome lint . --write",
+    "format": "bun x @biomejs/biome@1.9.4 format . --write",
+    "lint": "bun x @biomejs/biome@1.9.4 lint . --write",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
-    "ui-add": "bun x shadcn@canary add && bun x @biomejs/biome lint --write --unsafe"
+    "ui-add": "bun x shadcn@canary add && bun x @biomejs/biome@1.9.4 lint --write --unsafe"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",

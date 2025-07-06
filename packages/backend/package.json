@@ -18,8 +18,8 @@
     "dev": "tsc --watch",
     "gen-contract": "npx tsx ./src/routes/openapi.ts",
     "clean": "git clean -xdf .turbo node_modules dist .cache",
-    "format": "bun x @biomejs/biome format . --write",
-    "lint": "bun x @biomejs/biome lint . --write",
+    "format": "bun x @biomejs/biome@1.9.4 format . --write",
+    "lint": "bun x @biomejs/biome@1.9.4 lint . --write",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "devDependencies": {
