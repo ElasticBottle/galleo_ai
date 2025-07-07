@@ -216,8 +216,8 @@ importers:
         specifier: workspace:*
         version: link:../../tooling/typescript
       '@types/mime-types':
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.0.1
+        version: 3.0.1
       '@types/node':
         specifier: ^22.14.1
         version: 22.15.3
@@ -3357,8 +3357,8 @@ packages:
   '@types/mdx@2.0.13':
     resolution: {integrity: sha512-+OWZQfAYyio6YkJb3HLxDrvnx6SWWDbC0zVPfBRzUk0/nqoDyf6dNxQi3eArPe8rJ473nobTMQ/8Zk+LxJ+Yuw==}
 
-  '@types/mime-types@3.0.0':
-    resolution: {integrity: sha512-9gFWMsVgEtbsD6yY/2z8pAtnZhdRKl4Q9xmKQJy5gv0fMpzJeeWtQyd7WpdhaIbRSwPCfnjXOsNMcoQvu5giGg==}
+  '@types/mime-types@3.0.1':
+    resolution: {integrity: sha512-xRMsfuQbnRq1Ef+C+RKaENOxXX87Ygl38W1vDfPHRku02TgQr+Qd8iivLtAMcR0KF5/29xlnFihkTlbqFrGOVQ==}
 
   '@types/minimatch@5.1.2':
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
@@ -10735,7 +10735,7 @@ snapshots:
 
   '@types/mdx@2.0.13': {}
 
-  '@types/mime-types@3.0.0': {}
+  '@types/mime-types@3.0.1': {}
 
   '@types/minimatch@5.1.2': {}
 
