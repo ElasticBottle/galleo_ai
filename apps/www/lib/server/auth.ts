@@ -1,24 +1,29 @@
 import { safe } from "@rectangular-labs/result";
 import { redirect } from "next/navigation";
-import { backend as clientBackend } from "../client/backend";
 import { ROUTE_DASHBOARD_TEAM } from "../routes";
-import { backend } from "./backend";
+import { getApi } from "./api";
 
 export async function getSession() {
-  const serverApi = await backend();
-  const response = await safe(() => serverApi.api.auth.me.$get());
-  if (!response.ok || !response.value.ok) {
+  const serverApi = await getApi();
+  const response = await safe(() => serverApi.auth.getSession());
+  if (!response.ok) {
     return { userSubject: null, session: null };
   }
-  const session = await response.value.json();
-  return { userSubject: session.userSubject, session: session.session };
+  return response.value;
 }
-
 export type Session = Awaited<ReturnType<typeof getSession>>;
+
 export async function ensureSession(teamId?: number) {
   const session = await getSession();
   if (!session.userSubject) {
-    throw redirect(authorizeUrl);
+    const serverApi = await getApi();
+    const response = await safe(() => serverApi.auth.authorize());
+    if (!response.ok) {
+      console.error("Failed to get authorize url", response.error);
+      throw new Error("Failed to get authorize url");
+    }
+    const redirectUrl = response.value.redirectUrl;
+    throw redirect(redirectUrl);
   }
 
   if (typeof teamId !== "number") {
@@ -39,5 +44,3 @@ export async function ensureSession(teamId?: number) {
 
   return session;
 }
-
-export const authorizeUrl = clientBackend.api.auth.authorize.$url().href;

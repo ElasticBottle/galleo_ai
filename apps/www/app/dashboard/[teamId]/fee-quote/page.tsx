@@ -8,5 +8,5 @@ export default async function FeeQuotePage({
 }) {
   const { teamId } = await params;
   await ensureSession(Number.parseInt(teamId));
-  return <QuoteForm teamId={Number.parseInt(teamId)} />;
+  return <QuoteForm teamId={teamId} />;
 }

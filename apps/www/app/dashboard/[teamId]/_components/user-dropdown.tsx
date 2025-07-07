@@ -27,7 +27,7 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { backend } from "~/lib/client/backend";
+import { apiOptions } from "~/lib/client/api";
 import { posthogReset } from "~/lib/client/posthog";
 import type { Session } from "~/lib/server/auth";
 
@@ -59,21 +59,17 @@ export function UserDropdown({
 }) {
   const { isMobile } = useSidebar();
   const router = useRouter();
-  const { mutate: signOut, isPending: isSigningOut } = useMutation({
-    mutationFn: async () => {
-      const response = await backend.api.auth.logout.$post();
-      if (!response.ok) {
-        throw new Error("Failed to sign out");
-      }
-    },
-    onSuccess: () => {
-      posthogReset();
-      router.refresh();
-    },
-    onError: () => {
-      console.error("Failed to sign out");
-    },
-  });
+  const { mutate: signOut, isPending: isSigningOut } = useMutation(
+    apiOptions.auth.logout.mutationOptions({
+      onSuccess: () => {
+        posthogReset();
+        router.refresh();
+      },
+      onError: () => {
+        console.error("Failed to sign out");
+      },
+    }),
+  );
 
   return (
     <SidebarMenu>
@@ -107,7 +103,7 @@ export function UserDropdown({
             >
               Toggle Theme
             </ThemeToggle>
-            <DropdownMenuItem onClick={() => signOut()}>
+            <DropdownMenuItem onClick={() => signOut({})}>
               <LogOut />
               Log out
             </DropdownMenuItem>

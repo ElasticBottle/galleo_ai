@@ -19,7 +19,7 @@ import { useEffect } from "react";
 import { useListFeeQuoteItems, useUpsertFeeQuoteItems } from "./queries";
 import { type FeeQuoteFormValues, feeQuoteFormSchema } from "./schema";
 
-export function QuoteForm({ teamId }: { teamId: number }) {
+export function QuoteForm({ teamId }: { teamId: string }) {
   const { data: feeData, isLoading } = useListFeeQuoteItems(teamId);
   const { mutate: upsertFeeItems, isPending: isSaving } =
     useUpsertFeeQuoteItems(teamId);
@@ -39,12 +39,15 @@ export function QuoteForm({ teamId }: { teamId: number }) {
   // Populate form with fetched data
   useEffect(() => {
     if (feeData) {
-      form.reset({ items: feeData });
+      form.reset({ items: feeData.feeQuoteItems ?? [] });
     }
   }, [feeData, form]);
 
   const onSubmit = (values: FeeQuoteFormValues) => {
-    upsertFeeItems({ items: values.items });
+    upsertFeeItems({
+      teamId,
+      items: values.items,
+    });
   };
 
   const addRow = () => {

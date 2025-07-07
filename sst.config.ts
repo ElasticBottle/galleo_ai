@@ -21,7 +21,7 @@ export default $config({
     const isProduction = $app.stage === "production";
     const domain = (() => {
       if (isProduction) {
-        return "galleo.ai";
+        return "www.galleo.ai";
       }
       if ($app.stage === "dev") {
         return "dev.galleoai.com";
@@ -29,10 +29,12 @@ export default $config({
       return `${$app.stage}.dev.galleoai.com`;
     })();
     const frontendDomain = domain;
-    const backendDomain = `${domain}/api`;
-    const authDomain = isPermanentStage
-      ? `auth.${domain}`
-      : "auth.dev.galleoai.com";
+    const authDomain = (() => {
+      if (isProduction) {
+        return "auth.galleo.ai";
+      }
+      return `auth.${domain}`;
+    })();
 
     if (!process.env.CLOUDFLARE_ZONE_ID) {
       throw new Error("CLOUDFLARE_ZONE_ID is not set");
@@ -60,40 +62,22 @@ export default $config({
       ? new sst.aws.Router("AppRouter", {
           domain: {
             name: domain,
-            aliases: [`*.${domain}`],
+            aliases: isProduction ? ["*.galleo.ai"] : [`*.${domain}`],
             dns,
           },
         })
       : sst.aws.Router.get("AppRouter", "EL8QCPMFX80NG"); // the dev app
 
-    const backendApi = new sst.aws.Function("Hono", {
-      handler: "apps/backend/src/index.handler",
-      link: [ipMediaBucket],
-      environment: serverEnv,
-      url: {
-        cors: {
-          allowOrigins: [`https://${frontendDomain}`],
-          allowHeaders: ["*"],
-          allowMethods: ["*"],
-          allowCredentials: true,
-        },
-      },
-      streaming: !$dev,
-      timeout: "300 seconds",
-    });
-    router.route(backendDomain, backendApi.url, {
-      readTimeout: "30 seconds",
-      keepAliveTimeout: "30 seconds",
-    });
-
     const _frontend = new sst.aws.Nextjs("WWW", {
       path: "apps/www",
-      // todo: unlink this since it's only used for dev
       link: [ipMediaBucket],
       environment: serverEnv,
       buildCommand: `STAGE=${$app.stage} pnpx open-next@latest build`,
       dev: {
         command: "pnpm dev",
+      },
+      server: {
+        timeout: "60 seconds",
       },
       warm: isProduction ? 1 : 0,
       router: {

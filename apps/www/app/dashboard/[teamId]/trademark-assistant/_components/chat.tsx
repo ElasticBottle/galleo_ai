@@ -2,10 +2,11 @@
 
 import type { Message } from "@ai-sdk/react";
 import { Chat } from "@galleo/ui/components/chat/chat";
+import { safe } from "@rectangular-labs/result";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { backend } from "~/lib/client/backend";
+import { api } from "~/lib/client/api";
 import { posthogCapture } from "~/lib/client/posthog";
 import { ROUTE_TRADEMARK_ASSISTANT_CHAT } from "~/lib/routes";
 
@@ -49,23 +50,21 @@ export function CreateChatInterface({ teamId }: ChatInterfaceProps) {
       attachments?: FileList;
     }) => {
       const parsedAttachments = await convertFilesToAttachments(attachments);
-      const response = await backend.api[":teamId"].chat.$post({
-        param: {
+      const response = await safe(() =>
+        api.chat.newChat({
           teamId,
-        },
-        json: {
           messages: [
             {
               content: input,
               attachments: parsedAttachments,
             },
           ],
-        },
-      });
+        }),
+      );
       if (!response.ok) {
-        throw new Error("Failed to create chat");
+        throw new Error("Failed to create chat", response.error);
       }
-      return await response.json();
+      return response.value;
     },
     onMutate: async (data) => {
       setMessages([

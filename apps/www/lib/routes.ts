@@ -6,6 +6,7 @@ export const ROUTE_DASHBOARD = "/dashboard";
 
 export const ROUTE_FEE_QUOTE = (teamId: number) =>
   `/dashboard/${teamId}/fee-quote`;
+
 export const ROUTE_TRADEMARK_ASSISTANT = (teamId: number) =>
   `/dashboard/${teamId}/trademark-assistant`;
 export const ROUTE_TRADEMARK_ASSISTANT_CHAT = ({
@@ -13,3 +14,5 @@ export const ROUTE_TRADEMARK_ASSISTANT_CHAT = ({
   chatId,
 }: { teamId: number; chatId: string }) =>
   `/dashboard/${teamId}/trademark-assistant/${chatId}`;
+export const ROUTE_CHAT_BACKEND_API = (teamId: string, chatId: string) =>
+  `/api/${teamId}/chat/${chatId}`;
