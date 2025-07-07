@@ -29,9 +29,12 @@ export default $config({
       return `${$app.stage}.dev.galleoai.com`;
     })();
     const frontendDomain = domain;
-    const authDomain = isPermanentStage
-      ? `auth.${domain}`
-      : "auth.dev.galleoai.com";
+    const authDomain = (() => {
+      if (isProduction) {
+        return "auth.galleo.ai";
+      }
+      return `auth.${domain}`;
+    })();
 
     if (!process.env.CLOUDFLARE_ZONE_ID) {
       throw new Error("CLOUDFLARE_ZONE_ID is not set");
@@ -59,8 +62,7 @@ export default $config({
       ? new sst.aws.Router("AppRouter", {
           domain: {
             name: domain,
-            aliases: [`*.${domain}`],
-            redirects: isProduction ? ["galleo.ai"] : [],
+            aliases: isProduction ? ["*.galleo.ai"] : [`*.${domain}`],
             dns,
           },
         })
