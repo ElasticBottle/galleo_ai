@@ -34,7 +34,7 @@
     "with-env-prod": "dotenvx run -f ../../.env.production -- "
   },
   "dependencies": {
-    "arktype": "^2.1.19",
+    "arktype": "^2.1.20",
     "drizzle-arktype": "^0.1.2",
     "drizzle-orm": "^0.41.0",
     "pg": "^8.14.1"
