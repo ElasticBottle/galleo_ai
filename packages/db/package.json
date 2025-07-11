@@ -44,7 +44,7 @@
     "@galleo/typescript": "workspace:*",
     "@types/node": "^22.16.3",
     "@types/pg": "^8.11.13",
-    "drizzle-kit": "^0.30.6",
+    "drizzle-kit": "^0.31.4",
     "typescript": "^5.8.3"
   },
   "overrides": {
