@@ -42,7 +42,7 @@
     "@galleo/env": "workspace:*",
     "@galleo/typescript": "workspace:*",
     "@turbo/gen": "^2.5.4",
-    "sst": "3.14.11",
+    "sst": "3.17.10",
     "turbo": "^2.5.4",
     "typescript": "^5.8.3"
   },
