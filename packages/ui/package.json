@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@ai-sdk/react": "^1.2.12",
-    "@ark-ui/react": "^5.7.0",
+    "@ark-ui/react": "^5.16.1",
     "@galleo/typescript": "workspace:*",
     "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-accordion": "^1.2.11",
