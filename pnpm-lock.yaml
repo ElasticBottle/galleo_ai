@@ -63,8 +63,8 @@ importers:
         specifier: ^1.5.1
         version: 1.5.1(ws@8.18.1)
       '@orpc/tanstack-query':
-        specifier: ^1.5.1
-        version: 1.5.1(@orpc/client@1.5.1)(@tanstack/query-core@5.80.7)
+        specifier: ^1.6.8
+        version: 1.6.8(@orpc/client@1.5.1)(@tanstack/query-core@5.80.7)
       '@rectangular-labs/result':
         specifier: 0.0.1
         version: 0.0.1
@@ -1811,6 +1811,9 @@ packages:
   '@orpc/shared@1.5.1':
     resolution: {integrity: sha512-9E1AsVmGJ/oUvqzjivBW8xGMPufvnOSMAkVDvivYkbIFE3B72XTv9KDH7JHqe49X3FU8Zk2mYkukIAjhpqFj6w==}
 
+  '@orpc/shared@1.6.8':
+    resolution: {integrity: sha512-hhcOD/1zQgI/EUJhPAYPSh1SLtnmKB+zcxfxxPmgX6tz5+Q0Zn/1Jbv8L0vuEnEoC5Yoq/WY+asB+scWQ1mwFg==}
+
   '@orpc/standard-server-aws-lambda@1.5.1':
     resolution: {integrity: sha512-qK7WUCl6wDNmdvXvNHfgr3NNmqwjdVay5skvHPu9j/PJ88pzZ03ipHXByLMzHLR0ic5kIzd/PDpLGX5m2pcC0g==}
 
@@ -1826,10 +1829,10 @@ packages:
   '@orpc/standard-server@1.5.1':
     resolution: {integrity: sha512-jPw9ScoAxscgK9Mg6X/JXKKRm/l0P3gK8biOedSrxVVLRlcJM0kr3AHREvm+klh7hig2wD9/mrjhwv9qZazZtA==}
 
-  '@orpc/tanstack-query@1.5.1':
-    resolution: {integrity: sha512-6GBa1SwvE4aFqoDZjwvSqWO2a0I58+j9B0max6WYjSZmbo6E1Z/ZG0/g5D04oS3qZFdkyiqAwFEeNySUZpvaKw==}
+  '@orpc/tanstack-query@1.6.8':
+    resolution: {integrity: sha512-dkxM5ktArAFITBtGMnDdmkv9r/qi7pG9eoKupPFptrwbSvP9iIPZDiV6zv+qpyd809NvaIS23Krsv+DGZregMA==}
     peerDependencies:
-      '@orpc/client': 1.5.1
+      '@orpc/client': 1.6.8
       '@tanstack/query-core': '>=5.80.2'
 
   '@oslojs/asn1@1.0.0':
@@ -5594,6 +5597,10 @@ packages:
     resolution: {integrity: sha512-b0Zcf09AhqKS83btmUeYBS8tFK7XL2e3RvLmZcm0sTdF1/UUlHSsjXdCcWNxe7yfmAlPve5ym0DmKGtTzP6kVQ==}
     engines: {node: '>=14.18.0'}
 
+  radash@12.1.1:
+    resolution: {integrity: sha512-h36JMxKRqrAxVD8201FrCpyeNuUY9Y5zZwujr20fFO77tpUtGa6EZzfKw/3WaiBX95fq7+MpsuMLNdSnORAwSA==}
+    engines: {node: '>=14.18.0'}
+
   range-parser@1.2.1:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
@@ -8999,6 +9006,11 @@ snapshots:
       radash: 12.1.0
       type-fest: 4.41.0
 
+  '@orpc/shared@1.6.8':
+    dependencies:
+      radash: 12.1.1
+      type-fest: 4.41.0
+
   '@orpc/standard-server-aws-lambda@1.5.1':
     dependencies:
       '@orpc/shared': 1.5.1
@@ -9026,10 +9038,10 @@ snapshots:
     dependencies:
       '@orpc/shared': 1.5.1
 
-  '@orpc/tanstack-query@1.5.1(@orpc/client@1.5.1)(@tanstack/query-core@5.80.7)':
+  '@orpc/tanstack-query@1.6.8(@orpc/client@1.5.1)(@tanstack/query-core@5.80.7)':
     dependencies:
       '@orpc/client': 1.5.1
-      '@orpc/shared': 1.5.1
+      '@orpc/shared': 1.6.8
       '@tanstack/query-core': 5.80.7
 
   '@oslojs/asn1@1.0.0':
@@ -13708,6 +13720,8 @@ snapshots:
   queue-microtask@1.2.3: {}
 
   radash@12.1.0: {}
+
+  radash@12.1.1: {}
 
   range-parser@1.2.1: {}
 
