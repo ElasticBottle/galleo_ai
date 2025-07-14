@@ -15,8 +15,8 @@ importers:
         specifier: ^2.29.5
         version: 2.29.5
       '@dotenvx/dotenvx':
-        specifier: ^1.47.5
-        version: 1.47.5
+        specifier: ^1.47.6
+        version: 1.47.6
       '@galleo/env':
         specifier: workspace:*
         version: link:packages/env
@@ -1186,8 +1186,8 @@ packages:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
 
-  '@dotenvx/dotenvx@1.47.5':
-    resolution: {integrity: sha512-FtDgJyqOXmkj+BTU0qcE4Iq2HKjrEH6ZhRMc7m8fmOwstf1Ms9/9lbLNzyiNqyQrEnVr38W8PTTWMbDB3IX5og==}
+  '@dotenvx/dotenvx@1.47.6':
+    resolution: {integrity: sha512-bvVMFc3Z9/mtYUWP1S1UB4SA3U2mQ1p7Qc9QW6Cm7t1Vm6D+dysmus/Mt26Dc1QrE6OgrKUGC99EQcMvcFZC3Q==}
     hasBin: true
 
   '@drizzle-team/brocli@0.10.2':
@@ -8463,7 +8463,7 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  '@dotenvx/dotenvx@1.47.5':
+  '@dotenvx/dotenvx@1.47.6':
     dependencies:
       commander: 11.1.0
       dotenv: 16.4.7
