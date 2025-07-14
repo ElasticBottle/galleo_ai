@@ -37,13 +37,13 @@
     "arktype": "^2.1.20",
     "drizzle-arktype": "^0.1.3",
     "drizzle-orm": "^0.44.2",
-    "pg": "^8.14.1"
+    "pg": "^8.16.3"
   },
   "devDependencies": {
     "@ai-sdk/react": "^1.2.12",
     "@galleo/typescript": "workspace:*",
     "@types/node": "^22.16.3",
-    "@types/pg": "^8.11.13",
+    "@types/pg": "^8.15.4",
     "drizzle-kit": "^0.31.4",
     "typescript": "^5.8.3"
   },
