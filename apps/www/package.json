@@ -24,7 +24,7 @@
     "@galleo/ui": "workspace:*",
     "@orpc/client": "^1.7.2",
     "@orpc/openapi": "^1.5.1",
-    "@orpc/openapi-client": "^1.6.8",
+    "@orpc/openapi-client": "^1.7.2",
     "@orpc/server": "^1.5.1",
     "@orpc/tanstack-query": "^1.6.8",
     "@rectangular-labs/result": "0.0.1",
