@@ -36,7 +36,7 @@
     "with-env-prod": "dotenvx run -f .env.production -- "
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.1.2",
     "@changesets/cli": "^2.29.5",
     "@dotenvx/dotenvx": "^1.48.1",
     "@galleo/env": "workspace:*",
