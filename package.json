@@ -38,7 +38,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@changesets/cli": "^2.29.5",
-    "@dotenvx/dotenvx": "^1.48.0",
+    "@dotenvx/dotenvx": "^1.48.1",
     "@galleo/env": "workspace:*",
     "@galleo/typescript": "workspace:*",
     "@turbo/gen": "^2.5.5",
