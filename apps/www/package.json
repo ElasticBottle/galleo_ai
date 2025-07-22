@@ -36,7 +36,7 @@
     "motion": "^12.6.5",
     "next": "15.4.2",
     "next-mdx-remote": "^5.0.0",
-    "posthog-js": "^1.257.1",
+    "posthog-js": "^1.257.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },

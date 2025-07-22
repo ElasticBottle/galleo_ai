@@ -93,8 +93,8 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0(@types/react@19.1.8)(acorn@8.14.1)(react@19.1.0)
       posthog-js:
-        specifier: ^1.257.1
-        version: 1.257.1
+        specifier: ^1.257.2
+        version: 1.257.2
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -5349,8 +5349,8 @@ packages:
     resolution: {integrity: sha512-cDWgoah1Gez9rN3H4165peY9qfpEo+SA61oQv65O3cRUE1pOEoJWwddwcqKE8XZYjbblOJlYDlLV4h67HrEVDg==}
     engines: {node: '>=12'}
 
-  posthog-js@1.257.1:
-    resolution: {integrity: sha512-29kk3IO/LkPQ8E1cds6a2sWr5iN4BovgL+EMzRK9hQXbI6D3FJnQ7zLU6EUpktt6pHnqGpfO3BTEcflcDYkHBg==}
+  posthog-js@1.257.2:
+    resolution: {integrity: sha512-E+8wI/ahaiUGrmkilOtAB9aTFL+oELwOEsH1eO/2NyXB5WWcSUk6Rm1loixq8/lC4f3oR+Qqp9rHyXTSYbBDRQ==}
     peerDependencies:
       '@rrweb/types': 2.0.0-alpha.17
       rrweb-snapshot: 2.0.0-alpha.17
@@ -12979,7 +12979,7 @@ snapshots:
   postgres@3.4.5:
     optional: true
 
-  posthog-js@1.257.1:
+  posthog-js@1.257.2:
     dependencies:
       core-js: 3.42.0
       fflate: 0.4.8
