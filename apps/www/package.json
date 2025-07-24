@@ -34,7 +34,7 @@
     "gray-matter": "^4.0.3",
     "hono": "^4.8.5",
     "motion": "^12.6.5",
-    "next": "15.4.3",
+    "next": "15.4.4",
     "next-mdx-remote": "^5.0.0",
     "posthog-js": "^1.257.2",
     "react": "^19.1.0",
