@@ -63,8 +63,8 @@ importers:
         specifier: ^1.5.1
         version: 1.5.1(ws@8.18.1)
       '@orpc/tanstack-query':
-        specifier: ^1.7.4
-        version: 1.7.4(@orpc/client@1.7.5)(@tanstack/query-core@5.83.0)
+        specifier: ^1.7.5
+        version: 1.7.5(@orpc/client@1.7.5)(@tanstack/query-core@5.83.0)
       '@rectangular-labs/result':
         specifier: 0.0.1
         version: 0.0.1
@@ -1765,10 +1765,10 @@ packages:
   '@orpc/standard-server@1.7.5':
     resolution: {integrity: sha512-hEFqOin/H53+WmG4M0hfeAx/E2mAEp5Gzz12ufK9nmddbrbpkT8KBKCrs6iHPnJkjvYwB7f1EItrtgmBPAYOXg==}
 
-  '@orpc/tanstack-query@1.7.4':
-    resolution: {integrity: sha512-YLWrDfGVGkijprTHHxmuXpwCjjruXWfKLlzKhV9gQRjheknQRSDhAvKDc7MKzj6zl2iPaS+laAOtYQMtFi/XrA==}
+  '@orpc/tanstack-query@1.7.5':
+    resolution: {integrity: sha512-XMG8nfRPKZgOpnH/xVB8j7TKfpqMyDpBG0Atc+bgvUOCNliGuaWG8QaMqeD1L2Qc7Z45xWoHudDK6BZwAbMAkQ==}
     peerDependencies:
-      '@orpc/client': 1.7.4
+      '@orpc/client': 1.7.5
       '@tanstack/query-core': '>=5.80.2'
 
   '@oslojs/asn1@1.0.0':
@@ -8649,10 +8649,10 @@ snapshots:
     dependencies:
       '@orpc/shared': 1.7.5
 
-  '@orpc/tanstack-query@1.7.4(@orpc/client@1.7.5)(@tanstack/query-core@5.83.0)':
+  '@orpc/tanstack-query@1.7.5(@orpc/client@1.7.5)(@tanstack/query-core@5.83.0)':
     dependencies:
       '@orpc/client': 1.7.5
-      '@orpc/shared': 1.7.4
+      '@orpc/shared': 1.7.5
       '@tanstack/query-core': 5.83.0
 
   '@oslojs/asn1@1.0.0':
