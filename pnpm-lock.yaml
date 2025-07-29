@@ -81,8 +81,8 @@ importers:
         specifier: ^4.0.3
         version: 4.0.3
       hono:
-        specifier: ^4.8.9
-        version: 4.8.9
+        specifier: ^4.8.10
+        version: 4.8.10
       motion:
         specifier: ^12.6.5
         version: 12.6.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -143,7 +143,7 @@ importers:
         version: link:../env
       '@openauthjs/openauth':
         specifier: ^0.4.3
-        version: 0.4.3(arctic@2.3.4)(hono@4.8.9)
+        version: 0.4.3(arctic@2.3.4)(hono@4.8.10)
       '@rectangular-labs/result':
         specifier: 0.0.1
         version: 0.0.1
@@ -151,8 +151,8 @@ importers:
         specifier: ^2.1.20
         version: 2.1.20
       hono:
-        specifier: ^4.8.9
-        version: 4.8.9
+        specifier: ^4.8.10
+        version: 4.8.10
     devDependencies:
       '@galleo/typescript':
         specifier: workspace:*
@@ -4371,8 +4371,8 @@ packages:
     resolution: {integrity: sha512-Pst8FuGqz3L7tFF+u9Pu70eI0xa5S3LPUmrNd5Jm8nTHze9FxLTK9Kaj5g/k4UcwuJSXTP65SyHOPLrffpcAJg==}
     engines: {node: '>=16.9.0'}
 
-  hono@4.8.9:
-    resolution: {integrity: sha512-ERIxkXMRhUxGV7nS/Af52+j2KL60B1eg+k6cPtgzrGughS+espS9KQ7QO0SMnevtmRlBfAcN0mf1jKtO6j/doA==}
+  hono@4.8.10:
+    resolution: {integrity: sha512-DRMYbR3aFk6YET1FCSAFbgF2cWYTz5j0YAFYPECx9fmrbKBDAYnWU+YCgRTpOaatxMYN6e68U/2IG39zRP4W/A==}
     engines: {node: '>=16.9.0'}
 
   html-url-attributes@3.0.1:
@@ -8442,12 +8442,12 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@openauthjs/openauth@0.4.3(arctic@2.3.4)(hono@4.8.9)':
+  '@openauthjs/openauth@0.4.3(arctic@2.3.4)(hono@4.8.10)':
     dependencies:
       '@standard-schema/spec': 1.0.0-beta.3
       arctic: 2.3.4
       aws4fetch: 1.0.20
-      hono: 4.8.9
+      hono: 4.8.10
       jose: 5.9.6
 
   '@opennextjs/aws@3.7.1':
@@ -11858,7 +11858,7 @@ snapshots:
 
   hono@4.7.4: {}
 
-  hono@4.8.9: {}
+  hono@4.8.10: {}
 
   html-url-attributes@3.0.1: {}
 
