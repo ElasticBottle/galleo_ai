@@ -35,7 +35,7 @@
     "@galleo/auth": "workspace:*",
     "@galleo/db": "workspace:*",
     "@galleo/env": "workspace:*",
-    "@orpc/client": "^1.7.6",
+    "@orpc/client": "^1.7.7",
     "@orpc/contract": "^1.7.6",
     "@orpc/openapi": "^1.5.1",
     "@orpc/server": "^1.5.1",
