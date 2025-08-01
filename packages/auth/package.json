@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@galleo/typescript": "workspace:*",
-    "@types/node": "^22.16.5",
+    "@types/node": "^22.17.0",
     "typescript": "^5.8.3"
   },
   "dependencies": {
