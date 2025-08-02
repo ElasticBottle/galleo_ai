@@ -26,7 +26,7 @@
     "@galleo/typescript": "workspace:*",
     "@types/mime-types": "^3.0.1",
     "@types/node": "^22.17.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "@ai-sdk/google": "^1.2.22",
