@@ -51,8 +51,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       '@orpc/client':
-        specifier: ^1.7.8
-        version: 1.7.8
+        specifier: ^1.7.9
+        version: 1.7.9
       '@orpc/openapi':
         specifier: ^1.5.1
         version: 1.5.1(ws@8.18.1)
@@ -64,7 +64,7 @@ importers:
         version: 1.5.1(ws@8.18.1)
       '@orpc/tanstack-query':
         specifier: ^1.7.8
-        version: 1.7.8(@orpc/client@1.7.8)(@tanstack/query-core@5.83.0)
+        version: 1.7.8(@orpc/client@1.7.9)(@tanstack/query-core@5.83.0)
       '@rectangular-labs/result':
         specifier: 0.0.1
         version: 0.0.1
@@ -185,8 +185,8 @@ importers:
         specifier: workspace:*
         version: link:../env
       '@orpc/client':
-        specifier: ^1.7.8
-        version: 1.7.8
+        specifier: ^1.7.9
+        version: 1.7.9
       '@orpc/contract':
         specifier: ^1.7.8
         version: 1.7.8
@@ -1687,6 +1687,9 @@ packages:
   '@orpc/client@1.7.8':
     resolution: {integrity: sha512-12yL6SV1keyzSeUBke8YLPu7WR9XohTX2t34iigpBBoMir9rEDaGx0fFtf0tZSM/dlSpywQkwFnkXsqKF056Tg==}
 
+  '@orpc/client@1.7.9':
+    resolution: {integrity: sha512-yuhrOl3SIGxGm66Q4uSic8hl5dniKJYOCD5tmyQdGDrZuiP8zSjEK6tTPYHODmbagf2KdlblqoMte5A/MmRBCw==}
+
   '@orpc/contract@1.5.1':
     resolution: {integrity: sha512-sZ4m1SfT+tjo2mnBC1feSwQVMRNlVdWoANje374JN08QVpf/ERcSFhwPLbM8255GuV6lxxUy6lNBLWDj29UcOA==}
 
@@ -1719,6 +1722,9 @@ packages:
   '@orpc/shared@1.7.8':
     resolution: {integrity: sha512-gHigqS9lSAJd83TjpSXq74rq8R2+6ZEyZHOyO133qsbqBipNWfQgu5HHa9UfjWB4av70fFqy1yyVqrWSZ3TNCA==}
 
+  '@orpc/shared@1.7.9':
+    resolution: {integrity: sha512-G9wKRhwjvOQG+Scs4TI4GbPIrsFXMqd7AMVbn0ycB6xVMc9OE39Sjoilo/wBshLdMWs/bszzoqgvYHjG0y76wQ==}
+
   '@orpc/standard-server-aws-lambda@1.5.1':
     resolution: {integrity: sha512-qK7WUCl6wDNmdvXvNHfgr3NNmqwjdVay5skvHPu9j/PJ88pzZ03ipHXByLMzHLR0ic5kIzd/PDpLGX5m2pcC0g==}
 
@@ -1727,6 +1733,9 @@ packages:
 
   '@orpc/standard-server-fetch@1.7.8':
     resolution: {integrity: sha512-Qgj3sqZki4Qn4TsLiLiWfF4CsBt5v1+kLAkPQ0nEfyLdIFzz654VK/7t2PQZ7r1PNVhm/mNxKML3q1RCevuN3g==}
+
+  '@orpc/standard-server-fetch@1.7.9':
+    resolution: {integrity: sha512-5xyft5K3UZZwm1RjmdER58IJCtjqXhMEW6NauEdmd0jiNIFHWt40PSBbCEKNC6zy4SkHvSv2WT6Cv1gJzkoIrA==}
 
   '@orpc/standard-server-node@1.5.1':
     resolution: {integrity: sha512-RlEIiWhrdVU1QDFU0qWWOv55JQYSf50WGcx6wLiAbQCO/Jd8j18vBOElrO3u7XbPROxDev3umIrsQYgrlWyOIw==}
@@ -1737,11 +1746,17 @@ packages:
   '@orpc/standard-server-peer@1.7.8':
     resolution: {integrity: sha512-Cs+PubIEhu7YxmSp4PT5q7itQUyaDuq56wcZ98DQNATt7FNKnd+3KIk7YdbIQfVMf2BOYj08binpsPE8LaT4cw==}
 
+  '@orpc/standard-server-peer@1.7.9':
+    resolution: {integrity: sha512-bl5LsgefiBGFqZxJI472j3JTyf3NI4CXNdN+/TTn3mDt+FxWmWaQRMlVefP/WxHwF+k9dcIb6rn+U2pfJCBfFw==}
+
   '@orpc/standard-server@1.5.1':
     resolution: {integrity: sha512-jPw9ScoAxscgK9Mg6X/JXKKRm/l0P3gK8biOedSrxVVLRlcJM0kr3AHREvm+klh7hig2wD9/mrjhwv9qZazZtA==}
 
   '@orpc/standard-server@1.7.8':
     resolution: {integrity: sha512-EXnqfRK9Im4u7See34WGpyTlYuMzosgVhfqB4MqDgiJfmudO5uSxs5xeCm4713EEeOkxT8fANoRFb5bLsKYQxw==}
+
+  '@orpc/standard-server@1.7.9':
+    resolution: {integrity: sha512-KPF5EAaVM2ghaJgD8iAG5BZNferliEbcS/LCS6gK9Ao56oOaA9JlwpZSIy68zATSLGS5sqvyn9O55mLUbWw3WQ==}
 
   '@orpc/tanstack-query@1.7.8':
     resolution: {integrity: sha512-4KPFFqcv1ZvOea6B0eTFHC3edcutGJRjDmllgT9uEBPO1BZclWAvDEz0HrJ4e32kFei9LAKk9p1H4q6rQAAVXg==}
@@ -8422,6 +8437,13 @@ snapshots:
       '@orpc/standard-server-fetch': 1.7.8
       '@orpc/standard-server-peer': 1.7.8
 
+  '@orpc/client@1.7.9':
+    dependencies:
+      '@orpc/shared': 1.7.9
+      '@orpc/standard-server': 1.7.9
+      '@orpc/standard-server-fetch': 1.7.9
+      '@orpc/standard-server-peer': 1.7.9
+
   '@orpc/contract@1.5.1':
     dependencies:
       '@orpc/client': 1.5.1
@@ -8487,6 +8509,11 @@ snapshots:
       radash: 12.1.1
       type-fest: 4.41.0
 
+  '@orpc/shared@1.7.9':
+    dependencies:
+      radash: 12.1.1
+      type-fest: 4.41.0
+
   '@orpc/standard-server-aws-lambda@1.5.1':
     dependencies:
       '@orpc/shared': 1.5.1
@@ -8504,6 +8531,11 @@ snapshots:
       '@orpc/shared': 1.7.8
       '@orpc/standard-server': 1.7.8
 
+  '@orpc/standard-server-fetch@1.7.9':
+    dependencies:
+      '@orpc/shared': 1.7.9
+      '@orpc/standard-server': 1.7.9
+
   '@orpc/standard-server-node@1.5.1':
     dependencies:
       '@orpc/shared': 1.5.1
@@ -8520,6 +8552,11 @@ snapshots:
       '@orpc/shared': 1.7.8
       '@orpc/standard-server': 1.7.8
 
+  '@orpc/standard-server-peer@1.7.9':
+    dependencies:
+      '@orpc/shared': 1.7.9
+      '@orpc/standard-server': 1.7.9
+
   '@orpc/standard-server@1.5.1':
     dependencies:
       '@orpc/shared': 1.5.1
@@ -8528,9 +8565,13 @@ snapshots:
     dependencies:
       '@orpc/shared': 1.7.8
 
-  '@orpc/tanstack-query@1.7.8(@orpc/client@1.7.8)(@tanstack/query-core@5.83.0)':
+  '@orpc/standard-server@1.7.9':
     dependencies:
-      '@orpc/client': 1.7.8
+      '@orpc/shared': 1.7.9
+
+  '@orpc/tanstack-query@1.7.8(@orpc/client@1.7.9)(@tanstack/query-core@5.83.0)':
+    dependencies:
+      '@orpc/client': 1.7.9
       '@orpc/shared': 1.7.8
       '@tanstack/query-core': 5.83.0
 
