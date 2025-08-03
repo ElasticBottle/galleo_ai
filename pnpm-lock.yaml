@@ -25,7 +25,7 @@ importers:
         version: link:tooling/typescript
       '@turbo/gen':
         specifier: ^2.5.5
-        version: 2.5.5(@swc/core@1.11.22(@swc/helpers@0.5.17))(@types/node@22.17.0)(typescript@5.8.3)
+        version: 2.5.5(@swc/core@1.11.22(@swc/helpers@0.5.17))(@types/node@22.17.0)(typescript@5.9.2)
       sst:
         specifier: 3.17.10
         version: 3.17.10
@@ -33,8 +33,8 @@ importers:
         specifier: ^2.5.5
         version: 2.5.5
       typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
+        specifier: ^5.9.2
+        version: 5.9.2
 
   apps/www:
     dependencies:
@@ -133,8 +133,8 @@ importers:
         specifier: ^4.1.11
         version: 4.1.11
       typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
+        specifier: ^5.9.2
+        version: 5.9.2
 
   packages/auth:
     dependencies:
@@ -161,8 +161,8 @@ importers:
         specifier: ^22.17.0
         version: 22.17.0
       typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
+        specifier: ^5.9.2
+        version: 5.9.2
 
   packages/backend:
     dependencies:
@@ -222,8 +222,8 @@ importers:
         specifier: ^22.17.0
         version: 22.17.0
       typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
+        specifier: ^5.9.2
+        version: 5.9.2
 
   packages/db:
     dependencies:
@@ -232,10 +232,10 @@ importers:
         version: 2.1.20
       drizzle-arktype:
         specifier: ^0.1.3
-        version: 0.1.3(arktype@2.1.20)(drizzle-orm@0.44.4(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.15.5)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.16.3)(postgres@3.4.5)(prisma@6.6.0(typescript@5.8.3)))
+        version: 0.1.3(arktype@2.1.20)(drizzle-orm@0.44.4(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.9.2))(typescript@5.9.2))(@types/pg@8.15.5)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.16.3)(postgres@3.4.5)(prisma@6.6.0(typescript@5.9.2)))
       drizzle-orm:
         specifier: ^0.44.4
-        version: 0.44.4(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.15.5)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.16.3)(postgres@3.4.5)(prisma@6.6.0(typescript@5.8.3))
+        version: 0.44.4(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.9.2))(typescript@5.9.2))(@types/pg@8.15.5)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.16.3)(postgres@3.4.5)(prisma@6.6.0(typescript@5.9.2))
       pg:
         specifier: ^8.16.3
         version: 8.16.3
@@ -256,8 +256,8 @@ importers:
         specifier: ^0.31.4
         version: 0.31.4
       typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
+        specifier: ^5.9.2
+        version: 5.9.2
 
   packages/env:
     dependencies:
@@ -269,8 +269,8 @@ importers:
         specifier: workspace:*
         version: link:../../tooling/typescript
       typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
+        specifier: ^5.9.2
+        version: 5.9.2
 
   packages/ui:
     dependencies:
@@ -447,8 +447,8 @@ importers:
         specifier: ^4.1.11
         version: 4.1.11
       typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
+        specifier: ^5.9.2
+        version: 5.9.2
 
   tooling/github: {}
 
@@ -6072,8 +6072,8 @@ packages:
     resolution: {integrity: sha512-OZs6gsjF4vMp32qrCbiVSkrFmXtG/AZhY3t0iAMrMBiAZyV9oALtXO8hsrHbMXF9x6L3grlFuwW2oAz7cav+Gw==}
     engines: {node: '>= 0.6'}
 
-  typescript@5.8.3:
-    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
+  typescript@5.9.2:
+    resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -8556,10 +8556,10 @@ snapshots:
   '@petamoriken/float16@3.9.2':
     optional: true
 
-  '@prisma/client@6.6.0(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3)':
+  '@prisma/client@6.6.0(prisma@6.6.0(typescript@5.9.2))(typescript@5.9.2)':
     optionalDependencies:
-      prisma: 6.6.0(typescript@5.8.3)
-      typescript: 5.8.3
+      prisma: 6.6.0(typescript@5.9.2)
+      typescript: 5.9.2
     optional: true
 
   '@prisma/config@6.6.0':
@@ -10032,7 +10032,7 @@ snapshots:
 
   '@tsconfig/node18@1.0.3': {}
 
-  '@turbo/gen@2.5.5(@swc/core@1.11.22(@swc/helpers@0.5.17))(@types/node@22.17.0)(typescript@5.8.3)':
+  '@turbo/gen@2.5.5(@swc/core@1.11.22(@swc/helpers@0.5.17))(@types/node@22.17.0)(typescript@5.9.2)':
     dependencies:
       '@turbo/workspaces': 2.5.5
       commander: 10.0.1
@@ -10042,7 +10042,7 @@ snapshots:
       node-plop: 0.26.3
       picocolors: 1.0.1
       proxy-agent: 6.5.0
-      ts-node: 10.9.2(@swc/core@1.11.22(@swc/helpers@0.5.17))(@types/node@22.17.0)(typescript@5.8.3)
+      ts-node: 10.9.2(@swc/core@1.11.22(@swc/helpers@0.5.17))(@types/node@22.17.0)(typescript@5.9.2)
       update-check: 1.5.4
       validate-npm-package-name: 5.0.1
     transitivePeerDependencies:
@@ -11155,10 +11155,10 @@ snapshots:
 
   dotenv@17.2.1: {}
 
-  drizzle-arktype@0.1.3(arktype@2.1.20)(drizzle-orm@0.44.4(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.15.5)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.16.3)(postgres@3.4.5)(prisma@6.6.0(typescript@5.8.3))):
+  drizzle-arktype@0.1.3(arktype@2.1.20)(drizzle-orm@0.44.4(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.9.2))(typescript@5.9.2))(@types/pg@8.15.5)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.16.3)(postgres@3.4.5)(prisma@6.6.0(typescript@5.9.2))):
     dependencies:
       arktype: 2.1.20
-      drizzle-orm: 0.44.4(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.15.5)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.16.3)(postgres@3.4.5)(prisma@6.6.0(typescript@5.8.3))
+      drizzle-orm: 0.44.4(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.9.2))(typescript@5.9.2))(@types/pg@8.15.5)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.16.3)(postgres@3.4.5)(prisma@6.6.0(typescript@5.9.2))
 
   drizzle-kit@0.31.4:
     dependencies:
@@ -11169,17 +11169,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.44.4(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3))(@types/pg@8.15.5)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.16.3)(postgres@3.4.5)(prisma@6.6.0(typescript@5.8.3)):
+  drizzle-orm@0.44.4(@cloudflare/workers-types@4.20250414.0)(@opentelemetry/api@1.9.0)(@prisma/client@6.6.0(prisma@6.6.0(typescript@5.9.2))(typescript@5.9.2))(@types/pg@8.15.5)(better-sqlite3@11.9.1)(gel@2.0.1)(pg@8.16.3)(postgres@3.4.5)(prisma@6.6.0(typescript@5.9.2)):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20250414.0
       '@opentelemetry/api': 1.9.0
-      '@prisma/client': 6.6.0(prisma@6.6.0(typescript@5.8.3))(typescript@5.8.3)
+      '@prisma/client': 6.6.0(prisma@6.6.0(typescript@5.9.2))(typescript@5.9.2)
       '@types/pg': 8.15.5
       better-sqlite3: 11.9.1
       gel: 2.0.1
       pg: 8.16.3
       postgres: 3.4.5
-      prisma: 6.6.0(typescript@5.8.3)
+      prisma: 6.6.0(typescript@5.9.2)
 
   dunder-proto@1.0.1:
     dependencies:
@@ -13007,13 +13007,13 @@ snapshots:
 
   prettier@2.8.8: {}
 
-  prisma@6.6.0(typescript@5.8.3):
+  prisma@6.6.0(typescript@5.9.2):
     dependencies:
       '@prisma/config': 6.6.0
       '@prisma/engines': 6.6.0
     optionalDependencies:
       fsevents: 2.3.3
-      typescript: 5.8.3
+      typescript: 5.9.2
     transitivePeerDependencies:
       - supports-color
     optional: true
@@ -13763,7 +13763,7 @@ snapshots:
 
   trough@2.2.0: {}
 
-  ts-node@10.9.2(@swc/core@1.11.22(@swc/helpers@0.5.17))(@types/node@22.17.0)(typescript@5.8.3):
+  ts-node@10.9.2(@swc/core@1.11.22(@swc/helpers@0.5.17))(@types/node@22.17.0)(typescript@5.9.2):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
@@ -13777,7 +13777,7 @@ snapshots:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 5.8.3
+      typescript: 5.9.2
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     optionalDependencies:
@@ -13829,7 +13829,7 @@ snapshots:
       media-typer: 1.1.0
       mime-types: 3.0.1
 
-  typescript@5.8.3: {}
+  typescript@5.9.2: {}
 
   uglify-js@3.19.3:
     optional: true
