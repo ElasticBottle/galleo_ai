@@ -106,8 +106,8 @@ importers:
         specifier: workspace:*
         version: link:../../tooling/typescript
       '@opennextjs/aws':
-        specifier: ^3.7.2
-        version: 3.7.2
+        specifier: ^3.7.4
+        version: 3.7.4
       '@tailwindcss/postcss':
         specifier: ^4.1.11
         version: 4.1.11
@@ -1673,8 +1673,8 @@ packages:
       arctic: ^2.2.2
       hono: ^4.0.0
 
-  '@opennextjs/aws@3.7.2':
-    resolution: {integrity: sha512-OITG/97+ugbVI3G36/iYLKbRSyR5rG+Y99dsghSzei08tX2qQoNZ/WXlcPcF3yfKItsNOoRfDLOejeDK0XIPMw==}
+  '@opennextjs/aws@3.7.4':
+    resolution: {integrity: sha512-s50dmKrgQ62GliffoI/hGGQVb3q/7ZN5VRa4jJw0ZsEGLfk25XuAulO/ySCYeE7/A23KoAYuhafnKr/h+vxOeQ==}
     hasBin: true
 
   '@opentelemetry/api@1.9.0':
@@ -8386,7 +8386,7 @@ snapshots:
       hono: 4.8.12
       jose: 5.9.6
 
-  '@opennextjs/aws@3.7.2':
+  '@opennextjs/aws@3.7.4':
     dependencies:
       '@ast-grep/napi': 0.35.0
       '@aws-sdk/client-cloudfront': 3.398.0
