@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^1.2.22",
-    "@aws-sdk/client-s3": "^3.862.0",
-    "@aws-sdk/s3-request-presigner": "^3.862.0",
+    "@aws-sdk/client-s3": "^3.863.0",
+    "@aws-sdk/s3-request-presigner": "^3.863.0",
     "@galleo/auth": "workspace:*",
     "@galleo/db": "workspace:*",
     "@galleo/env": "workspace:*",
