@@ -45,7 +45,7 @@
     "@opennextjs/aws": "^3.7.4",
     "@tailwindcss/postcss": "^4.1.12",
     "@tailwindcss/typography": "^0.5.16",
-    "@types/node": "^22.17.1",
+    "@types/node": "^22.17.2",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "jiti": "^2.5.1",

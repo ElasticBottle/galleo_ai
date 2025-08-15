@@ -42,7 +42,7 @@
   "devDependencies": {
     "@ai-sdk/react": "^1.2.12",
     "@galleo/typescript": "workspace:*",
-    "@types/node": "^22.17.1",
+    "@types/node": "^22.17.2",
     "@types/pg": "^8.15.5",
     "drizzle-kit": "^0.31.4",
     "typescript": "^5.9.2"
