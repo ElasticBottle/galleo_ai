@@ -26,7 +26,7 @@
     "@orpc/openapi": "^1.5.1",
     "@orpc/openapi-client": "^1.8.2",
     "@orpc/server": "^1.5.1",
-    "@orpc/tanstack-query": "^1.8.1",
+    "@orpc/tanstack-query": "^1.8.2",
     "@rectangular-labs/result": "0.0.1",
     "@tanstack/react-query": "^5.85.5",
     "@tanstack/react-query-devtools": "^5.85.5",
