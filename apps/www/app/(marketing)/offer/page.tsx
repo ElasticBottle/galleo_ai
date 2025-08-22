@@ -26,7 +26,6 @@ export default function OfferPage() {
           <div className="mx-auto mt-6 max-w-2xl space-y-3 text-muted-foreground">
             <p>This sounds crazy, but we're dead serious.</p>
             <p>Everything your associate does. Zero cost. Zero catch.</p>
-            <p>Yes, it's absurd. Yes, you should take it.</p>
           </div>
 
           <div className="mt-8">
