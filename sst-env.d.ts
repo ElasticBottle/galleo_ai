@@ -13,6 +13,15 @@ declare module "sst" {
       "name": string
       "type": "sst.aws.Bucket"
     }
+    "OpenAuthIssuer": {
+      "name": string
+      "type": "sst.aws.Function"
+      "url": string
+    }
+    "OpenAuthStorage": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
     "WWW": {
       "type": "sst.aws.Nextjs"
       "url": string
