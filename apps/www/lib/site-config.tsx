@@ -39,6 +39,12 @@ export const siteConfig: SiteConfig = {
     },
     {
       variant: "button",
+      buttonVariant: "navigation",
+      href: "/offer",
+      label: "Offer",
+    },
+    {
+      variant: "button",
       buttonVariant: "default",
       size: "lg",
       target: "_blank",

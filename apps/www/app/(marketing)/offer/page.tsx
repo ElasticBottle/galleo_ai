@@ -5,6 +5,7 @@ import type React from "react";
 import { Section } from "../_components/section";
 
 const CAL_URL = "https://cal.com/galleo/15min?utm_source=top&utm_medium=website&utm_campaign=final&utm_content=website";
+const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdSOhJQwTcvaKUu8CWxVSfcD_knC-AQYpHL2UPNL9WXl5iFwA/viewform?usp=dialog";
 
 export default function OfferPage() {
   return (
@@ -27,19 +28,34 @@ export default function OfferPage() {
             <p className="text-lg font-semibold">Zero cost. Zero catch. One full month.</p>
           </div>
 
-          <div className="mt-8">
-            <a
-              href={CAL_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Claim my free month - opens in a new tab"
-              className={cn(
-                buttonVariants({ size: "lg" }),
-                "px-8 py-6 text-base shadow-md",
-              )}
-            >
-              Claim My Free Month
-            </a>
+          <div className="mt-8 space-y-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <a
+                href={FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Submit your details - opens in a new tab"
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "px-8 py-6 text-base shadow-md bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black border-0",
+                )}
+              >
+                Submit Your Details
+              </a>
+              <div className="text-muted-foreground text-sm">or</div>
+              <a
+                href={CAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Book a 15-minute call - opens in a new tab"
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "lg" }),
+                  "px-8 py-6 text-base shadow-md border-2 border-amber-500 text-amber-600 hover:bg-amber-50 hover:text-amber-700 dark:text-amber-400 dark:border-amber-400 dark:hover:bg-amber-950",
+                )}
+              >
+                Book a 15-Minute Call
+              </a>
+            </div>
             <p className="mt-3 text-muted-foreground text-xs">
               No credit card required. No commitment.
             </p>
@@ -754,26 +770,41 @@ export default function OfferPage() {
             </div>
           </div>
 
-          <div className="mt-10">
-            <a
-              href={CAL_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Book my 15-minute call now - opens in a new tab"
-              className={cn(
-                buttonVariants({ size: "lg" }),
-                "px-10 py-7 text-base shadow-lg",
-              )}
-            >
-              Book My 15-Minute Call Now
-            </a>
+          <div className="mt-10 space-y-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <a
+                href={FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Submit your details - opens in a new tab"
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "px-10 py-7 text-base shadow-lg bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black border-0",
+                )}
+              >
+                Submit Your Details
+              </a>
+              <div className="text-muted-foreground text-sm">or</div>
+              <a
+                href={CAL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Book a 15-minute call - opens in a new tab"
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "lg" }),
+                  "px-10 py-7 text-base shadow-lg border-2 border-amber-500 text-amber-600 hover:bg-amber-50 hover:text-amber-700 dark:text-amber-400 dark:border-amber-400 dark:hover:bg-amber-950",
+                )}
+              >
+                Book a 15-Minute Call
+              </a>
+            </div>
             <p className="mt-3 text-muted-foreground text-xs">
               Guaranteed free. Instant start within 24 hours.
             </p>
           </div>
 
           <p className="mx-auto mt-6 max-w-2xl text-muted-foreground text-sm">
-            5 spots left. Don't be the partner who missed the easiest win of the
+            4 spots left. Don't be the partner who missed the easiest win of the
             year.
           </p>
         </div>

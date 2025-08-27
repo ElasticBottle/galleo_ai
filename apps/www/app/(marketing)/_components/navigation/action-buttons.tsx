@@ -4,14 +4,25 @@ import { ThemeToggle } from "@galleo/ui/components/theme-provider";
 import { buttonVariants } from "@galleo/ui/components/ui/button";
 import { cn } from "@galleo/ui/utils/cn";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { type HeaderButtonConfig, siteConfig } from "~/lib/site-config";
 
 export function ActionButtons() {
+  const pathname = usePathname();
+  const isOfferPage = pathname === "/offer";
+
   const actionItems = siteConfig.header
     .filter(
       (item): item is HeaderButtonConfig =>
         item.variant === "button" && item.buttonVariant !== "navigation",
     )
+    .filter((item) => {
+      // Hide "Try Galleo Today" button on offer page
+      if (isOfferPage && item.label === "Try Galleo Today") {
+        return false;
+      }
+      return true;
+    })
     .map((item) => (
       <Link
         key={item.label}

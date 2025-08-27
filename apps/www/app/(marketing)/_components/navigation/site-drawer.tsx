@@ -10,7 +10,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@galleo/ui/components/ui/drawer";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { siteConfig } from "~/lib/site-config";
 import { BrandButton } from "./brand-button";
@@ -18,6 +18,8 @@ import { BrandButton } from "./brand-button";
 export function SiteDrawer() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+  const isOfferPage = pathname === "/offer";
 
   const handleNavClick = (url: string | undefined) => {
     // Close drawer first
@@ -49,27 +51,35 @@ export function SiteDrawer() {
           </div>
           <nav>
             <ul className="pt-7 text-left">
-              {siteConfig.header.map((item) => {
-                if (item.variant === "dropdown") {
-                  return null;
-                }
-                return (
-                  <li key={item.label} className="py-1.5">
-                    <Button
-                      className="font-semibold"
-                      onClick={() => handleNavClick(item.href)}
-                      variant={
-                        item.buttonVariant === "navigation"
-                          ? "ghost"
-                          : item.buttonVariant
-                      }
-                      data-attr={`site-drawer-${item.label}`}
-                    >
-                      {item.label}
-                    </Button>
-                  </li>
-                );
-              })}
+              {siteConfig.header
+                .filter((item) => {
+                  // Hide "Try Galleo Today" button on offer page
+                  if (isOfferPage && item.variant === "button" && item.label === "Try Galleo Today") {
+                    return false;
+                  }
+                  return true;
+                })
+                .map((item) => {
+                  if (item.variant === "dropdown") {
+                    return null;
+                  }
+                  return (
+                    <li key={item.label} className="py-1.5">
+                      <Button
+                        className="font-semibold"
+                        onClick={() => handleNavClick(item.href)}
+                        variant={
+                          item.buttonVariant === "navigation"
+                            ? "ghost"
+                            : item.buttonVariant
+                        }
+                        data-attr={`site-drawer-${item.label}`}
+                      >
+                        {item.label}
+                      </Button>
+                    </li>
+                  );
+                })}
             </ul>
           </nav>
         </DrawerHeader>
