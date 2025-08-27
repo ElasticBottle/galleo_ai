@@ -1,4 +1,4 @@
-import type { Buffer } from "node:buffer";
+import { Buffer } from "node:buffer";
 import { randomUUID } from "node:crypto";
 import {
   GetObjectCommand,
@@ -48,6 +48,23 @@ export async function getMarkFile({
     data,
     contentType: response.value.ContentType,
   });
+}
+
+export async function getMarkFileDataUrl({
+  teamId,
+  fileName,
+}: { teamId: number; fileName: string }) {
+  const fileResult = await getMarkFile({ teamId, fileName });
+  if (!fileResult.ok || !fileResult.value.data) {
+    // Fallback to a signed URL if we cannot fetch the file bytes
+    return getMarkFileUrl({ teamId, fileName });
+  }
+
+  const detectedContentType =
+    fileResult.value.contentType || "application/octet-stream";
+  const base64 = Buffer.from(fileResult.value.data).toString("base64");
+  const dataUrl = `data:${detectedContentType};base64,${base64}`;
+  return dataUrl;
 }
 
 export async function putMarkFile({

@@ -1,5 +1,5 @@
 import { ok, safe } from "@rectangular-labs/result";
-import { getMarkFileUrl } from "../../aws/s3";
+import { getMarkFileDataUrl } from "../../aws/s3";
 import { getDb } from "../../orpc/routers";
 
 export async function getChatAndMessageByTeamIdAndChatId(
@@ -45,7 +45,10 @@ export async function getChatAndMessageByTeamIdAndChatId(
           message.attachments.map(async (attachment) => {
             return {
               ...attachment,
-              url: await getMarkFileUrl({ teamId, fileName: attachment.url }),
+              url: await getMarkFileDataUrl({
+                teamId,
+                fileName: attachment.url,
+              }),
             };
           }),
         ),
