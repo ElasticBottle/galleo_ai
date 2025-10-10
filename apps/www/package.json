@@ -33,7 +33,7 @@
     "arktype": "^2.1.20",
     "gray-matter": "^4.0.3",
     "hono": "^4.9.4",
-    "motion": "^12.6.5",
+    "motion": "^12.23.24",
     "next": "15.5.2",
     "next-mdx-remote": "^5.0.0",
     "posthog-js": "^1.260.2",
