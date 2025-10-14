@@ -37,7 +37,7 @@
     "@galleo/env": "workspace:*",
     "@orpc/client": "^1.8.5",
     "@orpc/contract": "^1.8.5",
-    "@orpc/openapi": "^1.5.1",
+    "@orpc/openapi": "^1.9.4",
     "@orpc/server": "^1.5.1",
     "@rectangular-labs/result": "0.0.1",
     "ai": "^4.3.19",
