@@ -40,7 +40,7 @@
     "pg": "^8.16.3"
   },
   "devDependencies": {
-    "@ai-sdk/react": "^1.2.12",
+    "@ai-sdk/react": "^2.0.72",
     "@galleo/typescript": "workspace:*",
     "@types/node": "^22.17.2",
     "@types/pg": "^8.15.5",
